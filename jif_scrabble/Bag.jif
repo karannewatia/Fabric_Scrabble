@@ -1,0 +1,41 @@
+//import java.util.Random;
+import jif.util.ArrayList;
+
+/**
+ * This class represents the bag in the Scrabble game.
+ */
+public class Bag[principal Game] {
+
+    public ArrayList[{Game->; Game<-}]{Game->; Game<-} tiles;
+
+    private int counts[] = {2,9,2,2,4,12,2,3,2,9,1,1,4,2,6,8,2,1,6,4,6,4,2,2,1,2,1};
+
+    public Bag(){
+        this.tiles = new ArrayList();
+    }
+
+    public void populateBag{Game<-}(){
+       for(int i=0; i < counts.length; i++){
+           for(int j=0; j < counts[i]; j++){
+            String{Game<-; Game->} temp;
+            temp = i == 0 ? "*" : Character.toString((char)('a' + i - 1));
+            this.tiles.add(new JifString[{Game<-; Game->}](temp));
+           }
+       }
+    }
+
+    public String{Game<-; Game->} getTile{Game<-}(){
+       //Random rand = new Random();
+       int rand_value = this.tiles.size() -1 ;
+       JifString[{Game<-; Game->}] tile = (JifString[{Game<-; Game->}])(this.tiles.get(rand_value));
+       this.tiles.remove(rand_value);
+       return tile.s;
+    }
+
+    public String{*lbl} swapTile(String{*lbl} tile, label lbl){
+      String newTile = this.getTile();
+      this.tiles.add(tile);
+      return newTile;
+    }
+
+}
