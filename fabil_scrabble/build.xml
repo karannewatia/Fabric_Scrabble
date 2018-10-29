@@ -41,7 +41,7 @@
   <target name="build"
           description="Builds the Scrabble app">
     <filc dest="${scrabble.home}/classes">
-      <arg value="-sourcepath" /> <arg value="${scrabble.home}" />
+      <arg value="-sourcepath" /> <arg value="${scrabble.home}/src" />
       <arg value="-cp"         /> <arg value="${scrabble.home}/classes" />
 
       <fileset dir="${scrabble.home}/src" includes="**/*.fil" />
