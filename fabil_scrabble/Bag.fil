@@ -1,4 +1,4 @@
-//import fabric.util.RandomAccess;
+import java.util.Random;
 import fabric.util.ArrayList;
 
 /**
@@ -6,12 +6,12 @@ import fabric.util.ArrayList;
  */
 public class Bag {
 
-    public ArrayList<Character> tiles;
+    public ArrayList tiles;
 
     private int counts[] = {2,9,2,2,4,12,2,3,2,9,1,1,4,2,6,8,2,1,6,4,6,4,2,2,1,2,1};
 
     public Bag Bag$(){
-      this.tiles = new ArrayList<>();
+      this.tiles = new ArrayList();
       fabric$lang$Object$();
       return this;
     }
@@ -20,8 +20,8 @@ public class Bag {
        atomic{
          for(int i=0; i < counts.length; i++){
              for(int j=0; j < counts[i]; j++) {
-              char temp;
-              temp = i == 0 ? '*' : (char)('a' + i - 1);
+
+              char temp = i == 0 ? '*' : (char)('a' + i - 1);
               this.tiles.add(temp);
            }
          }
@@ -29,20 +29,24 @@ public class Bag {
     }
 
     public char getTile(){
-       //Random rand = new Random();
-       //int rand_value = rand.nextInt(this.tiles.size());
-       int rand_value = rand.nextInt(this.tiles.size());
-       char tile = this.tiles.get(rand_value);
-       this.tiles.remove(rand_value);
-       return tile;
+      atomic{
+        Random rand = new Random();
+        int rand_value = rand.nextInt(this.tiles.size());
+
+        char tile =  this.tiles.get(rand_value);
+        this.tiles.remove(rand_value);
+        return tile;
+        }
+
     }
 
     public char swapTile(char tile){
       atomic{
         char newTile = this.getTile();
         this.tiles.add(tile);
+        return newTile;
       }
-      return newTile;
+
     }
 
 }

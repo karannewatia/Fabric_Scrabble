@@ -11,9 +11,10 @@ class Player {
     public int score;
 
     public Player Player$(){
-      this.rack = new Rack();
-      this.score = 0;
       fabric$lang$Object$();
+      this.rack = new Rack().Rack$();
+      
+      this.score = 0;
       return this;
     }
 
