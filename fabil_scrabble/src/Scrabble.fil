@@ -15,8 +15,8 @@ public class Scrabble {
 
   public Scrabble Scrabble$(){
     fabric$lang$Object$();
-    this.bag = new Bag().Bag$();;
-    this.board = new Board().Board$();;
+    this.bag = new Bag().Bag$();
+    this.board = new Board().Board$();
     this.currentTurn = 0;
     this.players = new Player[2];
     return this;
