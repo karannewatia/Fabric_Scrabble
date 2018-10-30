@@ -1,5 +1,5 @@
-import fabric.util.*;
-//import java.lang.*;
+import fabric.util.ArrayList;
+import fabric.util.HashMap;
 import java.io.*;
 
 /**
@@ -7,13 +7,13 @@ import java.io.*;
  *.
  */
 class Board {
-    public char[][] gameBoard;
+    public String[][] gameBoard;
     public int moveNumber;
     public HashMap points;
 
     public Board Board$(){
       this.moveNumber = 0;
-      this.gameBoard = new char[15][15];
+      this.gameBoard = new String[15][15];
       this.points = new HashMap();
       for (int i=0; i<15; i++) {
           for (int j=0; j<15; j++) {
@@ -77,7 +77,7 @@ class Board {
       return this.gameBoard[row][col];
     }
 
-    private String constructWord(int row, int col, char letter, boolean direction) {
+    private String constructWord(int row, int col, String letter, boolean direction) {
         StringBuilder newWord = new StringBuilder();
         int start;
         int end;
@@ -134,7 +134,7 @@ class Board {
 
                     if (this.getTileOnBoard(row-1, col+i) != " " ||
                             this.getTileOnBoard(row+1, col+i) != " ") {
-                        adjWords.add(this.constructWord(row, col+i ,word.charAt(i), dir));
+                        adjWords.add(this.constructWord(row, col+i ,Character.toString(word.charAt(i)), dir));
                     }
                 }
                 for(int j =0; j<word.length();j++){
@@ -149,7 +149,7 @@ class Board {
                 if (this.getTileOnBoard(row+i, col) == " ") {
                     if (this.getTileOnBoard(row+i, col-1) != " " ||
                             this.getTileOnBoard(row+i, col+1) != " ") {
-                        adjWords.add(this.constructWord(row+i, col, word.charAt(i), dir));
+                        adjWords.add(this.constructWord(row+i, col, Character.toString(word.charAt(i)), dir));
                     }
                 }
                 for(int j =0; j<word.length();j++){
@@ -277,30 +277,32 @@ class Board {
 
     public String getNewEntries(String word, boolean isHorizontal, int row, int col) {
       ArrayList newTiles = new ArrayList();
-      char[] letters = word.toCharArray();
+
       if (isHorizontal){
-        for(int i=0; i< letters.length; i++){
-          if(this.getTileOnBoard(row, i + col) == letters[i]){
+        for(int i=0; i< word.length(); i++){
+          String temp = Character.toString(word.charAt(i));
+          if(this.getTileOnBoard(row, i + col).equals(temp)){
             continue;
           }
           else if (this.getTileOnBoard(row, i + col) != " "){
             newTiles.add("#");
           }
           else {
-            newTiles.add(letters[i]);
+            newTiles.add(temp);
           }
         }
       }
       else{
-        for(int j=0; j< letters.length; j++){
-          if(this.getTileOnBoard(row + j, col) == letters[j]){
+        for(int j=0; j< word.length(); j++){
+          String temp = Character.toString(word.charAt(j));
+          if(this.getTileOnBoard(row + j, col).equals(temp) ){
             continue;
           }
           else if (this.getTileOnBoard(row + j, col) != " "){
-            newTiles.add('#');
+            newTiles.add("#");
           }
           else {
-            newTiles.add(letters[j]);
+            newTiles.add(temp);
           }
         }
       }
@@ -313,16 +315,18 @@ class Board {
     }
 
     public void placeWord(Player player, String word, boolean isHorizontal, int row, int col){
-       char[] letters = word.toCharArray();
+
          atomic{
          if (isHorizontal){
-           for (int i =0; i< letters.length; i++){
-             this.gameBoard[row][col + i] = letters[i];
+           for (int i =0; i< word.length(); i++){
+           String temp = Character.toString(word.charAt(i));
+             this.gameBoard[row][col + i] = temp;
            }
          }
          else{
-           for (int j =0; j< letters.length; j++){
-             this.gameBoard[row + j][col] = letters[j];
+           for (int j =0; j< word.length(); j++){
+             String temp = Character.toString(word.charAt(j));
+             this.gameBoard[row + j][col] = temp;
            }
          }
        }
