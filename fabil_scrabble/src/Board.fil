@@ -85,13 +85,14 @@ class Board {
         int j = 1;
 
         if (direction) {
-            while (col-j >= 0 && this.getTileOnBoard(row, col-j) != " ") {
+        
+            while (col-j >= 0 && !this.getTileOnBoard(row, col-j).equals(" ")) {
                 j++;
             }
             start = col-j+1;
             j = 1;
 
-            while (col+j <= 14 && this.getTileOnBoard(row, col+j) != " ") {
+            while (col+j <= 14 && !this.getTileOnBoard(row, col+j).equals(" ")) {
                 j++;
             }
             end = col+j-1;
@@ -105,13 +106,13 @@ class Board {
 
         } else {
 
-            while (row-i >= 0 && this.getTileOnBoard(row-i, col) != " ") {
+            while (row-i >= 0 && !this.getTileOnBoard(row-i, col).equals(" ")) {
                 i++;
             }
             start = row-i+1;
             i = 1;
 
-            while (row+i <= 14 && this.getTileOnBoard(row+i, col) != " ") {
+            while (row+i <= 14 && !this.getTileOnBoard(row+i, col).equals(" ")) {
                 i++;
             }
             end = row+i-1;
@@ -130,33 +131,33 @@ class Board {
 
         for (int i=0; i<word.length(); i++) {
             if (dir) {
-                if (this.getTileOnBoard(row, col+i) == " ") {
+                if (this.getTileOnBoard(row, col+i).equals(" ")) {
 
-                    if (this.getTileOnBoard(row-1, col+i) != " " ||
-                            this.getTileOnBoard(row+1, col+i) != " ") {
+                    if (!this.getTileOnBoard(row-1, col+i).equals(" ")||
+                            !this.getTileOnBoard(row+1, col+i).equals(" ")) {
                         adjWords.add(this.constructWord(row, col+i ,Character.toString(word.charAt(i)), dir));
                     }
                 }
                 for(int j =0; j<word.length();j++){
-                  if (this.getTileOnBoard(row-1,col+j) != " "){
+                  if (!this.getTileOnBoard(row-1,col+j).equals(" ")){
                     adjWords.add(this.constructWord(row-1, col+j ,this.getTileOnBoard(row-1, col +j), !dir));
                   }
-                  if (this.getTileOnBoard(row+1,col+j) != " "){
+                  if (!this.getTileOnBoard(row+1,col+j).equals(" ")){
                     adjWords.add(this.constructWord(row+1, col+j ,this.getTileOnBoard(row+1, col +j), !dir));
                   }
                 }
             } else {
-                if (this.getTileOnBoard(row+i, col) == " ") {
-                    if (this.getTileOnBoard(row+i, col-1) != " " ||
-                            this.getTileOnBoard(row+i, col+1) != " ") {
+                if (this.getTileOnBoard(row+i, col).equals(" ")) {
+                    if (!this.getTileOnBoard(row+i, col-1).equals(" ") ||
+                            !this.getTileOnBoard(row+i, col+1).equals(" ")) {
                         adjWords.add(this.constructWord(row+i, col, Character.toString(word.charAt(i)), dir));
                     }
                 }
                 for(int j =0; j<word.length();j++){
-                  if (this.getTileOnBoard(row+j,col-1) != " "){
+                  if (!this.getTileOnBoard(row+j,col-1).equals(" ")){
                     adjWords.add(this.constructWord(row+j, col-1 ,this.getTileOnBoard(row+j, col -1), !dir));
                   }
-                  if (this.getTileOnBoard(row+j,col+1) != " "){
+                  if (!this.getTileOnBoard(row+j,col+1).equals(" ")){
                     adjWords.add(this.constructWord(row+j, col+1 ,this.getTileOnBoard(row+j, col+1), !dir));
                   }
                 }
@@ -227,14 +228,14 @@ class Board {
 
         // INTENDED WORD SHOULD BE THE LARGEST CONTIGUOUS STRING IN THAT DIRECTION
         if (dir) {
-            if (this.getTileOnBoard(row, col+word.length()+1) != " " ||
-                    (col-1>0 && this.getTileOnBoard(row, col-1) != " ")) {
+            if (!this.getTileOnBoard(row, col+word.length()+1).equals(" ")||
+                    (col-1>0 && !this.getTileOnBoard(row, col-1).equals(" "))) {
                 System.out.println("isMoveValid err: Incomplete input word ");
                 return false;
             }
         } else {
-            if (this.getTileOnBoard(row+word.length()+1, col) != " " ||
-                    (row-1>0 && this.getTileOnBoard(row-1, col) != " ")) {
+            if (!this.getTileOnBoard(row+word.length()+1, col).equals(" ")||
+                    (row-1>0 && !this.getTileOnBoard(row-1, col).equals(" "))) {
                 System.out.println("Incomplete input word");
                 return false;
             }
@@ -254,9 +255,9 @@ class Board {
         if (this.moveNumber >= 1) {
             for (int i=0; i<word.length(); i++) {
                 if (dir) {
-                    if (this.getTileOnBoard(row, col+i) != " ")    {   tilesPresent = true;    }
+                    if (!this.getTileOnBoard(row, col+i).equals(" "))    {   tilesPresent = true;    }
                 } else {
-                    if (this.getTileOnBoard(row+i, col) != " ")    {   tilesPresent = true;    }
+                    if (!this.getTileOnBoard(row+i, col).equals(" "))    {   tilesPresent = true;    }
                 }
             }
             if (!tilesPresent)  {
@@ -284,7 +285,7 @@ class Board {
           if(this.getTileOnBoard(row, i + col).equals(temp)){
             continue;
           }
-          else if (this.getTileOnBoard(row, i + col) != " "){
+          else if (!this.getTileOnBoard(row, i + col).equals(" ")){
             newTiles.add("#");
           }
           else {
@@ -298,7 +299,7 @@ class Board {
           if(this.getTileOnBoard(row + j, col).equals(temp) ){
             continue;
           }
-          else if (this.getTileOnBoard(row + j, col) != " "){
+          else if (!this.getTileOnBoard(row + j, col).equals(" ")){
             newTiles.add("#");
           }
           else {
