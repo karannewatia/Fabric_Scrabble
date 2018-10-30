@@ -8,4 +8,4 @@ CP="${APP_HOME}/classes"
 
 export FABRIC_HOME="${APP_HOME}"
 
-fab --jvm-cp "${APP_HOME}/classes" --app-home "${APP_HOME}" --name worker Hello "$@"
+fab --jvm-cp "${APP_HOME}/classes" --app-home "${APP_HOME}" --name worker App "$@"
