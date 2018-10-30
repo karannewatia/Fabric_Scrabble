@@ -24,8 +24,8 @@ public class Scrabble {
 
   public void joinGame(){
 
-    Player alice = new Player();
-    Player bob = new Player();
+    Player alice = new Player().Player$();
+    Player bob = new Player().Player$();
     atomic{
       this.players[0] = alice;
       this.players[1] = bob;
