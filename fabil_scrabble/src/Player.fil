@@ -13,21 +13,19 @@ class Player {
     public Player Player$(){
       fabric$lang$Object$();
       this.rack = new Rack().Rack$();
-      
+
       this.score = 0;
       return this;
     }
 
      public String getRack() {
        atomic{
-         StringBuilder builder = new StringBuilder(this.rack.tiles.size());
-         for(Character ch: this.rack.tiles)
-         {
-            builder.append(ch);
+         String rack = "";
+         for(int i=0; i<this.rack.tiles.size();i++){
+            rack += this.rack.tiles.get(i);
          }
-         return builder.toString();
+         return rack;
        }
-
       }
 
 }
