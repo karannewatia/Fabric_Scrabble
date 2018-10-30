@@ -1,4 +1,5 @@
 import fabric.util.ArrayList;
+import fabric.util.Arrays;
 import fabric.util.HashMap;
 //import java.io.*;
 
@@ -15,6 +16,7 @@ class Board {
       this.moveNumber = 0;
       this.gameBoard = new String[15][15];
       this.points = new HashMap();
+
       for (int i=0; i<15; i++) {
           for (int j=0; j<15; j++) {
               this.gameBoard[i][j] = " ";
@@ -27,40 +29,41 @@ class Board {
 
     public void setPoints(){
       atomic{
-        this.points.put("a", 1);
-        this.points.put("e", 1);
-        this.points.put("i", 1);
-        this.points.put("l", 1);
-        this.points.put("n", 1);
-        this.points.put("o", 1);
-        this.points.put("r", 1);
-        this.points.put("s", 1);
-        this.points.put("t", 1);
-        this.points.put("u", 1);
 
-        this.points.put("d", 2);
-        this.points.put("g", 2);
+        this.points.put("a", new Integer(1));
+        this.points.put("e", new Integer(1));
+        this.points.put("i", new Integer(1));
+        this.points.put("l", new Integer(1));
+        this.points.put("n", new Integer(1));
+        this.points.put("o", new Integer(1));
+        this.points.put("r", new Integer(1));
+        this.points.put("s", new Integer(1));
+        this.points.put("t", new Integer(1));
+        this.points.put("u", new Integer(1));
 
-        this.points.put("b", 3);
-        this.points.put("c", 3);
-        this.points.put("m", 3);
-        this.points.put("p", 3);
+        this.points.put("d", new Integer(2));
+        this.points.put("g", new Integer(2));
 
-        this.points.put("f", 4);
-        this.points.put("h", 4);
-        this.points.put("v", 4);
-        this.points.put("w", 4);
-        this.points.put("y", 4);
+        this.points.put("b", new Integer(3));
+        this.points.put("c", new Integer(3));
+        this.points.put("m", new Integer(3));
+        this.points.put("p", new Integer(3));
 
-        this.points.put("k", 5);
+        this.points.put("f", new Integer(4));
+        this.points.put("h", new Integer(4));
+        this.points.put("v", new Integer(4));
+        this.points.put("w", new Integer(4));
+        this.points.put("y", new Integer(4));
 
-        this.points.put("j", 8);
-        this.points.put("x", 8);
+        this.points.put("k", new Integer(5));
 
-        this.points.put("q", 10);
-        this.points.put("z", 10);
+        this.points.put("j", new Integer(8));
+        this.points.put("x", new Integer(8));
 
-        this.points.put("*", 0);
+        this.points.put("q", new Integer(10));
+        this.points.put("z", new Integer(10));
+
+        this.points.put("*", new Integer(0));
       }
 
     }
@@ -308,7 +311,7 @@ class Board {
         }
       }
 
-      String result;
+      String result = "";
       for(int i =0; i< newTiles.size();i++){
         result += (String) newTiles.get(i);
       }
@@ -336,7 +339,8 @@ class Board {
     public void incScore(Player player, String[] tiles){
       atomic{
         for(int i =0; i< tiles.length; i++){
-          player.score += this.points.get(tiles[i]);
+          int temp = Integer.parseInt(this.points.get(tiles[i]).toString());
+          player.score += temp;
         }
       }
     }
