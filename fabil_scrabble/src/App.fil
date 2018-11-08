@@ -11,7 +11,7 @@ public class App {
        Player bob = new Player().Player$();
        //RemoteWorker w1 = Worker.getWorker().getWorker("alice");
        //RemoteWorker w2 = Worker.getWorker().getWorker("bob");
-       
+
        RemoteWorker w = Worker.getWorker().getWorker("worker");
 
        this.scrabble = new Scrabble@store().Scrabble$(alice, bob);
@@ -26,7 +26,7 @@ public class App {
         System.out.println("----------------");
         System.out.println(" ");
 
-        scrabble.gameLoop_remote@w(Worker.getWorker().getPrincipal());
+        this.scrabble.gameLoop_remote@w(Worker.getWorker().getPrincipal());
 
     }
 

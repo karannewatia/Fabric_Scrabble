@@ -51,6 +51,10 @@ public class Scrabble {
 		return result;
 	}
 
+  public void move_remote(fabric.lang.security.Principal p) {
+     this.move();
+  }
+
   public boolean move(){
     atomic{
       boolean success = false;
@@ -128,10 +132,6 @@ public class Scrabble {
      }
      return success;
     }
-  }
-
-  public void gameLoop_remote(fabric.lang.security.Principal p) {
-     this.gameLoop();
   }
 
   public void gameLoop(){
