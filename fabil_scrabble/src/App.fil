@@ -8,8 +8,12 @@ public class App {
         System.out.println("----------------");
         System.out.println(" ");
 
-        Scrabble scrabble = new Scrabble().Scrabble$();
-        scrabble.joinGame();
+        Player alice = new Player().Player$();
+        Player bob = new Player().Player$();
+        RemoteWorker w1 = Worker.getWorker().getWorker("alice");
+        RemoteWorker w2 = Worker.getWorker().getWorker("bob");
+
+        Scrabble scrabble = new Scrabble().Scrabble$(alice, bob);
         scrabble.startGame();
 
         scrabble.gameLoop();
