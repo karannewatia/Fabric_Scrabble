@@ -8,11 +8,12 @@ public class Bag {
 
     public ArrayList tiles;
 
-    private int counts[] = new int[]{2,9,2,2,4,12,2,3,2,9,1,1,4,2,6,8,2,1,6,4,6,4,2,2,1,2,1};
+    private int counts[];
 
     public Bag Bag$(){
-      this.tiles = new ArrayList();
+      this.tiles = new ArrayList().fabric$util$ArrayList$();;
       fabric$lang$Object$();
+      this.counts = new int[]{2,9,2,2,4,12,2,3,2,9,1,1,4,2,6,8,2,1,6,4,6,4,2,2,1,2,1};
       return this;
     }
 

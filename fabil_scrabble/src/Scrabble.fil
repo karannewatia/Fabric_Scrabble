@@ -51,8 +51,8 @@ public class Scrabble {
 		return result;
 	}
 
-  public void move_remote(fabric.lang.security.Principal p) {
-     this.move();
+  public boolean move_remote(fabric.lang.security.Principal p) {
+     return this.move();
   }
 
   public boolean move(){
@@ -81,6 +81,7 @@ public class Scrabble {
         else if (moveType.equals("place")){
 
           while(!success) {
+            // Take word and location
             System.out.println(" word formed \n");
             String word = reader.readLine();
             System.out.println(" h or v \n");
@@ -96,6 +97,7 @@ public class Scrabble {
             int row = Integer.parseInt(rowString);
             int col = Integer.parseInt(colString);
 
+            // Now try to place it
             String newEntries = this.board.getNewEntries(word, dir, row, col);
             if (this.board.isMoveValid(this.players[this.currentPlayer], word, newEntries, dir, row, col)){
               this.board.placeWord(this.players[this.currentPlayer], word, dir, row, col);
@@ -145,29 +147,31 @@ public class Scrabble {
         }
 
         for(int i = 0; i < this.board.gameBoard.length; i++){
-        System.out.println();
-        for(int j = 0; j < this.board.gameBoard.length; j++){
-            if(j == 0){
-                if(i>9) {
-                System.out.print((i));
-                System.out.print("| ");
+          System.out.println();
+          for(int j = 0; j < this.board.gameBoard.length; j++){
+              if(j == 0){
+                  if(i>9) {
+                    System.out.print((i));
+                    System.out.print("| ");
+                  } else {
+                    System.out.print(" "+ (i));
+                    System.out.print("| ");
+                  }
               }
-              else {
-                System.out.print(" "+ (i));
-                System.out.print("| ");
-              }
+              System.out.print((String)(this.board.gameBoard[i].get(j)) + " | ");
             }
-            System.out.println((String)(this.board.gameBoard[i].get(j)) + " | ");
-          }
-       }
-       //System.out.printf("%n");
-       boolean success = false;
-       while (!success){
-          success = this.move();
-       }
+         }
+         //System.out.printf("%n");
+         boolean success = false;
+         RemoteWorker w = Worker.getWorker().getWorker("worker");
+         while (!success){
+           // Remote call to be used later
+           //success = this.move_remote@w(Worker.getWorker().getPrincipal());
+           success = this.move();
+         }
 
-      this.currentPlayer = (this.currentPlayer + 1) % 2;
-      this.board.moveNumber++;
+        this.currentPlayer = (this.currentPlayer + 1) % 2;
+        this.board.moveNumber++;
       }
     }
 

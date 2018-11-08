@@ -7,12 +7,8 @@ public class Rack{
 
     public ArrayList tiles;
 
-    public Rack(){
-       this.tiles = new ArrayList();
-    }
-
     public Rack Rack$(){
-      this.tiles = new ArrayList();
+      this.tiles = new ArrayList().fabric$util$ArrayList$();;
       fabric$lang$Object$();
       return this;
     }

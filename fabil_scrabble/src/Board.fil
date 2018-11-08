@@ -14,14 +14,14 @@ class Board {
     public HashMap points;
 
     public Board Board$(){
-
+      fabric$lang$Object$();
       this.moveNumber = 0;
 
       this.gameBoard  = new ArrayList[15];
-      this.points = new HashMap();
+      this.points = new HashMap().fabric$util$HashMap$();
 
       for (int i=0; i<15; i++) {
-         	this.gameBoard[i] = new ArrayList();
+         	this.gameBoard[i] = new ArrayList().fabric$util$ArrayList$();
       }
 
       for (int i=0; i<15; i++) {
@@ -32,7 +32,7 @@ class Board {
       }
 
       this.setPoints();
-      fabric$lang$Object$();
+
 
       return this;
     }

@@ -6,27 +6,34 @@ public class App {
     public App App$() {
 
        fabric$lang$Object$();
-       final Store store = Worker.getWorker().getStore("store");
+
        Player alice = new Player().Player$();
        Player bob = new Player().Player$();
        //RemoteWorker w1 = Worker.getWorker().getWorker("alice");
        //RemoteWorker w2 = Worker.getWorker().getWorker("bob");
-
+       final Store store = Worker.getWorker().getStore("store");
        RemoteWorker w = Worker.getWorker().getWorker("worker");
 
        this.scrabble = new Scrabble@store().Scrabble$(alice, bob);
        scrabble.startGame();
+       return this;
 
     }
 
     public static void main(String[] args) {
-
+        final Store store = Worker.getWorker().getStore("store");
+        App app = null;
+        atomic{
+           app = new App@store().App$();
+        }
         System.out.println(" ");
         System.out.println("Let's play Scrabble!!");
         System.out.println("----------------");
         System.out.println(" ");
 
-        this.scrabble.gameLoop_remote@w(Worker.getWorker().getPrincipal());
+
+
+        app.scrabble.gameLoop();
 
     }
 
