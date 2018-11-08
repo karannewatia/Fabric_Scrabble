@@ -41,8 +41,12 @@ public class Scrabble {
     }
   }
 
-  public char[] stringToCharArray(String word) {
-		return word.toCharArray();
+  public String[] stringToStringArray(String word) {
+    String[] result = new String[word.length()];
+    for(int i=0; i<word.length(); i++){
+       result[i] = Character.toString(word.charAt(i));
+    }
+		return result;
 	}
 
   public void gameLoop(){
@@ -67,10 +71,10 @@ public class Scrabble {
               System.out.print("| ");
             }
           }
-          System.out.print(this.board.gameBoard[i][j] + " | ");
+          System.out.println((String)(this.board.gameBoard[i].get(j)) + " | ");
         }
      }
-     System.out.printf("%n");
+     //System.out.printf("%n");
      try{
      BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
      System.out.println("Player " + currentPlayer + "'s turn \n");
@@ -85,7 +89,7 @@ public class Scrabble {
        if (moveType.equals("swap")){
           System.out.println("which letters do you want to swap \n");
           String word = reader.readLine();
-          char[] letters = this.stringToCharArray(word);
+          String[] letters = this.stringToStringArray(word);
           this.players[currentPlayer].rack.swapTiles(letters, this.bag);
           currentPlayer = (currentPlayer + 1) % 2;
           success = true;
@@ -113,8 +117,8 @@ public class Scrabble {
            String newEntries = this.board.getNewEntries(word, dir, row, col);
            if (this.board.isMoveValid(this.players[currentPlayer], word, newEntries, dir, row, col)){
              this.board.placeWord(this.players[currentPlayer], word, dir, row, col);
-             this.board.incScore(this.players[currentPlayer], newEntries.toCharArray());
-             this.players[currentPlayer].rack.swapTiles(newEntries.toCharArray(), this.bag);
+             this.board.incScore(this.players[currentPlayer], stringToStringArray(newEntries));
+             this.players[currentPlayer].rack.swapTiles(stringToStringArray(newEntries), this.bag);
              currentPlayer = (currentPlayer + 1) % 2;
              this.board.moveNumber++;
              success = true;

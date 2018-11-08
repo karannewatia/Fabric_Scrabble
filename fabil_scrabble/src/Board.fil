@@ -8,22 +8,31 @@ import fabric.util.HashMap;
  *.
  */
 class Board {
-    public String[][] gameBoard;
+    //public String[][] gameBoard;
+    public ArrayList[] gameBoard;
     public int moveNumber;
     public HashMap points;
 
     public Board Board$(){
-      fabric$lang$Object$();
+
       this.moveNumber = 0;
-      this.gameBoard = new (String[])[15];
+
+      this.gameBoard  = new ArrayList[15];
       this.points = new HashMap();
 
       for (int i=0; i<15; i++) {
-          for (int j=0; j<15; j++) {
-              this.gameBoard[i][j] = " ";
-          }
+         	this.gameBoard[i] = new ArrayList();
       }
+
+      for (int i=0; i<15; i++) {
+          for (int j=0; j<15; j++) {
+              (this.gameBoard[i]).add(" ");
+					    //(this.gameBoard.get(i))[j] = " ";
+        }
+      }
+
       this.setPoints();
+      fabric$lang$Object$();
 
       return this;
     }
@@ -78,7 +87,8 @@ class Board {
       if (col<=0) col = 0;
       if (row>=14) row = 14;
       if (row>=14) col = 14;
-      return this.gameBoard[row][col];
+      String tile = (String) (this.gameBoard[row]).get(col);
+      return tile;
     }
 
     private String constructWord(int row, int col, String letter, boolean direction) {
@@ -324,14 +334,14 @@ class Board {
          atomic{
          if (isHorizontal){
            for (int i =0; i< word.length(); i++){
-           String temp = Character.toString(word.charAt(i));
-             this.gameBoard[row][col + i] = temp;
+             String temp = Character.toString(word.charAt(i));
+             (this.gameBoard[row]).set(col+1, temp);
            }
          }
          else{
            for (int j =0; j< word.length(); j++){
              String temp = Character.toString(word.charAt(j));
-             this.gameBoard[row + j][col] = temp;
+             (this.gameBoard[row + j]).set(col, temp);
            }
          }
        }
@@ -341,7 +351,7 @@ class Board {
       atomic{
         for(int i =0; i< tiles.length; i++){
           int temp = Integer.parseInt(this.points.get(tiles[i]).toString());
-          player.score += temp;
+          player.score = player.score + temp;
         }
       }
     }
