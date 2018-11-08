@@ -6,4 +6,4 @@ PATH="${APP_HOME}/../../../../Downloads/fabric-0.3.0/bin:${PATH}"
 
 export FABRIC_HOME="${APP_HOME}"
 
-fab --jvm-cp "${APP_HOME}/classes" --app-home "${FABRIC_HOME}" --name alice
+fab --jvm-cp "${APP_HOME}/classes" --app-home "${FABRIC_HOME}" --name system

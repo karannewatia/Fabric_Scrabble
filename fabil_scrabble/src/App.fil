@@ -10,13 +10,14 @@ public class App {
 
         Player alice = new Player().Player$();
         Player bob = new Player().Player$();
-        RemoteWorker w1 = Worker.getWorker().getWorker("alice");
-        RemoteWorker w2 = Worker.getWorker().getWorker("bob");
+        //RemoteWorker w1 = Worker.getWorker().getWorker("alice");
+        //RemoteWorker w2 = Worker.getWorker().getWorker("bob");
+        RemoteWorker w1 = Worker.getWorker().getWorker("system");
 
         Scrabble scrabble = new Scrabble().Scrabble$(alice, bob);
         scrabble.startGame();
 
-        scrabble.gameLoop();
+        scrabble.gameLoop_remote@w1(Worker.getWorker().getPrincipal());
 
     }
 
