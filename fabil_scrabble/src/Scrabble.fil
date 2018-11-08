@@ -9,14 +9,14 @@ public class Scrabble {
 
   private Player[] players;
   private Bag bag;
-  private int currentTurn;
+  private int currentPlayer;
   private Board board;
 
   public Scrabble Scrabble$(Player p1, Player p2){
     fabric$lang$Object$();
     this.bag = new Bag().Bag$();
     this.board = new Board().Board$();
-    this.currentTurn = 0;
+    this.currentPlayer = 0;
     this.players = new Player[2];
     this.players[0] = p1;
     this.players[1] = p2;
@@ -51,14 +51,14 @@ public class Scrabble {
 		return result;
 	}
 
-  public boolean move(int currentPlayer){
+  public boolean move(){
     atomic{
       boolean success = false;
       try{
       BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-      System.out.println("Player " + currentPlayer + "'s turn \n");
-      System.out.println("Score: " + this.players[currentPlayer].score + "\n");
-      System.out.println("Rack: " + this.players[currentPlayer].getRack() + "\n");
+      System.out.println("Player " + this.currentPlayer + "'s turn \n");
+      System.out.println("Score: " + this.players[this.currentPlayer].score + "\n");
+      System.out.println("Rack: " + this.players[this.currentPlayer].getRack() + "\n");
 
       while(!success) {
         System.out.println("place or swap or pass \n");
@@ -68,8 +68,8 @@ public class Scrabble {
           System.out.println("which letters do you want to swap \n");
           String word = reader.readLine();
           String[] letters = this.stringToStringArray(word);
-          this.players[currentPlayer].rack.swapTiles(letters, this.bag);
-          currentPlayer = (currentPlayer + 1) % 2;
+          this.players[this.currentPlayer].rack.swapTiles(letters, this.bag);
+          this.currentPlayer = (this.currentPlayer + 1) % 2;
           success = true;
           return success;
         }
@@ -93,11 +93,11 @@ public class Scrabble {
             int col = Integer.parseInt(colString);
 
             String newEntries = this.board.getNewEntries(word, dir, row, col);
-            if (this.board.isMoveValid(this.players[currentPlayer], word, newEntries, dir, row, col)){
-              this.board.placeWord(this.players[currentPlayer], word, dir, row, col);
-              this.board.incScore(this.players[currentPlayer], stringToStringArray(newEntries));
-              this.players[currentPlayer].rack.swapTiles(stringToStringArray(newEntries), this.bag);
-              currentPlayer = (currentPlayer + 1) % 2;
+            if (this.board.isMoveValid(this.players[this.currentPlayer], word, newEntries, dir, row, col)){
+              this.board.placeWord(this.players[this.currentPlayer], word, dir, row, col);
+              this.board.incScore(this.players[this.currentPlayer], stringToStringArray(newEntries));
+              this.players[this.currentPlayer].rack.swapTiles(stringToStringArray(newEntries), this.bag);
+              currentPlayer = (this.currentPlayer + 1) % 2;
               this.board.moveNumber++;
               success = true;
               return success;
@@ -132,7 +132,6 @@ public class Scrabble {
 
   public void gameLoop(){
     atomic{
-      int currentPlayer = 0;
       while(this.board.moveNumber < 50 && this.bag.tiles.size() > 0){
         System.out.print("  "); //beginning 2 spaces
         for(int i = 0; i < this.board.gameBoard.length; ++i){
@@ -159,10 +158,10 @@ public class Scrabble {
        //System.out.printf("%n");
        boolean success = false;
        while (!success){
-          success = this.move(currentPlayer);
+          success = this.move();
        }
 
-      currentPlayer = (currentPlayer + 1) % 2;
+      this.currentPlayer = (this.currentPlayer + 1) % 2;
       this.board.moveNumber++;
       }
     }
