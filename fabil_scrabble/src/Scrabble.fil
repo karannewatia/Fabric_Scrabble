@@ -135,6 +135,7 @@ public class Scrabble {
   }
 
   public void gameLoop(){
+
     atomic{
       while(this.board.moveNumber < 50 && this.bag.tiles.size() > 0){
         System.out.print("  "); //beginning 2 spaces
