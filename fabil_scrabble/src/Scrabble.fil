@@ -56,7 +56,7 @@ public class Scrabble {
       System.out.println("Player " + currentPlayer + "'s turn \n");
       System.out.println("Score: " + this.players[currentPlayer].score + "\n");
       System.out.println("Rack: " + this.players[currentPlayer].getRack() + "\n");
-  
+
       while(!success) {
         System.out.println("place or swap or pass \n");
         String moveType = reader.readLine();
@@ -128,39 +128,42 @@ public class Scrabble {
   }
 
   public void gameLoop(){
-    int currentPlayer = 0;
-    while(this.board.moveNumber < 50 && this.bag.tiles.size() > 0){
-      System.out.print("  "); //beginning 2 spaces
-      for(int i = 0; i < this.board.gameBoard.length; ++i){
-        if(i>9) System.out.print(" " + (i) +" "); //print letters separately.
-        else System.out.print(" " + (i) +"  "); //print letters separately.
-      }
-
-      for(int i = 0; i < this.board.gameBoard.length; i++){
-      System.out.println();
-      for(int j = 0; j < this.board.gameBoard.length; j++){
-          if(j == 0){
-              if(i>9) {
-              System.out.print((i));
-              System.out.print("| ");
-            }
-            else {
-              System.out.print(" "+ (i));
-              System.out.print("| ");
-            }
-          }
-          System.out.println((String)(this.board.gameBoard[i].get(j)) + " | ");
+    atomic{
+      int currentPlayer = 0;
+      while(this.board.moveNumber < 50 && this.bag.tiles.size() > 0){
+        System.out.print("  "); //beginning 2 spaces
+        for(int i = 0; i < this.board.gameBoard.length; ++i){
+          if(i>9) System.out.print(" " + (i) +" "); //print letters separately.
+          else System.out.print(" " + (i) +"  "); //print letters separately.
         }
-     }
-     //System.out.printf("%n");
-     boolean success = false;
-     while (!success){
-        success = this.move(currentPlayer);
-     }
 
-    currentPlayer = (currentPlayer + 1) % 2;
-    this.board.moveNumber++;
+        for(int i = 0; i < this.board.gameBoard.length; i++){
+        System.out.println();
+        for(int j = 0; j < this.board.gameBoard.length; j++){
+            if(j == 0){
+                if(i>9) {
+                System.out.print((i));
+                System.out.print("| ");
+              }
+              else {
+                System.out.print(" "+ (i));
+                System.out.print("| ");
+              }
+            }
+            System.out.println((String)(this.board.gameBoard[i].get(j)) + " | ");
+          }
+       }
+       //System.out.printf("%n");
+       boolean success = false;
+       while (!success){
+          success = this.move(currentPlayer);
+       }
+
+      currentPlayer = (currentPlayer + 1) % 2;
+      this.board.moveNumber++;
+      }
     }
+
   }
 
 }

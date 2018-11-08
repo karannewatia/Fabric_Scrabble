@@ -8,7 +8,7 @@ public class App {
         System.out.println("----------------");
         System.out.println(" ");
 
-        Scrabble scrabble = new Scrabble().Scrabble$();;
+        Scrabble scrabble = new Scrabble().Scrabble$();
         scrabble.joinGame();
         scrabble.startGame();
 
