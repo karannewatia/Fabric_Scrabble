@@ -1,6 +1,5 @@
 import fabric.util.ArrayList;
 import java.io.*;
-//import java.lang.*;
 
 /**
  * The class Scrabble is responsible for coordinating gameplay
@@ -49,13 +48,92 @@ public class Scrabble {
 		return result;
 	}
 
+  public boolean move(int currentPlayer){
+    atomic{
+      boolean success = false;
+      try{
+      BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+      System.out.println("Player " + currentPlayer + "'s turn \n");
+      System.out.println("Score: " + this.players[currentPlayer].score + "\n");
+      System.out.println("Rack: " + this.players[currentPlayer].getRack() + "\n");
+  
+      while(!success) {
+        System.out.println("place or swap or pass \n");
+        String moveType = reader.readLine();
+
+        if (moveType.equals("swap")){
+          System.out.println("which letters do you want to swap \n");
+          String word = reader.readLine();
+          String[] letters = this.stringToStringArray(word);
+          this.players[currentPlayer].rack.swapTiles(letters, this.bag);
+          currentPlayer = (currentPlayer + 1) % 2;
+          success = true;
+          return success;
+        }
+
+        else if (moveType.equals("place")){
+
+          while(!success) {
+            System.out.println(" word formed \n");
+            String word = reader.readLine();
+            System.out.println(" h or v \n");
+            String dirString = reader.readLine();
+            boolean dir = true;
+            if (dirString.equals("v")){
+              dir = false;
+            }
+            System.out.println(" startRow \n");
+            String rowString = reader.readLine();
+            System.out.println(" startCol \n");
+            String colString = reader.readLine();
+            int row = Integer.parseInt(rowString);
+            int col = Integer.parseInt(colString);
+
+            String newEntries = this.board.getNewEntries(word, dir, row, col);
+            if (this.board.isMoveValid(this.players[currentPlayer], word, newEntries, dir, row, col)){
+              this.board.placeWord(this.players[currentPlayer], word, dir, row, col);
+              this.board.incScore(this.players[currentPlayer], stringToStringArray(newEntries));
+              this.players[currentPlayer].rack.swapTiles(stringToStringArray(newEntries), this.bag);
+              currentPlayer = (currentPlayer + 1) % 2;
+              this.board.moveNumber++;
+              success = true;
+              return success;
+            }
+
+            else {
+            System.out.println("invalid place, try again");
+            return success;
+            }
+        }
+      }
+
+        else if (moveType.equals("pass")){
+          success = true;
+          System.out.println("turn passed");
+          return success;
+        }
+
+        else{
+          System.out.println("try again");
+          return success;
+        }
+      }
+
+      //System.out.println(moveType);
+     } catch (IOException ioe) {
+       ioe.printStackTrace();
+     }
+     return success;
+    }
+  }
+
   public void gameLoop(){
     int currentPlayer = 0;
     while(this.board.moveNumber < 50 && this.bag.tiles.size() > 0){
-      System.out.print("  ");//beginning 2 spaces
+      System.out.print("  "); //beginning 2 spaces
       for(int i = 0; i < this.board.gameBoard.length; ++i){
-        if(i>9) System.out.print(" " + (i) +" ");//print letters separately.
-        else System.out.print(" " + (i) +"  ");//print letters separately.
+        if(i>9) System.out.print(" " + (i) +" "); //print letters separately.
+        else System.out.print(" " + (i) +"  "); //print letters separately.
       }
 
       for(int i = 0; i < this.board.gameBoard.length; i++){
@@ -75,78 +153,13 @@ public class Scrabble {
         }
      }
      //System.out.printf("%n");
-     try{
-     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-     System.out.println("Player " + currentPlayer + "'s turn \n");
-     System.out.println("Score: " + this.players[currentPlayer].score + "\n");
-     System.out.println("Rack: " + this.players[currentPlayer].getRack() + "\n");
-
      boolean success = false;
-     while(!success) {
-       System.out.println("place or swap or pass \n");
-       String moveType = reader.readLine();
-
-       if (moveType.equals("swap")){
-          System.out.println("which letters do you want to swap \n");
-          String word = reader.readLine();
-          String[] letters = this.stringToStringArray(word);
-          this.players[currentPlayer].rack.swapTiles(letters, this.bag);
-          currentPlayer = (currentPlayer + 1) % 2;
-          success = true;
-          continue;
-       }
-
-       else if (moveType.equals("place")){
-         boolean success = false;
-         while(!success)
-           System.out.println(" word formed \n");
-           String word = reader.readLine();
-           System.out.println(" h or v \n");
-           String dirString = reader.readLine();
-           boolean dir = true;
-           if (dirString.equals("v")){
-             dir = false;
-           }
-           System.out.println(" startRow \n");
-           String rowString = reader.readLine();
-           System.out.println(" startCol \n");
-           String colString = reader.readLine();
-           int row = Integer.parseInt(rowString);
-           int col = Integer.parseInt(colString);
-
-           String newEntries = this.board.getNewEntries(word, dir, row, col);
-           if (this.board.isMoveValid(this.players[currentPlayer], word, newEntries, dir, row, col)){
-             this.board.placeWord(this.players[currentPlayer], word, dir, row, col);
-             this.board.incScore(this.players[currentPlayer], stringToStringArray(newEntries));
-             this.players[currentPlayer].rack.swapTiles(stringToStringArray(newEntries), this.bag);
-             currentPlayer = (currentPlayer + 1) % 2;
-             this.board.moveNumber++;
-             success = true;
-             continue;
-           }
-
-           else {
-           System.out.println("invalid place");
-         }
-
-       }
-
-       else if (moveType.equals("pass")){
-         success= true;
-         System.out.println("turn passed");
-       }
-
-       else{
-         System.out.println("try again");
-       }
-
+     while (!success){
+        success = this.move(currentPlayer);
      }
 
-     //System.out.println(moveType);
-    } catch (IOException ioe) {
-      ioe.printStackTrace();
-    }
     currentPlayer = (currentPlayer + 1) % 2;
+    this.board.moveNumber++;
     }
   }
 
