@@ -76,8 +76,7 @@ public class Scrabble {
 
       String[] letters = this.stringToStringArray(word);
       atomic{
-        this.players[this.currentPlayer].rack.swapTiles(letters, this.bag);
-        this.currentPlayer = (this.currentPlayer + 1) % 2;
+
         success = true;
         return success;
       }
@@ -87,6 +86,9 @@ public class Scrabble {
     return success;
   }
 
+  /**
+  * helper function for the place move for a player
+  */
   public boolean place(){
     boolean success = false;
     try{
@@ -110,19 +112,19 @@ public class Scrabble {
 
         // Now try to place it
         String newEntries = this.board.getNewEntries(word, dir, row, col);
-        if (this.board.isMoveValid(this.players[this.currentPlayer], word, newEntries, dir, row, col)){
-          this.board.placeWord(this.players[this.currentPlayer], word, dir, row, col);
-          this.board.incScore(this.players[this.currentPlayer], stringToStringArray(newEntries));
-          this.players[this.currentPlayer].rack.swapTiles(stringToStringArray(newEntries), this.bag);
-          currentPlayer = (this.currentPlayer + 1) % 2;
-          this.board.moveNumber++;
-          success = true;
-          return success;
-        }
+          atomic{
+            if (this.board.isMoveValid(this.players[this.currentPlayer], word, newEntries, dir, row, col)){
+              this.board.placeWord(this.players[this.currentPlayer], word, dir, row, col);
+              this.board.incScore(this.players[this.currentPlayer], stringToStringArray(newEntries));
+              this.players[this.currentPlayer].rack.swapTiles(stringToStringArray(newEntries), this.bag);
 
-        else {
-        System.out.println("invalid place, try again");
-        return success;
+              success = true;
+              return success;
+            }
+            else {
+            System.out.println("invalid place, try again");
+            return success;
+          }
         }
       }
     } catch (IOException ioe) {
