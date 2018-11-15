@@ -24,13 +24,14 @@ public class Trie {
             fabric$lang$Object$();
             return this;
         }
-    };
+    }
 
     static TrieNode root;
 
     /** If not present, inserts key into trie
     * If the key is prefix of trie node,
-    */ just marks leaf node
+    * just marks leaf node
+    */
     public static void insert(String key)
     {
         int level;
