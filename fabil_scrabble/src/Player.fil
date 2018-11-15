@@ -1,7 +1,7 @@
 /**
  * This class represents a player in the Scrabble game.
  */
-class Player {
+public class Player {
     /**
      * This rack represents P's rack.
      * It's fine to make the reference to the rack public, as all the
