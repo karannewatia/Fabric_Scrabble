@@ -333,10 +333,10 @@ class Board {
             continue;
           }
           else if (!this.getTileOnBoard(row, i + col).equals(" ")){
-            newTiles.add("#");
+            newTiles.add(temp);
           }
           else {
-            newTiles.add(temp);
+            newTiles.add("#");
           }
         }
       }
@@ -347,10 +347,10 @@ class Board {
             continue;
           }
           else if (!this.getTileOnBoard(row + j, col).equals(" ")){
-            newTiles.add("#");
+            newTiles.add(temp);
           }
           else {
-            newTiles.add(temp);
+            newTiles.add("#");
           }
         }
       }
