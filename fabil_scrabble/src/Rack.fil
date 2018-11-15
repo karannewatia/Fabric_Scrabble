@@ -13,6 +13,9 @@ public class Rack{
       return this;
     }
 
+   /**
+    * Initializes the rack with 7 random tiles
+    */
     public void populateRackTile(Bag bag){
       atomic{
         for(int i=0; i < 7; i++){
@@ -22,6 +25,9 @@ public class Rack{
       }
     }
 
+   /**
+   * Replaces the input tile with a random tile drawn from Bag
+   */
     private void swapTile(String tile, Bag bag){
       atomic{
         if(this.tiles.indexOf(tile) != -1 ){
@@ -32,6 +38,9 @@ public class Rack{
       }
     }
 
+    /**
+    * Replaces all tiles in tileList with random tiles drawn from Bag
+    */
     public void swapTiles(String[] tileList, Bag bag){
       atomic{
         for (int i=0; i<tileList.length ;i++) {

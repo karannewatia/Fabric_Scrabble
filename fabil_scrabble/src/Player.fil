@@ -18,6 +18,9 @@ class Player {
       return this;
     }
 
+    /**
+     * Returns this player's rack as a string (useful for printing)
+     */
      public String getRack() {
        atomic{
          String rack = "";
@@ -25,7 +28,7 @@ class Player {
             rack += this.rack.tiles.get(i);
          }
          return rack;
-       }
+        }
       }
 
 }

@@ -17,19 +17,25 @@ public class Bag {
       return this;
     }
 
+   /**
+    * Initializes the bag with tiles using the counts array
+    */
     public void populateBag(){
        atomic{
          for(int i=0; i < counts.length; i++){
              for(int j=0; j < counts[i]; j++) {
               String temp;
               temp = i == 0 ? "*" : Character.toString((char)('a' + i - 1));
-              //System.out.println(temp);
               this.tiles.add(temp);
            }
          }
        }
     }
 
+    /**
+    * Returns a random tile from Bag,
+    * and removes this tile from Bag
+    */
     public String getTile(){
       atomic{
         Random rand = new Random();
@@ -52,13 +58,17 @@ public class Bag {
         }
     }
 
+    /**
+    * Returns a random tile from Bag,
+    * removes this tile from Bag,
+    * and adds the input tile to the Bag
+    */
     public String swapTile(String tile){
       atomic{
         String newTile = this.getTile();
         this.tiles.add(tile);
         return newTile;
       }
-
     }
 
 }
