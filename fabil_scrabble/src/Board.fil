@@ -37,6 +37,9 @@ class Board {
       return this;
     }
 
+    /**
+    * Sets up the number of points that each tile corresponds to
+    */
     public void setPoints(){
       atomic{
 
@@ -78,10 +81,17 @@ class Board {
 
     }
 
+    /**
+    * Returns true if word is present in the Scrabble dictionary,
+    * and false otherwise
+    */
     private boolean validateWord(String word){
       return Trie.createDict(word);
     }
 
+    /**
+    * Returns the tile present in the row, column pair input on the board
+    */
     public String getTileOnBoard(int row, int col) {
       if (row<=0) row = 0;
       if (col<=0) col = 0;
@@ -91,6 +101,10 @@ class Board {
       return tile;
     }
 
+    /**
+    * Returns the letters on the board starting from the row, column pair given
+    * in the given direction using letter
+    */
     private String constructWord(int row, int col, String letter, boolean direction) {
         StringBuilder newWord = new StringBuilder();
         int start;
@@ -140,6 +154,10 @@ class Board {
         }
     }
 
+    /**
+    * Returns the adjacent words on the board starting from the
+    * given row, column pair in the given direction using word
+    */
     public ArrayList getAdjWords(String word,boolean dir, int row, int col) {
         ArrayList adjWords = new ArrayList();
 
@@ -181,6 +199,10 @@ class Board {
         return adjWords;
     }
 
+    /**
+    * Returns true if all words in list are present in the Scrabble dictionary,
+    * and false otherwise
+    */
     private boolean validateAdjWords(ArrayList list) {
       for(int i=0; i<list.size();i++){
         String str = (String) list.get(i);
@@ -192,6 +214,9 @@ class Board {
       return true;
     }
 
+    /**
+    * Helper function for hasTilesinRack
+    */
     private boolean tileHelper(String word, String rackCopy){
       if (word.length() == 0 ) return true;
 
@@ -201,7 +226,6 @@ class Board {
         String newWord = word.substring(1);
         return tileHelper(newWord, newRack);
       }
-
       else if (rackCopy.indexOf("*") !=-1){
         String newRack = rackCopy.substring(0, rackCopy.indexOf("*")) + rackCopy.substring(rackCopy.indexOf("*") + 1);
         String newWord = word.substring(1);
@@ -210,13 +234,20 @@ class Board {
       else return false;
     }
 
+    /**
+    * Returns true if player has the tiles to play word in his/her rack,
+    * and false otherwise
+    */
     private boolean hasTilesinRack(Player player, String word) {
-
       String rackCopy = player.getRack();
       if (rackCopy.length() < word.length() ) return false;
       return tileHelper(word, rackCopy);
     }
 
+    /**
+    * Returns true if the given inputs form a valid placeWord move on the board,
+    * and false otherwise
+    */
     public boolean isMoveValid(Player player, String word, String newEntries, boolean dir, int row, int col) {
 
         String rackCopy = player.getRack();
@@ -290,9 +321,11 @@ class Board {
         return true;
     }
 
+    /**
+    * Returns the tiles in word that are not already present on the board
+    */
     public String getNewEntries(String word, boolean isHorizontal, int row, int col) {
       ArrayList newTiles = new ArrayList();
-
       if (isHorizontal){
         for(int i=0; i< word.length(); i++){
           String temp = Character.toString(word.charAt(i));
@@ -329,6 +362,9 @@ class Board {
       return result;
     }
 
+    /**
+    * Places word on the board using the given inputs
+    */
     public void placeWord(Player player, String word, boolean isHorizontal, int row, int col){
 
          atomic{
@@ -347,6 +383,9 @@ class Board {
        }
     }
 
+    /**
+    * Increments the score of player based on tiles
+    */
     public void incScore(Player player, String[] tiles){
       atomic{
         for(int i =0; i< tiles.length; i++){

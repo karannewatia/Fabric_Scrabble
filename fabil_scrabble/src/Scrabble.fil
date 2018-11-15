@@ -24,6 +24,9 @@ public class Scrabble {
 
   }
 
+  /**
+  * Creates 2 new Players (alice and bob) for this Scrabble game
+  */
   public void joinGame(){
 
     Player alice = new Player().Player$();
@@ -34,6 +37,9 @@ public class Scrabble {
     }
   }
 
+  /**
+  * Initializes the Bag, and the racks of all players in this Scrabble game
+  */
   public void startGame(){
     atomic{
       this.bag.populateBag();
@@ -43,6 +49,9 @@ public class Scrabble {
     }
   }
 
+  /**
+  * Converts word, which is a string, to a string array
+  */
   public String[] stringToStringArray(String word) {
     String[] result = new String[word.length()];
     for(int i=0; i<word.length(); i++){
@@ -79,7 +88,6 @@ public class Scrabble {
           success = true;
           return success;
         }
-
         else if (moveType.equals("place")){
 
           while(!success) {
@@ -117,7 +125,6 @@ public class Scrabble {
             }
          }
       }
-
         else if (moveType.equals("pass")){
           success = true;
           System.out.println("turn passed");
@@ -135,16 +142,18 @@ public class Scrabble {
        ioe.printStackTrace();
      }
      return success;
+  }
 
-      }
-
+  /**
+  * Prints the game board for every turn
+  */
   public void print_helper(){
+
     System.out.print("  "); //beginning 2 spaces
     for(int i = 0; i < this.board.gameBoard.length; ++i){
       if(i>9) System.out.print(" " + (i) +" "); //print letters separately.
       else System.out.print(" " + (i) +"  "); //print letters separately.
     }
-
     for(int i = 0; i < this.board.gameBoard.length; i++){
       System.out.println();
       for(int j = 0; j < this.board.gameBoard.length; j++){
@@ -159,14 +168,16 @@ public class Scrabble {
           }
           System.out.print((String)(this.board.gameBoard[i].get(j)) + " | ");
         }
-     }
-     //System.out.printf("%n");
+      }
     }
 
+  /**
+  * Runs the Scrabble game
+  * the game ends when the number of moves played is equal to 50
+  */
   public void gameLoop(){
-
     atomic{
-      while(this.board.moveNumber < 50 && this.bag.tiles.size() > 0){
+      while(this.board.moveNumber < 50){
          this.print_helper();
          boolean success = false;
          RemoteWorker w = Worker.getWorker().getWorker("worker");
@@ -175,12 +186,10 @@ public class Scrabble {
            //success = this.move_remote@w(Worker.getWorker().getPrincipal());
            success = this.move();
          }
-
         this.currentPlayer = (this.currentPlayer + 1) % 2;
         this.board.moveNumber++;
       }
     }
-
   }
 
 }

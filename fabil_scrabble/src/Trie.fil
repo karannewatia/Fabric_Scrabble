@@ -17,7 +17,7 @@ public class Trie {
         boolean isEndOfWord;
 
         TrieNode TrieNode$() {
-            
+
             isEndOfWord = false;
             for (int i = 0; i < ALPHABET_SIZE; i++)
                 children[i] = null;
@@ -28,9 +28,9 @@ public class Trie {
 
     static TrieNode root;
 
-    // If not present, inserts key into trie
-    // If the key is prefix of trie node,
-    // just marks leaf node
+    /** If not present, inserts key into trie
+    * If the key is prefix of trie node,
+    */ just marks leaf node
     public static void insert(String key)
     {
         int level;
