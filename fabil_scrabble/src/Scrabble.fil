@@ -64,6 +64,74 @@ public class Scrabble {
      return this.move();
   }
 
+  /**
+  * helper function for the swap move for a player
+  */
+  public boolean swap(){
+    boolean success = false;
+    try{
+      BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+      System.out.println("which letters do you want to swap \n");
+      String word = reader.readLine();
+
+      String[] letters = this.stringToStringArray(word);
+      atomic{
+        this.players[this.currentPlayer].rack.swapTiles(letters, this.bag);
+        this.currentPlayer = (this.currentPlayer + 1) % 2;
+        success = true;
+        return success;
+      }
+    } catch (IOException ioe) {
+      ioe.printStackTrace();
+    }
+    return success;
+  }
+
+  public boolean place(){
+    boolean success = false;
+    try{
+      BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+      while(!success){
+        // Take word and location
+        System.out.println(" word formed \n");
+        String word = reader.readLine();
+        System.out.println(" h or v \n");
+        String dirString = reader.readLine();
+        boolean dir = true;
+        if (dirString.equals("v")){
+          dir = false;
+        }
+        System.out.println(" startRow \n");
+        String rowString = reader.readLine();
+        System.out.println(" startCol \n");
+        String colString = reader.readLine();
+        int row = Integer.parseInt(rowString);
+        int col = Integer.parseInt(colString);
+
+        // Now try to place it
+        String newEntries = this.board.getNewEntries(word, dir, row, col);
+        if (this.board.isMoveValid(this.players[this.currentPlayer], word, newEntries, dir, row, col)){
+          this.board.placeWord(this.players[this.currentPlayer], word, dir, row, col);
+          this.board.incScore(this.players[this.currentPlayer], stringToStringArray(newEntries));
+          this.players[this.currentPlayer].rack.swapTiles(stringToStringArray(newEntries), this.bag);
+          currentPlayer = (this.currentPlayer + 1) % 2;
+          this.board.moveNumber++;
+          success = true;
+          return success;
+        }
+
+        else {
+        System.out.println("invalid place, try again");
+        return success;
+        }
+      }
+    } catch (IOException ioe) {
+      ioe.printStackTrace();
+    }
+    return success;
+
+  }
+
   public boolean move(){
 
     boolean success = false;
@@ -79,50 +147,10 @@ public class Scrabble {
 
       atomic{
         if (moveType.equals("swap")){
-          System.out.println("which letters do you want to swap \n");
-          String word = reader.readLine();
-          String[] letters = this.stringToStringArray(word);
-          this.players[this.currentPlayer].rack.swapTiles(letters, this.bag);
-          this.currentPlayer = (this.currentPlayer + 1) % 2;
-          success = true;
-          return success;
+          return this.swap();
         }
         else if (moveType.equals("place")){
-
-          while(!success) {
-            // Take word and location
-            System.out.println(" word formed \n");
-            String word = reader.readLine();
-            System.out.println(" h or v \n");
-            String dirString = reader.readLine();
-            boolean dir = true;
-            if (dirString.equals("v")){
-              dir = false;
-            }
-            System.out.println(" startRow \n");
-            String rowString = reader.readLine();
-            System.out.println(" startCol \n");
-            String colString = reader.readLine();
-            int row = Integer.parseInt(rowString);
-            int col = Integer.parseInt(colString);
-
-            // Now try to place it
-            String newEntries = this.board.getNewEntries(word, dir, row, col);
-            if (this.board.isMoveValid(this.players[this.currentPlayer], word, newEntries, dir, row, col)){
-              this.board.placeWord(this.players[this.currentPlayer], word, dir, row, col);
-              this.board.incScore(this.players[this.currentPlayer], stringToStringArray(newEntries));
-              this.players[this.currentPlayer].rack.swapTiles(stringToStringArray(newEntries), this.bag);
-              currentPlayer = (this.currentPlayer + 1) % 2;
-              this.board.moveNumber++;
-              success = true;
-              return success;
-            }
-
-            else {
-            System.out.println("invalid place, try again");
-            return success;
-            }
-          }
+          return this.place();
         }
         else if (moveType.equals("pass")){
           success = true;

@@ -11,7 +11,7 @@ public class Bag {
     private int counts[];
 
     public Bag Bag$(){
-      this.tiles = new ArrayList().fabric$util$ArrayList$();;
+      this.tiles = new ArrayList().fabric$util$ArrayList$();
       fabric$lang$Object$();
       this.counts = new int[]{2,9,2,2,4,12,2,3,2,9,1,1,4,2,6,8,2,1,6,4,6,4,2,2,1,2,1};
       return this;
@@ -37,22 +37,30 @@ public class Bag {
     * and removes this tile from Bag
     */
     public String getTile(){
+      ArrayList test = new ArrayList().fabric$util$ArrayList$();
+      test.add("one");
+      test.add("two");
+      test.add("three");
+      //System.out.println(test.get(1));
+      test.remove(1);
+      String test_n = "";
+      System.out.println(test);
       atomic{
         Random rand = new Random();
         int rand_value = rand.nextInt(this.tiles.size());
         String tile =  (String) this.tiles.get(rand_value);
-        String debug = "";
-        for(int i=0; i<this.tiles.size();i++){
-           debug += this.tiles.get(i);
-        }
+        //String debug = "";
+        //for(int i=0; i<this.tiles.size();i++){
+        //   debug += this.tiles.get(i);
+        //}
 
-        System.out.println(debug);
+        System.out.println(this.tiles);
         this.tiles.remove(rand_value);
-        String debug_new = "";
-        for(int j=0; j<this.tiles.size();j++){
-            debug_new += this.tiles.get(j);
-        }
-        System.out.println(debug_new);
+        //String debug_new = "";
+        //for(int j=0; j<this.tiles.size();j++){
+        //    debug_new += this.tiles.get(j);
+        //}
+        System.out.println(this.tiles);
 
         return tile;
         }
