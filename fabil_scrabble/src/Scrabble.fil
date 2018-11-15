@@ -60,7 +60,7 @@ public class Scrabble {
       boolean success = false;
       try{
       BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-      System.out.println("Player " + this.currentPlayer + "'s turn \n");
+      System.out.println("\n" + "\n" + "Player " + this.currentPlayer + "'s turn \n");
       System.out.println("Score: " + this.players[this.currentPlayer].score + "\n");
       System.out.println("Rack: " + this.players[this.currentPlayer].getRack() + "\n");
 
