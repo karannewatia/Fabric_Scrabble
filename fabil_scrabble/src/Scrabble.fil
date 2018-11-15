@@ -78,7 +78,6 @@ public class Scrabble {
       String moveType = reader.readLine();
 
       atomic{
-
         if (moveType.equals("swap")){
           System.out.println("which letters do you want to swap \n");
           String word = reader.readLine();
@@ -123,21 +122,19 @@ public class Scrabble {
             System.out.println("invalid place, try again");
             return success;
             }
-         }
-      }
+          }
+        }
         else if (moveType.equals("pass")){
           success = true;
           System.out.println("turn passed");
           return success;
         }
-
         else{
           System.out.println("try again");
           return success;
         }
        }
       }
-
      } catch (IOException ioe) {
        ioe.printStackTrace();
      }

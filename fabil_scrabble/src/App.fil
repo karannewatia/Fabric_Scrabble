@@ -1,4 +1,6 @@
-
+/**
+ * The class App is responsible for starting and playing a Scrabble game
+ */
 public class App {
 
    public Scrabble scrabble;
@@ -31,10 +33,7 @@ public class App {
         System.out.println("----------------");
         System.out.println(" ");
 
-
-
         app.scrabble.gameLoop();
-
     }
 
 }
