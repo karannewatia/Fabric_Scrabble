@@ -13,7 +13,7 @@
   ****************************************************************************
   -->
 
-  <import file="../../../../Downloads/fabric-0.3.0/common.xml" />
+  <import file="../../../../Downloads/fabric/common.xml" />
 
   <dirname property="scrabble.home" file="${ant.file.scrabble}" />
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 APP_HOME="$(dirname $0)/.."
-FABRIC="${APP_HOME}/../../../../Downloads/fabric-0.3.0"
+FABRIC="${APP_HOME}/../../../../Downloads/fabric"
 PATH="${FABRIC}/bin:${PATH}"
 
 CP="${APP_HOME}/classes"
