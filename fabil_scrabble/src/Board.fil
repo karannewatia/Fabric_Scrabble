@@ -239,7 +239,10 @@ public class Board {
     * and false otherwise
     */
     private boolean hasTilesinRack(Player player, String word) {
+
       String rackCopy = player.getRack();
+      System.out.println(word);
+      System.out.println(rackCopy);
       if (rackCopy.length() < word.length() ) return false;
       return tileHelper(word, rackCopy);
     }
@@ -333,10 +336,10 @@ public class Board {
             continue;
           }
           else if (!this.getTileOnBoard(row, i + col).equals(" ")){
-            newTiles.add(temp);
+            newTiles.add("#");
           }
           else {
-            newTiles.add("#");
+            newTiles.add(temp);
           }
         }
       }
@@ -347,10 +350,10 @@ public class Board {
             continue;
           }
           else if (!this.getTileOnBoard(row + j, col).equals(" ")){
-            newTiles.add(temp);
+            newTiles.add("#");
           }
           else {
-            newTiles.add("#");
+            newTiles.add(temp);
           }
         }
       }
