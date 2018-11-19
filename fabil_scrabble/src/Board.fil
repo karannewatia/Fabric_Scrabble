@@ -8,7 +8,7 @@ import fabric.util.HashMap;
  *.
  */
 public class Board {
-    //public String[][] gameBoard;
+
     public ArrayList[] gameBoard;
     public int moveNumber;
     public HashMap points;
@@ -159,7 +159,7 @@ public class Board {
     * given row, column pair in the given direction using word
     */
     public ArrayList getAdjWords(String word,boolean dir, int row, int col) {
-        ArrayList adjWords = new ArrayList();
+        ArrayList adjWords = new ArrayList().fabric$util$ArrayList$();
 
         for (int i=0; i<word.length(); i++) {
             if (dir) {
@@ -325,7 +325,7 @@ public class Board {
     * Returns the tiles in word that are not already present on the board
     */
     public String getNewEntries(String word, boolean isHorizontal, int row, int col) {
-      ArrayList newTiles = new ArrayList();
+      ArrayList newTiles = new ArrayList().fabric$util$ArrayList$();
       if (isHorizontal){
         for(int i=0; i< word.length(); i++){
           String temp = Character.toString(word.charAt(i));
