@@ -10,18 +10,18 @@ public class Trie {
     // trie node
     static class TrieNode
     {
-        TrieNode[] children = new TrieNode[ALPHABET_SIZE];
+        public TrieNode children[];
 
         // isEndOfWord is true if the node represents
         // end of a word
         boolean isEndOfWord;
 
         TrieNode TrieNode$() {
-
-            isEndOfWord = false;
-            for (int i = 0; i < ALPHABET_SIZE; i++)
-                children[i] = null;
             fabric$lang$Object$();
+            isEndOfWord = false;
+            this.children =  new TrieNode[ALPHABET_SIZE];
+            //for (int i = 0; i < ALPHABET_SIZE; i++)
+            //    children[i] = null;
             return this;
         }
     }
@@ -44,7 +44,7 @@ public class Trie {
         {
             index = key.charAt(level) - 'a';
             if (pCrawl.children[index] == null)
-                pCrawl.children[index] = new TrieNode();
+                pCrawl.children[index] = new TrieNode().TrieNode$();;
 
             pCrawl = pCrawl.children[index];
         }
@@ -95,7 +95,7 @@ public class Trie {
             e.printStackTrace();
           }
 
-        root = new TrieNode();
+        root = new TrieNode().TrieNode$();
 
         // Construct trie
         for (int i = 0; i < words.size() ; i++){
