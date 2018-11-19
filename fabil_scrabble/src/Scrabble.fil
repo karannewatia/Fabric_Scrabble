@@ -76,7 +76,7 @@ public class Scrabble {
 
       String[] letters = this.stringToStringArray(word);
       atomic{
-
+        this.players[this.currentPlayer].rack.swapTiles(letters, this.bag);
         success = true;
         return success;
       }
@@ -207,7 +207,7 @@ public class Scrabble {
       while(this.board.moveNumber < 50){
          this.print_helper();
          boolean success = false;
-         RemoteWorker w = Worker.getWorker().getWorker("worker");
+         //RemoteWorker w = Worker.getWorker().getWorker("worker");
          while (!success){
            // Remote call to be used later
            //success = this.move_remote@w(Worker.getWorker().getPrincipal());
