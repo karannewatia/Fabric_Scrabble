@@ -241,8 +241,6 @@ public class Board {
     private boolean hasTilesinRack(Player player, String word) {
 
       String rackCopy = player.getRack();
-      System.out.println(word);
-      System.out.println(rackCopy);
       if (rackCopy.length() < word.length() ) return false;
       return tileHelper(word, rackCopy);
     }
