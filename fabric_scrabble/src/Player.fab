@@ -1,7 +1,7 @@
 /**
  * This class represents a player in the Scrabble game.
  */
-public class Player {
+public class Player[principal Game, label L] {
     /**
      * This rack represents P's rack.
      * It's fine to make the reference to the rack public, as all the
@@ -10,10 +10,8 @@ public class Player {
     public Rack rack;
     public int score;
 
-    public Player Player$(){
-      fabric$lang$Object$();
-      this.rack = new Rack().Rack$();
-
+    public Player(L){
+      this.rack = new Rack();
       this.score = 0;
       return this;
     }
