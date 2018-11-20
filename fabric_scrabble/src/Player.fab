@@ -1,14 +1,14 @@
 /**
  * This class represents a player in the Scrabble game.
  */
-public class Player[principal Game, principal Player, label L] {
+public class Player[principal Game, principal Player1, principal Player2, label L] {
     /**
      * This rack represents P's rack.
      * It's fine to make the reference to the rack public, as all the
      * information contained in the board is readable only by P
      */
-    public Rack[Game, Player, L] rack;
-    public int score;
+    public Rack[Game, Player1, L] rack;
+    public int{Game-> Player1; Game<-} score;
 
     public Player(L){
       this.rack = new Rack();
