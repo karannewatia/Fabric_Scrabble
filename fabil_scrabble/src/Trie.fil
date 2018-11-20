@@ -75,7 +75,7 @@ public class Trie {
     }
 
     // Driver
-    public static boolean createDict(String word)
+    public static boolean createDict(ArrayList wordsToCheck)
     {
         ArrayList words = new ArrayList().fabric$util$ArrayList$();
 
@@ -98,12 +98,17 @@ public class Trie {
         root = new TrieNode().TrieNode$();
 
         // Construct trie
-        for (int i = 0; i < words.size() ; i++){
+        for (int i = 0; i < words.size(); i++){
             String temp = (String) words.get(i);
             insert(temp);
         }
 
-        return search(word);
+        for (int j = 0; j < wordsToCheck.size(); j++){
+            String temp = (String) wordsToCheck.get(j);
+            if (!search(temp)) return false;
+        }
+
+        return true;
 
       }
 }

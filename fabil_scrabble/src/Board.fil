@@ -86,7 +86,9 @@ public class Board {
     * and false otherwise
     */
     private boolean validateWord(String word){
-      return Trie.createDict(word);
+      ArrayList temp = new ArrayList().fabric$util$ArrayList$();
+      temp.add(word);
+      return Trie.createDict(temp);
     }
 
     /**
@@ -194,13 +196,11 @@ public class Board {
     * and false otherwise
     */
     private boolean validateAdjWords(ArrayList list) {
-      for(int i=0; i<list.size();i++){
-        String str = (String) list.get(i);
-        if (!this.validateWord(str)) {
-            System.out.println(str + " not valid secondary word.");
-            return false;
+      if (!Trie.createDict(list)) {  ;
+
+          System.out.println("invalid secondary word");
+          return false;
         }
-      }
       return true;
     }
 
