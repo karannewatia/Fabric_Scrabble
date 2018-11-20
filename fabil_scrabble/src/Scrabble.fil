@@ -197,23 +197,59 @@ public class Scrabble {
     }
 
   /**
+  * Returns true if any player has an empty rack,
+  * and false otherwise
+  */
+  public boolean noEmptyRack(){
+     for (int i=0; i<this.players.length;i++){
+        if(this.players[i].rack.tiles.size()==0) return true;
+     }
+     return false;
+  }
+
+
+  /**
+  * Returns the player who has the highest score,
+  */
+  public int getWinner(){
+     int highScore = this.players[0].score;
+     int winner = 0;
+
+     for (int i=1; i<this.players.length;i++){
+        if(this.players[i].score > highScore){
+          highScore = this.players[i].score;
+          winner = i;
+        }
+     }
+     return winner;
+  }
+
+  /**
   * Runs the Scrabble game
   * the game ends when the number of moves played is equal to 50
   */
   public void gameLoop(){
     atomic{
       while(this.board.moveNumber < 50){
-         this.print_helper();
-         boolean success = false;
-         RemoteWorker w = Worker.getWorker().getWorker("worker");
-         while (!success){
-           // Remote call to be used later
-           //success = this.move_remote@w(Worker.getWorker().getPrincipal());
-           success = this.move();
+         if (this.noEmptyRack()){
+            int winner = this.getWinner();
+            System.out.println("The winner is player " + (winner) );
+            break;
          }
-        this.currentPlayer = (this.currentPlayer + 1) % 2;
-
+         else{
+           this.print_helper();
+           boolean success = false;
+           RemoteWorker w = Worker.getWorker().getWorker("worker");
+           while (!success){
+             // Remote call to be used later
+             //success = this.move_remote@w(Worker.getWorker().getPrincipal());
+             success = this.move();
+           }
+          this.currentPlayer = (this.currentPlayer + 1) % 2;
+         }
       }
+      int winner = this.getWinner();
+      System.out.println("The winner is player " + (winner) );
     }
   }
 
