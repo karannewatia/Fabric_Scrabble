@@ -3,7 +3,7 @@ import fabric.util.ArrayList;
 /**
  * This class represents a player's rack in the Scrabble game.
  */
-public class Rack[principal Game, label L]{
+public class Rack[principal Game, principal Player, label L]{
 
     public ArrayList[{Game->; Game<-}]{Game->; Game<-} tiles;
 
