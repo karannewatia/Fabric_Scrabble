@@ -1,0 +1,58 @@
+<!--
+  This is the Apache Ant build file for the FabIL Scrabble app
+-->
+
+<project name="fabil_scrabble" default="build-all" basedir=".">
+  <description>
+    Build Scrabble app
+  </description>
+
+  <!--
+  ****************************************************************************
+    Global properties for this build.
+  ****************************************************************************
+  -->
+
+  <import file="../../../../Downloads/fabric/common.xml" />
+
+  <dirname property="scrabble.home" file="${ant.file.scrabble}" />
+
+  <!--
+  ****************************************************************************
+    Targets for cleaning up the directory tree.
+  ****************************************************************************
+  -->
+
+  <target name="clean" description="Removes generated files">
+    <delete dir="${scrabble.home}/classes"/>
+  </target>
+
+  <target name="clobber" depends="clean"
+          description="Removes generated files and state of stores">
+    <delete dir="${scrabble.home}/var"/>
+  </target>
+
+  <!--
+  ****************************************************************************
+    Compilation targets.
+  ****************************************************************************
+  -->
+
+  <target name="build"
+          description="Builds the Scrabble app">
+    <filc dest="${scrabble.home}/classes">
+      <arg value="-sourcepath" /> <arg value="${scrabble.home}/src" />
+      <arg value="-cp"         /> <arg value="${scrabble.home}/classes" />
+
+      <fileset dir="${scrabble.home}/src" includes="**/*.fil" />
+    </filc>
+  </target>
+
+  <target name="build-all" depends="build" />
+  <target name="all" depends="build-all" />
+
+</project>
+
+<!--
+vim: ts=2 sw=2 et ai
+-->

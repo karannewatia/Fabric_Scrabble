@@ -1,0 +1,52 @@
+import fabric.util.ArrayList;
+
+/**
+ * This class represents a player's rack in the Scrabble game.
+ */
+public class Rack{
+
+    public ArrayList tiles;
+
+    public Rack Rack$(){
+      this.tiles = new ArrayList().fabric$util$ArrayList$();;
+      fabric$lang$Object$();
+      return this;
+    }
+
+   /**
+    * Initializes the rack with 7 random tiles
+    */
+    public void populateRackTile(Bag bag){
+      atomic{
+        for(int i=0; i < 7; i++){
+          String temp = bag.getTile();
+          this.tiles.add(temp);
+        }
+      }
+    }
+
+   /**
+   * Replaces the input tile with a random tile drawn from Bag
+   */
+    private void swapTile(String tile, Bag bag){
+      atomic{
+        if(this.tiles.indexOf(tile) != -1 ){
+          String newTile = bag.swapTile(tile);
+          this.tiles.remove(this.tiles.indexOf(tile));
+          this.tiles.add(newTile);
+        }
+      }
+    }
+
+    /**
+    * Replaces all tiles in tileList with random tiles drawn from Bag
+    */
+    public void swapTiles(String[] tileList, Bag bag){
+      atomic{
+        for (int i=0; i<tileList.length ;i++) {
+         this.swapTile(tileList[i], bag);
+        }
+      }
+    }
+
+}
