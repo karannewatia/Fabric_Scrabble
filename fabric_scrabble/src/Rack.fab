@@ -3,11 +3,11 @@ import fabric.util.ArrayList;
 /**
  * This class represents a player's rack in the Scrabble game.
  */
-public class Rack[principal Game, principal Player, label L]{
+public class Rack[principal Game, principal Player]{
 
-    public ArrayList[{Game->Player; Game<-}]{Game->Player1; Game<-} tiles;
+    public ArrayList[{Game->Player; Game<-}]{Game->Player1; Game<-Player} tiles;
 
-    public Rack{Game->Player; Game<-}(){
+    public Rack{Game->Player; Game<-Player}(){
       this.tiles = new ArrayList();
       return this;
     }
