@@ -118,6 +118,7 @@ public class Scrabble {
           this.board.incScore(this.players[this.currentPlayer], stringToStringArray(newEntries));
           this.players[this.currentPlayer].rack.swapTiles(stringToStringArray(newEntries), this.bag);
 
+          this.board.moveNumber++;
           success = true;
           return success;
         }
@@ -211,7 +212,7 @@ public class Scrabble {
            success = this.move();
          }
         this.currentPlayer = (this.currentPlayer + 1) % 2;
-        this.board.moveNumber++;
+
       }
     }
   }
