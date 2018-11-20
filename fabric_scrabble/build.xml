@@ -43,13 +43,12 @@
 
     <fabc dest="${scrabble.home}/classes">
       <arg value="-sourcepath" /> <arg value="${scrabble.home}/src" />
-      <arg value="-cp"/> <arg pathref="collections.classpath"/>
-      <arg value="-cp"/> <arg pathref="lib.classpath"/>
+
       <arg value="-cp"         /> <arg value="${scrabble.home}/classes" />
       <arg value="-trusted-providers" />
       <arg value="-explain" />
 
-      <fileset dir="${ping.home}/src" includes="**/*.fab" />
+      <fileset dir="${scrabble.home}/src" includes="**/*.fab" />
     </fabc>
 
     <filc dest="${scrabble.home}/classes">
