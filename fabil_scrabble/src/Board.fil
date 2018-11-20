@@ -236,6 +236,36 @@ public class Board {
     }
 
     /**
+    * Helper function for swapTiles
+    */
+    private String swapHelper(String word, String rackCopy){
+      if (word.length() == 0 ) return "";
+
+      if(rackCopy.indexOf(word.charAt(0)) !=-1){
+        int idx = rackCopy.indexOf(word.charAt(0));
+        String newRack = rackCopy.substring(0, idx) + rackCopy.substring(idx + 1);
+        String newWord = word.substring(1);
+        return (word.charAt(0)) + swapHelper(newWord, newRack);
+      }
+      else if (rackCopy.indexOf("*") !=-1){
+        String newRack = rackCopy.substring(0, rackCopy.indexOf("*")) + rackCopy.substring(rackCopy.indexOf("*") + 1);
+        String newWord = word.substring(1);
+        return "*" + swapHelper(newWord, newRack);
+      }
+      else return "";
+    }
+
+    /**
+    * Returns the tiles that must be swapped after placing word
+    */
+    public String swapTiles(Player player, String word) {
+
+      String rackCopy = player.getRack();
+      if (rackCopy.length() < word.length() ) return "";
+      return swapHelper(word, rackCopy);
+    }
+
+    /**
     * Returns true if the given inputs form a valid placeWord move on the board,
     * and false otherwise
     */

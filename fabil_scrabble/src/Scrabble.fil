@@ -112,11 +112,13 @@ public class Scrabble {
 
       // Now try to place it
       String newEntries = this.board.getNewEntries(word, dir, row, col);
+      String swap = this.board.swapTiles(this.players[this.currentPlayer], word);
+
       atomic{
         if (this.board.isMoveValid(this.players[this.currentPlayer], word, newEntries, dir, row, col)){
           this.board.placeWord(this.players[this.currentPlayer], word, dir, row, col);
-          this.board.incScore(this.players[this.currentPlayer], stringToStringArray(newEntries));
-          this.players[this.currentPlayer].rack.swapTiles(stringToStringArray(newEntries), this.bag);
+          this.board.incScore(this.players[this.currentPlayer], stringToStringArray(swap));
+          this.players[this.currentPlayer].rack.swapTiles(stringToStringArray(swap), this.bag);
 
           this.board.moveNumber++;
           success = true;
