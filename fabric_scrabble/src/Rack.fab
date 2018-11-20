@@ -7,7 +7,7 @@ public class Rack[principal Game, principal Player, label L]{
 
     public ArrayList[{Game->Player; Game<-}]{Game->Player1; Game<-} tiles;
 
-    public Rack(L){
+    public Rack{Game->Player; Game<-}(){
       this.tiles = new ArrayList();
       return this;
     }
