@@ -79,7 +79,7 @@ public class Trie {
     {
         ArrayList words = new ArrayList().fabric$util$ArrayList$();
 
-        File file = new File("/Users/karannewatia/Documents/GitHub/Fabric_Scrabble/fabil_scrabble/src/forward_dict.txt");
+        File file = new File("/Users/karannewatia/Documents/GitHub/Fabric_Scrabble/fabil_scrabble/src/simple_dict.txt");
 
         try {
           FileReader fileReader = new FileReader(file);
@@ -102,6 +102,7 @@ public class Trie {
             String temp = (String) words.get(i);
             insert(temp);
         }
+
         return search(word);
 
       }

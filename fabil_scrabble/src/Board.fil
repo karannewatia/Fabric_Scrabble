@@ -252,6 +252,7 @@ public class Board {
     public boolean isMoveValid(Player player, String word, String newEntries, boolean dir, int row, int col) {
 
         String rackCopy = player.getRack();
+
         if (!hasTilesinRack(player, newEntries)){
           System.out.println("isMoveValid err: : Letters not in rack. Invalid move!");
           return false;
