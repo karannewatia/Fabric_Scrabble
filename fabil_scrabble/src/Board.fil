@@ -161,41 +161,52 @@ public class Board {
     public ArrayList getAdjWords(String word,boolean dir, int row, int col) {
         ArrayList adjWords = new ArrayList().fabric$util$ArrayList$();
 
-        for (int i=0; i<word.length(); i++) {
+      //  for (int i=0; i<word.length(); i++) {
             if (dir) {
-                if (this.getTileOnBoard(row, col+i).equals(" ")) {
-
-                    if (!this.getTileOnBoard(row-1, col+i).equals(" ")||
-                            !this.getTileOnBoard(row+1, col+i).equals(" ")) {
-                        adjWords.add(this.constructWord(row, col+i ,Character.toString(word.charAt(i)), dir));
-                    }
-                }
+                //if (this.getTileOnBoard(row, col+i).equals(" ")) {
+                //
+                //    if (!this.getTileOnBoard(row-1, col+i).equals(" ")||
+                //            !this.getTileOnBoard(row+1, col+i).equals(" ")) {
+                //        adjWords.add(this.constructWord(row, col+i ,Character.toString(word.charAt(i), dir));
+                //    }
+                //}
                 for(int j =0; j<word.length();j++){
                   if (!this.getTileOnBoard(row-1,col+j).equals(" ")){
-                    adjWords.add(this.constructWord(row-1, col+j ,this.getTileOnBoard(row-1, col +j), !dir));
+                    String temp1 = this.constructWord(row-1, col+j ,this.getTileOnBoard(row-1, col +j), !dir);
+                    System.out.println("1 "+temp1);
+                    adjWords.add(temp1);
                   }
                   if (!this.getTileOnBoard(row+1,col+j).equals(" ")){
-                    adjWords.add(this.constructWord(row+1, col+j ,this.getTileOnBoard(row+1, col +j), !dir));
-                  }
-                }
-            } else {
-                if (this.getTileOnBoard(row+i, col).equals(" ")) {
-                    if (!this.getTileOnBoard(row+i, col-1).equals(" ") ||
-                            !this.getTileOnBoard(row+i, col+1).equals(" ")) {
-                        adjWords.add(this.constructWord(row+i, col, Character.toString(word.charAt(i)), dir));
-                    }
-                }
-                for(int j =0; j<word.length();j++){
-                  if (!this.getTileOnBoard(row+j,col-1).equals(" ")){
-                    adjWords.add(this.constructWord(row+j, col-1 ,this.getTileOnBoard(row+j, col -1), !dir));
-                  }
-                  if (!this.getTileOnBoard(row+j,col+1).equals(" ")){
-                    adjWords.add(this.constructWord(row+j, col+1 ,this.getTileOnBoard(row+j, col+1), !dir));
+                    String temp2 = this.constructWord(row+1, col+j ,this.getTileOnBoard(row+1, col +j), !dir);
+                    System.out.println("2 "+temp2);
+                    adjWords.add(Character.toString(word.charAt(j)) + temp2);
                   }
                 }
             }
-        }
-
+            else {
+                //if (this.getTileOnBoard(row+i, col).equals(" ")) {
+                //    if (!this.getTileOnBoard(row+i, col-1).equals(" ") ||
+                //            !this.getTileOnBoard(row+i, col+1).equals(" ")) {
+                //        String right = this.constructWord(row+i, col, this.getTileOnBoard(row+i, col+1), dir)
+                //        String left = Character.toString(word.charAt(i))
+                //        adjWords.add(this.constructWord(row+i, col, this.getTileOnBoard(row+i, col+1), dir);
+                //    }
+                //}
+                for(int j =0; j<word.length();j++){
+                  if (!this.getTileOnBoard(row+j,col-1).equals(" ")){
+                    String temp3 = this.constructWord(row+j, col-1 ,this.getTileOnBoard(row+j, col -1), !dir);
+                    System.out.println("3 "+temp3);
+                    adjWords.add(temp3);
+                  }
+                  if (!this.getTileOnBoard(row+j,col+1).equals(" ")){
+                    String temp4 = this.constructWord(row+j, col+1 ,this.getTileOnBoard(row+j, col +1), !dir);
+                    System.out.println("4 "+temp4);
+                    adjWords.add(temp4);
+                  }
+                }
+            }
+        //}
+        System.out.println(adjWords);
         return adjWords;
     }
 
@@ -361,6 +372,7 @@ public class Board {
       for(int i =0; i< newTiles.size();i++){
         result += (String) newTiles.get(i);
       }
+      System.out.println(result);
       return result;
     }
 
