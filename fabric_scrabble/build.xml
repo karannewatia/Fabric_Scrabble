@@ -15,6 +15,9 @@
 
   <import file="../../../../Downloads/fabric/common.xml" />
 
+  <import file="${fabric.home}/src/lib/sif/common.xml" />
+  <import file="${fabric.home}/src/lib/collections/common.xml" />
+
   <dirname property="scrabble.home" file="${ant.file.scrabble}" />
 
   <!--

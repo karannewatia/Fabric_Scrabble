@@ -1,4 +1,4 @@
-import fabric.util.Random;
+//import fabric.util.Random;
 import fabric.util.ArrayList;
 
 /**
@@ -38,8 +38,9 @@ public class Bag[principal Game] {
     public String{Game<-; Game->} getTile{Game<-}(){
 
       atomic{
-        Random rand = new Random();
-        int rand_value = rand.nextInt(this.tiles.size());
+        //Random rand = new Random();
+        //int rand_value = rand.nextInt(this.tiles.size());
+        int rand_value = (this.tiles.size()-1);
         String{Game<-; Game->}  tile =  (String) this.tiles.get(rand_value);
 
         this.tiles.remove(rand_value);
