@@ -72,10 +72,13 @@ public class Scrabble {
   */
   public boolean swap(){
     boolean success = false;
-    try{
-      BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-      System.out.println("which letters do you want to swap \n");
-      String word = reader.readLine();
+    //try{
+      //BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+      //System.out.println("which letters do you want to swap \n");
+      //String word = reader.readLine();
+
+      JFrame frame = new JFrame("Input Dialog 2");
+      String word = JOptionPane.showInputDialog(frame, "which letters do you want to swap?");
 
       String[] letters = this.stringToStringArray(word);
       atomic{
@@ -83,10 +86,10 @@ public class Scrabble {
         success = true;
         return success;
       }
-    } catch (IOException ioe) {
-      ioe.printStackTrace();
-    }
-    return success;
+    //} catch (IOException ioe) {
+    //  ioe.printStackTrace();
+    //}
+    //return success;
   }
 
   /**
