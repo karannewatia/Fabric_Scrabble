@@ -9,8 +9,11 @@ public class Player {
      */
     public Rack rack;
     public int score;
+    public final RemoteWorker w;
 
-    public Player Player$(){
+
+    public Player Player$(RemoteWorker w){
+      this.w = w;
       fabric$lang$Object$();
       this.rack = new Rack().Rack$();
 

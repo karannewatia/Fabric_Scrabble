@@ -8,13 +8,14 @@ public class App {
     public App App$() {
 
        fabric$lang$Object$();
+       RemoteWorker w1 = Worker.getWorker().getWorker("worker");
+       RemoteWorker w2 = Worker.getWorker().getWorker("worker2");
 
-       Player alice = new Player().Player$();
-       Player bob = new Player().Player$();
-       //RemoteWorker w1 = Worker.getWorker().getWorker("alice");
-       //RemoteWorker w2 = Worker.getWorker().getWorker("bob");
+       Player alice = new Player().Player$(w1);
+       Player bob = new Player().Player$(w2);
+
        final Store store = Worker.getWorker().getStore("store");
-       RemoteWorker w = Worker.getWorker().getWorker("worker");
+       //RemoteWorker w = Worker.getWorker().getWorker("worker");
 
        this.scrabble = new Scrabble@store().Scrabble$(alice, bob);
        scrabble.startGame();

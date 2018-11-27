@@ -6,7 +6,6 @@ import javax.swing.JTextField;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.Box;
-//import javafx.application.Application;
 
 /**
  * The class Scrabble is responsible for coordinating gameplay
@@ -35,9 +34,11 @@ public class Scrabble {
   * Creates 2 new Players (alice and bob) for this Scrabble game
   */
   public void joinGame(){
+    RemoteWorker w1 = Worker.getWorker().getWorker("worker");
+    RemoteWorker w2 = Worker.getWorker().getWorker("worker2");
 
-    Player alice = new Player().Player$();
-    Player bob = new Player().Player$();
+    Player alice = new Player().Player$(w1);
+    Player bob = new Player().Player$(w2);
     atomic{
       this.players[0] = alice;
       this.players[1] = bob;
@@ -177,6 +178,7 @@ public class Scrabble {
     //choices[0] = "pass";
     //choices[1] = "swap";
     //choices[2] = "place";
+    this.print_helper();
 
     System.out.println("\n" + "\n" + "Player " + this.currentPlayer + "'s turn \n");
     System.out.println("Score: " + this.players[this.currentPlayer].score + "\n");
@@ -257,13 +259,14 @@ public class Scrabble {
             break;
          }
          else{
-           this.print_helper();
+          // this.print_helper();
            boolean success = false;
-           RemoteWorker w = Worker.getWorker().getWorker("worker");
+           RemoteWorker w  = this.players[this.currentPlayer].w;
+           //RemoteWorker w = Worker.getWorker().getWorker("worker");
            while (!success){
              // Remote call to be used later
-             //success = this.move_remote@w(Worker.getWorker().getPrincipal());
-             success = this.move();
+              success = this.move_remote@w(Worker.getWorker().getPrincipal());
+             //success = this.move();
            }
           this.currentPlayer = (this.currentPlayer + 1) % 2;
          }
