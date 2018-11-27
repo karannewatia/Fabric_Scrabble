@@ -40,7 +40,7 @@ public class Rack[principal Game, principal Player]{
     /**
     * Replaces all tiles in tileList with random tiles drawn from Bag
     */
-    public void swapTiles(String[]{Game<-; Game->} tileList, Bag{Game<-; Game->}] bag){
+    public void swapTiles(String[]{Game<-; Game->} tileList, Bag{Game<-; Game->} bag){
       atomic{
         for (int i=0; i<tileList.length ;i++) {
          this.swapTile(tileList[i], bag);
