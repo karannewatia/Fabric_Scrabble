@@ -3,6 +3,10 @@ import java.io.*;
 //import javafx.application.Application;
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.Box;
 
 /**
  * The class Scrabble is responsible for coordinating gameplay
@@ -88,8 +92,34 @@ public class Scrabble {
   */
   public boolean place(){
     boolean success = false;
-    try{
+  
       BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+      JTextField wordField = new JTextField(15);
+      JTextField directionField = new JTextField(2);
+      JTextField rowField = new JTextField(3);
+      JTextField colField = new JTextField(3);
+      JPanel myPanel = new JPanel();
+      myPanel.add(new JLabel("word formed:"));
+      myPanel.add(wordField);
+      myPanel.add(Box.createHorizontalStrut(10)); // a spacer
+      myPanel.add(new JLabel("direction(h or v):"));
+      myPanel.add(directionField);
+      myPanel.add(Box.createHorizontalStrut(10)); // a spacer
+      myPanel.add(new JLabel("start row:"));
+      myPanel.add(rowField);
+      myPanel.add(Box.createHorizontalStrut(10)); // a spacer
+      myPanel.add(new JLabel("start column:"));
+      myPanel.add(colField);
+
+     int result = JOptionPane.showConfirmDialog(null, myPanel,
+              "Please fill in", JOptionPane.OK_CANCEL_OPTION);
+
+      if (result == JOptionPane.OK_OPTION) {
+         System.out.println("x value: " + wordField.getText());
+         System.out.println("y value: " + directionField.getText());
+         System.out.println("z value: " + rowField.getText());
+         System.out.println("a value: " + colField.getText());
+      }
 
       // Take word and location
       System.out.println(" word formed \n");
@@ -126,9 +156,7 @@ public class Scrabble {
         return success;
       }
      }
-    } catch (IOException ioe) {
-      ioe.printStackTrace();
-    }
+
     return success;
 
   }
