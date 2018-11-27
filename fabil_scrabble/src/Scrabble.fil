@@ -1,12 +1,12 @@
 import fabric.util.ArrayList;
 import java.io.*;
-//import javafx.application.Application;
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.Box;
+//import javafx.application.Application;
 
 /**
  * The class Scrabble is responsible for coordinating gameplay
@@ -91,74 +91,61 @@ public class Scrabble {
   * helper function for the place move for a player
   */
   public boolean place(){
+
     boolean success = false;
-  
-      BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-      JTextField wordField = new JTextField(15);
-      JTextField directionField = new JTextField(2);
-      JTextField rowField = new JTextField(3);
-      JTextField colField = new JTextField(3);
-      JPanel myPanel = new JPanel();
-      myPanel.add(new JLabel("word formed:"));
-      myPanel.add(wordField);
-      myPanel.add(Box.createHorizontalStrut(10)); // a spacer
-      myPanel.add(new JLabel("direction(h or v):"));
-      myPanel.add(directionField);
-      myPanel.add(Box.createHorizontalStrut(10)); // a spacer
-      myPanel.add(new JLabel("start row:"));
-      myPanel.add(rowField);
-      myPanel.add(Box.createHorizontalStrut(10)); // a spacer
-      myPanel.add(new JLabel("start column:"));
-      myPanel.add(colField);
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    JTextField wordField = new JTextField(15);
+    JTextField directionField = new JTextField(2);
+    JTextField rowField = new JTextField(3);
+    JTextField colField = new JTextField(3);
+    JPanel myPanel = new JPanel();
+    myPanel.add(new JLabel("word formed:"));
+    myPanel.add(wordField);
+    myPanel.add(Box.createHorizontalStrut(10)); // a spacer
+    myPanel.add(new JLabel("direction(h or v):"));
+    myPanel.add(directionField);
+    myPanel.add(Box.createHorizontalStrut(10)); // a spacer
+    myPanel.add(new JLabel("start row:"));
+    myPanel.add(rowField);
+    myPanel.add(Box.createHorizontalStrut(10)); // a spacer
+    myPanel.add(new JLabel("start column:"));
+    myPanel.add(colField);
 
-     int result = JOptionPane.showConfirmDialog(null, myPanel,
-              "Please fill in", JOptionPane.OK_CANCEL_OPTION);
+   int result = JOptionPane.showConfirmDialog(null, myPanel,
+            "Please fill in", JOptionPane.OK_CANCEL_OPTION);
 
-      if (result == JOptionPane.OK_OPTION) {
-         System.out.println("x value: " + wordField.getText());
-         System.out.println("y value: " + directionField.getText());
-         System.out.println("z value: " + rowField.getText());
-         System.out.println("a value: " + colField.getText());
+    if (result == JOptionPane.OK_OPTION) {
+       String word = wordField.getText();
+       boolean dir = true;
+       String dirString = directionField.getText();
+       if (dirString.equals("v")){
+         dir = false;
+       }
+       String rowString = rowField.getText();
+       String colString = colField.getText();
+       int row = Integer.parseInt(rowString);
+       int col = Integer.parseInt(colString);
+
+       // Now try to place it
+       String newEntries = this.board.getNewEntries(word, dir, row, col);
+       String swap = this.board.swapTiles(this.players[this.currentPlayer], newEntries);
+
+       atomic{
+         if (this.board.isMoveValid(this.players[this.currentPlayer], word, newEntries, dir, row, col)){
+           this.board.placeWord(this.players[this.currentPlayer], word, dir, row, col);
+           this.board.incScore(this.players[this.currentPlayer], stringToStringArray(swap));
+           this.players[this.currentPlayer].rack.swapTiles(stringToStringArray(swap), this.bag);
+
+           this.board.moveNumber++;
+           success = true;
+           return success;
+         }
+         else {
+         return false;
+       }
       }
-
-      // Take word and location
-      System.out.println(" word formed \n");
-      String word = reader.readLine();
-      System.out.println(" h or v \n");
-      String dirString = reader.readLine();
-      boolean dir = true;
-      if (dirString.equals("v")){
-        dir = false;
-      }
-      System.out.println(" startRow \n");
-      String rowString = reader.readLine();
-      System.out.println(" startCol \n");
-      String colString = reader.readLine();
-      int row = Integer.parseInt(rowString);
-      int col = Integer.parseInt(colString);
-
-      // Now try to place it
-      String newEntries = this.board.getNewEntries(word, dir, row, col);
-      String swap = this.board.swapTiles(this.players[this.currentPlayer], newEntries);
-
-      atomic{
-        if (this.board.isMoveValid(this.players[this.currentPlayer], word, newEntries, dir, row, col)){
-          this.board.placeWord(this.players[this.currentPlayer], word, dir, row, col);
-          this.board.incScore(this.players[this.currentPlayer], stringToStringArray(swap));
-          this.players[this.currentPlayer].rack.swapTiles(stringToStringArray(swap), this.bag);
-
-          this.board.moveNumber++;
-          success = true;
-          return success;
-        }
-        else {
-        System.out.println("invalid place, try again");
-        return success;
-      }
-     }
-
-    return success;
-
+    }
+    return false;
   }
 
   public boolean moveHelper(String moveType){
