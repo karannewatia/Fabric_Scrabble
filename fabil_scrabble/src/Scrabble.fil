@@ -1,7 +1,8 @@
 import fabric.util.ArrayList;
 import java.io.*;
 //import javafx.application.Application;
-//import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JFrame;
 
 /**
  * The class Scrabble is responsible for coordinating gameplay
@@ -62,9 +63,9 @@ public class Scrabble {
 		return result;
 	}
 
-  public boolean move_remote(fabric.lang.security.Principal p) {
-     return this.move();
-  }
+  //public boolean move_remote(fabric.lang.security.Principal p) {
+  //   return this.move();
+  //}
 
   /**
   * helper function for the swap move for a player
@@ -138,39 +139,52 @@ public class Scrabble {
 
   }
 
-  public boolean move(){
+  public boolean moveHelper(String moveType){
 
     boolean success = false;
-    try{
-      BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    atomic{
+      if (moveType.equals("swap")){
+        return this.swap();
+      }
+      else if (moveType.equals("place")){
+        return this.place();
+      }
+      else if (moveType.equals("pass")){
+        success = true;
+        System.out.println("turn passed");
+        return success;
+      }
+      else{
+        System.out.println("try again");
+        return success;
+      }
+    }
+
+  }
+
+  public boolean move(){
+
+    //try{
+        //String[] choices = new String[3];
+        //choices[0] = "pass";
+        //choices[1] = "swap";
+        //choices[2] = "place";
+
       System.out.println("\n" + "\n" + "Player " + this.currentPlayer + "'s turn \n");
       System.out.println("Score: " + this.players[this.currentPlayer].score + "\n");
       System.out.println("Rack: " + this.players[this.currentPlayer].getRack() + "\n");
+      JFrame frame = new JFrame("Input Dialog 3");
+      String moveType = JOptionPane.showInputDialog(frame, "place or swap or pass?");
 
-      System.out.println("place or swap or pass \n");
-      String moveType = reader.readLine();
+      //System.out.println("place or swap or pass \n");
+      //String moveType = reader.readLine();
+      //System.exit(0);
 
-      atomic{
-        if (moveType.equals("swap")){
-          return this.swap();
-        }
-        else if (moveType.equals("place")){
-          return this.place();
-        }
-        else if (moveType.equals("pass")){
-          success = true;
-          System.out.println("turn passed");
-          return success;
-        }
-        else{
-          System.out.println("try again");
-          return success;
-        }
-      }
-     } catch (IOException ioe) {
-       ioe.printStackTrace();
-     }
-     return success;
+     //}
+    //catch (IOException ioe) {
+    //   ioe.printStackTrace();
+    //}
+     return moveHelper(moveType);
   }
 
   /**
