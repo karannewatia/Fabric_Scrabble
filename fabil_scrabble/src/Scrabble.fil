@@ -72,24 +72,15 @@ public class Scrabble {
   */
   public boolean swap(){
     boolean success = false;
-    //try{
-      //BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-      //System.out.println("which letters do you want to swap \n");
-      //String word = reader.readLine();
 
-      JFrame frame = new JFrame("Input Dialog 2");
-      String word = JOptionPane.showInputDialog(frame, "which letters do you want to swap?");
-
-      String[] letters = this.stringToStringArray(word);
-      atomic{
-        this.players[this.currentPlayer].rack.swapTiles(letters, this.bag);
-        success = true;
-        return success;
-      }
-    //} catch (IOException ioe) {
-    //  ioe.printStackTrace();
-    //}
-    //return success;
+    JFrame frame = new JFrame("Input Dialog 2");
+    String word = JOptionPane.showInputDialog(frame, "which letters do you want to swap?");
+    String[] letters = this.stringToStringArray(word);
+    atomic{
+      this.players[this.currentPlayer].rack.swapTiles(letters, this.bag);
+      success = true;
+      return success;
+    }
   }
 
   /**
@@ -167,27 +158,20 @@ public class Scrabble {
 
   public boolean move(){
 
-    //try{
-        //String[] choices = new String[3];
-        //choices[0] = "pass";
-        //choices[1] = "swap";
-        //choices[2] = "place";
+    //String[] choices = new String[3];
+    //choices[0] = "pass";
+    //choices[1] = "swap";
+    //choices[2] = "place";
 
-      System.out.println("\n" + "\n" + "Player " + this.currentPlayer + "'s turn \n");
-      System.out.println("Score: " + this.players[this.currentPlayer].score + "\n");
-      System.out.println("Rack: " + this.players[this.currentPlayer].getRack() + "\n");
-      JFrame frame = new JFrame("Input Dialog 3");
-      String moveType = JOptionPane.showInputDialog(frame, "place or swap or pass?");
+    System.out.println("\n" + "\n" + "Player " + this.currentPlayer + "'s turn \n");
+    System.out.println("Score: " + this.players[this.currentPlayer].score + "\n");
+    System.out.println("Rack: " + this.players[this.currentPlayer].getRack() + "\n");
+    JFrame frame = new JFrame("Input Dialog 3");
+    String moveType = JOptionPane.showInputDialog(frame, "place or swap or pass?");
 
-      //System.out.println("place or swap or pass \n");
-      //String moveType = reader.readLine();
-      //System.exit(0);
+    if (moveType==null) return false;
 
-     //}
-    //catch (IOException ioe) {
-    //   ioe.printStackTrace();
-    //}
-     return moveHelper(moveType);
+    return moveHelper(moveType);
   }
 
   /**
