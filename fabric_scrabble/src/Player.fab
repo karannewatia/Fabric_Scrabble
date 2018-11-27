@@ -19,9 +19,9 @@ public class Player[principal Game, principal Player1, principal Player2, label 
     /**
      * Returns this player's rack as a string (useful for printing)
      */
-     public String getRack() {
+     public String{Game->Player; Game<-Player} getRack{Game<-}() {
        atomic{
-         String rack = "";
+         String{Game->Player; Game<-Player} rack = "";
          for(int i=0; i<this.rack.tiles.size();i++){
             rack += this.rack.tiles.get(i);
          }

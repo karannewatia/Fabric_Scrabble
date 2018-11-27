@@ -40,7 +40,7 @@ public class Bag[principal Game] {
       atomic{
         //Random rand = new Random();
         //int rand_value = rand.nextInt(this.tiles.size());
-        int rand_value = (this.tiles.size()-1);
+        int rand_value = this.tiles.size()-1;
         String{Game<-; Game->}  tile =  (String) this.tiles.get(rand_value);
 
         this.tiles.remove(rand_value);
@@ -58,7 +58,7 @@ public class Bag[principal Game] {
       atomic{
         String{*lbl} newTile = this.getTile();
         this.tiles.add(tile);
-        return newTile;
+        return declassify(newTile, {});
       }
     }
 
