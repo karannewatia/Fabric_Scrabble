@@ -1,5 +1,7 @@
 import fabric.util.ArrayList;
 import java.io.*;
+//import javafx.application.Application;
+//import javax.swing.JFrame;
 
 /**
  * The class Scrabble is responsible for coordinating gameplay
@@ -112,7 +114,7 @@ public class Scrabble {
 
       // Now try to place it
       String newEntries = this.board.getNewEntries(word, dir, row, col);
-      String swap = this.board.swapTiles(this.players[this.currentPlayer], word);
+      String swap = this.board.swapTiles(this.players[this.currentPlayer], newEntries);
 
       atomic{
         if (this.board.isMoveValid(this.players[this.currentPlayer], word, newEntries, dir, row, col)){
