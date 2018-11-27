@@ -1,5 +1,5 @@
 //import fabric.util.Random;
-import fabric.util.ArrayList;
+import fabricated.util.ArrayList;
 
 /**
  * This class represents the bag in the Scrabble game.
@@ -56,9 +56,9 @@ public class Bag[principal Game] {
     */
     public String{*lbl} swapTile(String {*lbl} tile, label lbl){
       atomic{
-        String{*lbl} newTile = this.getTile();
+        String{Game<-; Game->} newTile = this.getTile();
         this.tiles.add(tile);
-        return declassify(newTile, {});
+        return declassify(newTile, {*lbl});
       }
     }
 

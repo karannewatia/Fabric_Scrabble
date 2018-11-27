@@ -1,4 +1,4 @@
-import fabric.util.ArrayList;
+import fabricated.util.ArrayList;
 
 /**
  * This class represents a player's rack in the Scrabble game.
