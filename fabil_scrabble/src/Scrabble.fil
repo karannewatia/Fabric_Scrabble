@@ -67,9 +67,9 @@ public class Scrabble {
 		return result;
 	}
 
-  //public boolean move_remote(fabric.lang.security.Principal p) {
-  //   return this.move();
-  //}
+  public boolean move_remote(fabric.lang.security.Principal p) {
+     return this.move();
+  }
 
   /**
   * helper function for the swap move for a player
