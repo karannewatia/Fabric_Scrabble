@@ -25,10 +25,7 @@ public class Scrabble {
     this.bag = new Bag().Bag$();
     this.board = new Board().Board$();
     this.currentPlayer = 0;
-    //this.players = new Player[2];
     this.players = new ArrayList().fabric$util$ArrayList$();
-    //this.players[0] = p1;
-    //this.players[1] = p2;
     for (int i =0; i<playersList.size();i++){
       this.players.add(playersList.get(i));
     }
@@ -73,7 +70,6 @@ public class Scrabble {
     String word = JOptionPane.showInputDialog(frame, "which letters do you want to swap?");
     String[] letters = this.stringToStringArray(word);
     atomic{
-      //this.players[this.currentPlayer].rack.swapTiles(letters, this.bag);
       ((Player) this.players.get(this.currentPlayer)).rack.swapTiles(letters, this.bag);
       success = true;
       return success;
