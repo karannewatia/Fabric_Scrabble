@@ -1,3 +1,5 @@
+import fabric.util.ArrayList;
+
 /**
  * The class App is responsible for starting and playing a Scrabble game
  */
@@ -13,11 +15,14 @@ public class App {
 
        Player alice = new Player().Player$(w1);
        Player bob = new Player().Player$(w2);
+       ArrayList players = new ArrayList().fabric$util$ArrayList$();
+       players.add(alice);
+       players.add(bob);
 
        final Store store = Worker.getWorker().getStore("store");
        //RemoteWorker w = Worker.getWorker().getWorker("worker");
 
-       this.scrabble = new Scrabble@store().Scrabble$(alice, bob);
+       this.scrabble = new Scrabble@store().Scrabble$(players);
        scrabble.startGame();
        return this;
 

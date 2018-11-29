@@ -13,36 +13,27 @@ import javax.swing.Box;
  */
 public class Scrabble {
 
-  private Player[] players;
+  //private Player[] players;
+  private ArrayList players;
   private Bag bag;
   private int currentPlayer;
   private Board board;
 
-  public Scrabble Scrabble$(Player p1, Player p2){
+  //public Scrabble Scrabble$(Player p1, Player p2){
+  public Scrabble Scrabble$(ArrayList playersList){
     fabric$lang$Object$();
     this.bag = new Bag().Bag$();
     this.board = new Board().Board$();
     this.currentPlayer = 0;
-    this.players = new Player[2];
-    this.players[0] = p1;
-    this.players[1] = p2;
+    //this.players = new Player[2];
+    this.players = new ArrayList().fabric$util$ArrayList$();
+    //this.players[0] = p1;
+    //this.players[1] = p2;
+    for (int i =0; i<playersList.size();i++){
+      this.players.add(playersList.get(i));
+    }
     return this;
 
-  }
-
-  /**
-  * Creates 2 new Players (alice and bob) for this Scrabble game
-  */
-  public void joinGame(){
-    RemoteWorker w1 = Worker.getWorker().getWorker("worker");
-    RemoteWorker w2 = Worker.getWorker().getWorker("worker2");
-
-    Player alice = new Player().Player$(w1);
-    Player bob = new Player().Player$(w2);
-    atomic{
-      this.players[0] = alice;
-      this.players[1] = bob;
-    }
   }
 
   /**
@@ -51,8 +42,8 @@ public class Scrabble {
   public void startGame(){
     atomic{
       this.bag.populateBag();
-      for(int i=0; i<this.players.length;i++){
-        this.players[i].rack.populateRackTile(this.bag);
+      for(int i=0; i<this.players.size();i++){
+        ((Player) this.players.get(i)).rack.populateRackTile(this.bag);
       }
     }
   }
@@ -82,7 +73,8 @@ public class Scrabble {
     String word = JOptionPane.showInputDialog(frame, "which letters do you want to swap?");
     String[] letters = this.stringToStringArray(word);
     atomic{
-      this.players[this.currentPlayer].rack.swapTiles(letters, this.bag);
+      //this.players[this.currentPlayer].rack.swapTiles(letters, this.bag);
+      ((Player) this.players.get(this.currentPlayer)).rack.swapTiles(letters, this.bag);
       success = true;
       return success;
     }
@@ -129,13 +121,13 @@ public class Scrabble {
 
        // Now try to place it
        String newEntries = this.board.getNewEntries(word, dir, row, col);
-       String swap = this.board.swapTiles(this.players[this.currentPlayer], newEntries);
+       String swap = this.board.swapTiles((Player)this.players.get(this.currentPlayer), newEntries);
 
        atomic{
-         if (this.board.isMoveValid(this.players[this.currentPlayer], word, newEntries, dir, row, col)){
-           this.board.placeWord(this.players[this.currentPlayer], word, dir, row, col);
-           this.board.incScore(this.players[this.currentPlayer], stringToStringArray(swap));
-           this.players[this.currentPlayer].rack.swapTiles(stringToStringArray(swap), this.bag);
+         if (this.board.isMoveValid((Player)this.players.get(this.currentPlayer), word, newEntries, dir, row, col)){
+           this.board.placeWord((Player)this.players.get(this.currentPlayer), word, dir, row, col);
+           this.board.incScore((Player)this.players.get(this.currentPlayer), stringToStringArray(swap));
+           ((Player)this.players.get(this.currentPlayer)).rack.swapTiles(stringToStringArray(swap), this.bag);
 
            this.board.moveNumber++;
            success = true;
@@ -181,8 +173,8 @@ public class Scrabble {
     this.print_helper();
 
     System.out.println("\n" + "\n" + "Player " + this.currentPlayer + "'s turn \n");
-    System.out.println("Score: " + this.players[this.currentPlayer].score + "\n");
-    System.out.println("Rack: " + this.players[this.currentPlayer].getRack() + "\n");
+    System.out.println("Score: " + ((Player)this.players.get(this.currentPlayer)).score + "\n");
+    System.out.println("Rack: " + ((Player)this.players.get(this.currentPlayer)).getRack() + "\n");
     JFrame frame = new JFrame("Input Dialog 3");
     String moveType = JOptionPane.showInputDialog(frame, "place or swap or pass?");
 
@@ -223,8 +215,8 @@ public class Scrabble {
   * and false otherwise
   */
   public boolean emptyRack(){
-     for (int i=0; i<this.players.length;i++){
-        if(this.players[i].rack.tiles.size()==0) return true;
+     for (int i=0; i<this.players.size(); i++){
+        if(((Player)this.players.get(i)).rack.tiles.size()==0) return true;
      }
      return false;
   }
@@ -234,12 +226,12 @@ public class Scrabble {
   * Returns the player who has the highest score,
   */
   public int getWinner(){
-     int highScore = this.players[0].score;
+     int highScore = ((Player)this.players.get(0)).score;
      int winner = 0;
 
-     for (int i=1; i<this.players.length;i++){
-        if(this.players[i].score > highScore){
-          highScore = this.players[i].score;
+     for (int i=1; i<this.players.size(); i++){
+        if(((Player)this.players.get(i)).score > highScore){
+          highScore = ((Player)this.players.get(i)).score;
           winner = i;
         }
      }
@@ -261,14 +253,14 @@ public class Scrabble {
          else{
           // this.print_helper();
            boolean success = false;
-           RemoteWorker w  = this.players[this.currentPlayer].w;
+           RemoteWorker w  = ((Player)this.players.get(this.currentPlayer)).w;
            //RemoteWorker w = Worker.getWorker().getWorker("worker");
            while (!success){
              // Remote call to be used later
               success = this.move_remote@w(Worker.getWorker().getPrincipal());
              //success = this.move();
            }
-          this.currentPlayer = (this.currentPlayer + 1) % 2;
+          this.currentPlayer = (this.currentPlayer + 1) % this.players.size();
          }
       }
       int winner = this.getWinner();
