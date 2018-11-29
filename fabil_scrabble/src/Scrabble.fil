@@ -195,7 +195,7 @@ public class Scrabble {
   * Prints the game board for every turn
   */
   public void print_helper(){
-
+    System.out.println("\n");
     System.out.print("  "); //beginning 2 spaces
     for(int i = 0; i < this.board.gameBoard.length; ++i){
       if(i>9) System.out.print(" " + (i) +" "); //print letters separately.
