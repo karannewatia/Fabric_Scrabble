@@ -6,6 +6,7 @@ import javax.swing.JTextField;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.Box;
+import javax.swing.Icon;
 
 /**
  * The class Scrabble is responsible for coordinating gameplay
@@ -162,22 +163,25 @@ public class Scrabble {
 
   public boolean move(){
 
-    //String[] choices = new String[3];
-    //choices[0] = "pass";
-    //choices[1] = "swap";
-    //choices[2] = "place";
     this.print_helper();
+
+    JFrame frame = new JFrame("Input");
 
     System.out.println("\n" + "\n" + "Player " + this.currentPlayer + "'s turn \n");
     System.out.println("Score: " + ((Player)this.players.get(this.currentPlayer)).score + "\n");
     System.out.println("Rack: " + ((Player)this.players.get(this.currentPlayer)).getRack() + "\n");
-    JFrame frame = new JFrame("Input Dialog 3");
-    String moveType = JOptionPane.showInputDialog(frame, "place or swap or pass?");
+
+    String moveType = JOptionPane.showInputDialog(frame, this.currentPlayer + "'s turn: place or swap or pass?");
 
     if (moveType==null) return false;
 
-    return moveHelper(moveType);
-  }
+    if (moveHelper(moveType)==true){
+       this.print_helper();
+       return true;
+    }
+
+    return false;
+    }
 
   /**
   * Prints the game board for every turn
