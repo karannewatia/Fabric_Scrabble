@@ -6,7 +6,6 @@ import javax.swing.JTextField;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.Box;
-import javax.swing.Icon;
 
 /**
  * The class Scrabble is responsible for coordinating gameplay
@@ -166,12 +165,7 @@ public class Scrabble {
     this.print_helper();
 
     JFrame frame = new JFrame("Input");
-
-    System.out.println("\n" + "\n" + "Player " + this.currentPlayer + "'s turn \n");
-    System.out.println("Score: " + ((Player)this.players.get(this.currentPlayer)).score + "\n");
-    System.out.println("Rack: " + ((Player)this.players.get(this.currentPlayer)).getRack() + "\n");
-
-    String moveType = JOptionPane.showInputDialog(frame, this.currentPlayer + "'s turn: place or swap or pass?");
+    String moveType = JOptionPane.showInputDialog(frame, "Player " + this.currentPlayer + "'s turn: place or swap or pass?");
 
     if (moveType==null) return false;
 
@@ -179,7 +173,6 @@ public class Scrabble {
        this.print_helper();
        return true;
     }
-
     return false;
     }
 
@@ -208,6 +201,9 @@ public class Scrabble {
           System.out.print((String)(this.board.gameBoard[i].get(j)) + " | ");
         }
       }
+      System.out.println("\n" + "\n" + "Player " + this.currentPlayer + "'s turn \n");
+      System.out.println("Your score: " + ((Player)this.players.get(this.currentPlayer)).score + "\n");
+      System.out.println("Your rack: " + ((Player)this.players.get(this.currentPlayer)).getRack() + "\n");
     }
 
   /**
