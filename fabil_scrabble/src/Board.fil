@@ -1,7 +1,6 @@
 import fabric.util.ArrayList;
 import fabric.util.Arrays;
 import fabric.util.HashMap;
-//import java.io.*;
 
 /**
  * This class represents a board in the Scrabble game.
