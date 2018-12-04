@@ -48,6 +48,7 @@
       <arg value="-sourcepath" /> <arg value="${scrabble.home}/src" />
 
       <arg value="-cp"         /> <arg value="${scrabble.home}/classes" />
+      <arg value="-cp" /> <arg pathref="collections.classpath" />
       <arg value="-trusted-providers" />
       <arg value="-explain" />
 
