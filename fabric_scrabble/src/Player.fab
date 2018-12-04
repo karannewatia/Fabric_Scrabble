@@ -13,7 +13,6 @@ public class Player[principal Game, principal Player1, principal Player2, label 
     public Player{Game->; Game<-}(){
       this.rack = new Rack();
       this.score = 0;
-      return this;
     }
 
     /**

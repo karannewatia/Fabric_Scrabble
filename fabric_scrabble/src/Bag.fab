@@ -11,7 +11,7 @@ public class Bag[principal Game] {
 
     private int counts[];
 
-    public Bag(){
+    public Bag{Game->; Game<-}(){
       this.tiles = new ArrayList{Game->; Game<-}(new StringComparator());
       this.counts = new int[]{2,9,2,2,4,12,2,3,2,9,1,1,4,2,6,8,2,1,6,4,6,4,2,2,1,2,1};
 

@@ -10,7 +10,6 @@ public class Rack[principal Game, principal Player]{
 
     public Rack{Game->Player; Game<-Player}(){
       this.tiles = new ArrayList(new StringComparator());
-      return this;
     }
 
    /**
