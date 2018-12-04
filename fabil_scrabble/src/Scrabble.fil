@@ -60,14 +60,19 @@ public class Scrabble {
      return this.move();
   }
 
+  public String swap_gui(){
+    JFrame frame = new JFrame("Input Dialog 2");
+    String word = JOptionPane.showInputDialog(frame, "which letters do you want to swap?");
+    return word;
+  }
+
   /**
   * helper function for the swap move for a player
   */
   public boolean swap(){
     boolean success = false;
 
-    JFrame frame = new JFrame("Input Dialog 2");
-    String word = JOptionPane.showInputDialog(frame, "which letters do you want to swap?");
+    String word = this.swap_gui();
     String[] letters = this.stringToStringArray(word);
     atomic{
       ((Player) this.players.get(this.currentPlayer)).rack.swapTiles(letters, this.bag);
