@@ -82,7 +82,7 @@ public class Scrabble {
   public boolean place(){
 
     boolean success = false;
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
     JTextField wordField = new JTextField(15);
     JTextField directionField = new JTextField(2);
     JTextField rowField = new JTextField(3);
@@ -160,17 +160,22 @@ public class Scrabble {
 
   }
 
+  public String move_gui(){
+    JFrame frame = new JFrame("Input");
+    String moveType = JOptionPane.showInputDialog(frame, "Player " + this.currentPlayer + "'s turn: place or swap or pass?");
+    return moveType;
+  }
+
   public boolean move(){
 
     this.print_helper();
 
-    JFrame frame = new JFrame("Input");
-    String moveType = JOptionPane.showInputDialog(frame, "Player " + this.currentPlayer + "'s turn: place or swap or pass?");
+    String moveType = this.move_gui();
 
     if (moveType==null) return false;
 
     if (moveHelper(moveType)==true){
-       this.print_helper();
+       //this.print_helper();
        return true;
     }
     return false;
