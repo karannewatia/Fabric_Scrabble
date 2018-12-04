@@ -249,11 +249,13 @@ public class Scrabble {
          else{
           // this.print_helper();
            boolean success = false;
-           RemoteWorker w  = ((Player)this.players.get(this.currentPlayer)).w;
-    
+           RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
+           //RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
+
            while (!success){
              // Remote call
-              success = this.move_remote@w(Worker.getWorker().getPrincipal());
+
+              success = this.move_remote@w1(Worker.getWorker().getPrincipal());
              //success = this.move();
            }
           this.currentPlayer = (this.currentPlayer + 1) % this.players.size();
