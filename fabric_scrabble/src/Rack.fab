@@ -6,7 +6,7 @@ import fabricated.util.StringComparator;
  */
 public class Rack[principal Game, principal Player]{
 
-    public ArrayList[{Game->Player; Game<-}]{Game->Player1; Game<-Player} tiles;
+    public ArrayList[{Game->Player; Game<-}]{Game->Player; Game<-Player} tiles;
 
     public Rack{Game->Player; Game<-Player}(){
       this.tiles = new ArrayList(new StringComparator());
@@ -15,7 +15,7 @@ public class Rack[principal Game, principal Player]{
    /**
     * Initializes the rack with 7 random tiles
     */
-    public void populateRackTile{Game<-}(Bag{Game<-; Game->} bag){
+    public void populateRackTile{Game<-}(Bag[Game]{Game<-; Game->} bag){
       atomic{
         for(int i=0; i < 7; i++){
           String{Game<-; Game->} temp = bag.getTile();
@@ -27,10 +27,10 @@ public class Rack[principal Game, principal Player]{
    /**
    * Replaces the input tile with a random tile drawn from Bag
    */
-    private void swapTile{Game<-}(String{Game<-; Game->} tile, Bag{Game<-; Game->} bag){
+    private void swapTile{Game<-}(String{Game<-; Game->} tile, Bag[Game]{Game<-; Game->} bag){
       atomic{
         if(this.tiles.indexOf(tile) != -1 ){
-          String{Game->Player; Game<-} newTile = bag.swapTile(tile);
+          String{Game->Player; Game<-} newTile = bag.swapTile(tile, Player );
           this.tiles.remove(this.tiles.indexOf(tile));
           this.tiles.add(newTile);
         }
@@ -40,7 +40,7 @@ public class Rack[principal Game, principal Player]{
     /**
     * Replaces all tiles in tileList with random tiles drawn from Bag
     */
-    public void swapTiles(String[]{Game<-; Game->} tileList, Bag{Game<-; Game->} bag){
+    public void swapTiles(String[]{Game<-; Game->} tileList, Bag[Game]{Game<-; Game->} bag){
       atomic{
         for (int i=0; i<tileList.length ;i++) {
          this.swapTile(tileList[i], bag);

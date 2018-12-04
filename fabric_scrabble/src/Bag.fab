@@ -9,11 +9,16 @@ public class Bag[principal Game] {
 
     public ArrayList[{Game->; Game<-}]{Game->; Game<-} tiles;
 
-    private int counts[];
+    private int[]{Game<-} counts;
 
-    public Bag{Game->; Game<-}(){
+    public Bag{Game<-}(){
+    try{
       this.tiles = new ArrayList{Game->; Game<-}(new StringComparator());
-      this.counts = new int[]{2,9,2,2,4,12,2,3,2,9,1,1,4,2,6,8,2,1,6,4,6,4,2,2,1,2,1};
+      }
+    catch (IllegalArgumentException exc){
+
+    }
+    this.counts = new int[]{2,9,2,2,4,12,2,3,2,9,1,1,4,2,6,8,2,1,6,4,6,4,2,2,1,2,1};
 
     }
 
@@ -22,9 +27,10 @@ public class Bag[principal Game] {
     */
     public void populateBag{Game<-}(){
        atomic{
+         String{Game<-; Game->} temp;
          for(int i=0; i < counts.length; i++){
              for(int j=0; j < counts[i]; j++) {
-              String{Game<-; Game->} temp;
+
               temp = i == 0 ? "*" : Character.toString((char)('a' + i - 1));
               this.tiles.add(temp);
            }
@@ -55,11 +61,14 @@ public class Bag[principal Game] {
     * removes this tile from Bag,
     * and adds the input tile to the Bag
     */
-    public String{*lbl} swapTile(String {*lbl} tile, label lbl){
+    public String{Game<-; Game->player} swapTile{Game<-}(String {Game<-; Game->player} tile, principal player){
       atomic{
-        String{Game<-; Game->} newTile = this.getTile();
-        this.tiles.add(tile);
-        return declassify(newTile, {*lbl});
+        //String{Game<-; Game->} newTile = this.getTile();
+        String{Game<-; Game->player} declassified = declassify(this.getTile(), {Game->;Game<-} to {Game->player;Game<-});
+        //this.tiles.add(tile);
+        //return declassify(newTile, {Game->;Game<-} to {Game->player;Game<-});
+        return declassified;
+        return null;
       }
     }
 
