@@ -250,9 +250,9 @@ public class Scrabble {
           // this.print_helper();
            boolean success = false;
            RemoteWorker w  = ((Player)this.players.get(this.currentPlayer)).w;
-           //RemoteWorker w = Worker.getWorker().getWorker("worker");
+    
            while (!success){
-             // Remote call to be used later
+             // Remote call
               success = this.move_remote@w(Worker.getWorker().getPrincipal());
              //success = this.move();
            }
