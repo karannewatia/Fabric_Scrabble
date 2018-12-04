@@ -1,4 +1,5 @@
 import fabricated.util.ArrayList;
+import fabricated.util.StringComparator;
 
 /**
  * This class represents a player's rack in the Scrabble game.
@@ -8,7 +9,7 @@ public class Rack[principal Game, principal Player]{
     public ArrayList[{Game->Player; Game<-}]{Game->Player1; Game<-Player} tiles;
 
     public Rack{Game->Player; Game<-Player}(){
-      this.tiles = new ArrayList();
+      this.tiles = new ArrayList(new StringComparator());
       return this;
     }
 
