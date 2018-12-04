@@ -12,13 +12,11 @@ import javax.swing.Box;
  */
 public class Scrabble {
 
-  //private Player[] players;
   private ArrayList players;
   private Bag bag;
   private int currentPlayer;
   private Board board;
 
-  //public Scrabble Scrabble$(Player p1, Player p2){
   public Scrabble Scrabble$(ArrayList playersList){
     fabric$lang$Object$();
     this.bag = new Bag().Bag$();
@@ -215,6 +213,39 @@ public class Scrabble {
       System.out.println("Your rack: " + ((Player)this.players.get(this.currentPlayer)).getRack() + "\n");
     }
 
+  public void readBoard_remote(fabric.lang.security.Principal p, int playerNum) {
+    this.readBoard(playerNum);
+  }
+
+  public void readBoard(int playerNum){
+    atomic{
+      System.out.println("\n");
+      System.out.print("  "); //beginning 2 spaces
+      for(int i = 0; i < this.board.gameBoard.length; ++i){
+        if(i>9) System.out.print(" " + (i) +" "); //print letters separately.
+        else System.out.print(" " + (i) +"  "); //print letters separately.
+      }
+      for(int i = 0; i < this.board.gameBoard.length; i++){
+        System.out.println();
+        for(int j = 0; j < this.board.gameBoard.length; j++){
+            if(j == 0){
+                if(i>9) {
+                  System.out.print((i));
+                  System.out.print("| ");
+                } else {
+                  System.out.print(" "+ (i));
+                  System.out.print("| ");
+                }
+            }
+            System.out.print((String)(this.board.gameBoard[i].get(j)) + " | ");
+          }
+        }
+        System.out.println("\n" + "\n" + "Player " + this.currentPlayer + "'s turn \n");
+        System.out.println("Your score: " + ((Player)this.players.get(playerNum)).score + "\n");
+        System.out.println("Your rack: " + ((Player)this.players.get(playerNum)).getRack() + "\n");
+    }
+  }
+
   /**
   * Returns true if any player has an empty rack,
   * and false otherwise
@@ -259,11 +290,12 @@ public class Scrabble {
           // this.print_helper();
            boolean success = false;
            RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
-           //RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
+           RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
 
            while (!success){
              // Remote call
-
+              int temp = (this.currentPlayer + 1) % this.players.size();
+              this.readBoard_remote@w2(Worker.getWorker().getPrincipal(), temp);
               success = this.move_remote@w1(Worker.getWorker().getPrincipal());
              //success = this.move();
            }
