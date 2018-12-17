@@ -66,9 +66,9 @@ public class Bag[principal Game] {
         //String{Game<-; Game->} newTile = this.getTile();
         String{Game<-; Game->player} declassified = declassify(this.getTile(), {Game->;Game<-} to {Game->player;Game<-});
         //this.tiles.add(tile);
-        //return declassify(newTile, {Game->;Game<-} to {Game->player;Game<-});
+
         return declassified;
-        return null;
+        //return null;
       }
     }
 
