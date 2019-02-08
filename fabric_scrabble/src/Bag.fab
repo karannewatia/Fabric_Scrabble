@@ -42,7 +42,7 @@ public class Bag[principal Game] {
     * Returns a random tile from Bag,
     * and removes this tile from Bag
     */
-    public String{Game<-; Game->} getTile{Game<-}(){
+    public String{Game<-; Game->} getTile{Game<-; Game->}(){
 
       atomic{
         //Random rand = new Random();
@@ -61,14 +61,14 @@ public class Bag[principal Game] {
     * removes this tile from Bag,
     * and adds the input tile to the Bag
     */
-    public String{Game<-; Game->player} swapTile{Game<-}(String {Game<-; Game->player} tile, principal player){
+    public String{Game<-; Game->player} swapTile{Game<-; Game->}(String {Game<-; Game->player} tile, principal player){
       atomic{
         //String{Game<-; Game->} newTile = this.getTile();
-        String{Game<-; Game->player} declassified = declassify(this.getTile(), {Game->;Game<-} to {Game->player;Game<-});
+        //String{Game<-; Game->player} declassified = declassify(this.getTile(), {Game->;Game<-} to {Game->player;Game<-});
         //this.tiles.add(tile);
 
-        return declassified;
-        //return null;
+        //return declassified;
+        return "";
       }
     }
 

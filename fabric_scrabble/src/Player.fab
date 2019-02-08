@@ -7,10 +7,13 @@ public class Player[principal Game, principal Player, principal allPlayers, labe
      * It's fine to make the reference to the rack public, as all the
      * information contained in the board is readable only by P
      */
-    public Rack[Game, Player] rack;
-    public int{Game-> Player,allPlayers; Game<-} score;
+    public Rack[Game, Player]{Game->Player; Game<-Player} rack;
+    public int{Game-> Player; Game<-} score;
+    public final RemoteWorker w;
+    //public int{Game-> Player, allPlayers; Game<-} score;
 
-    public Player{Game->; Game<-}(){
+    public Player{Game->Player; Game<-}(RemoteWorker w){
+      //this.w = w;
       this.rack = new Rack();
       this.score = 0;
     }
@@ -18,14 +21,15 @@ public class Player[principal Game, principal Player, principal allPlayers, labe
     /**
      * Returns this player's rack as a string (useful for printing)
      */
-     public String{Game->Player; Game<-Player} getRack{Game<-}() {
-       atomic{
-         String{Game->Player; Game<-Player} rack = "";
-         for(int i=0; i<this.rack.tiles.size();i++){
-            rack += (String)this.rack.tiles.get(i);
-         }
-         return rack;
-        }
-      }
+     //public String{Game->Player; Game<-} getRack{Game<-}() {
+     //  atomic{
+     //   String{Game->Player; Game<-} rack = "";
+     //   for(int i=0; i<this.rack.tiles.size();i++){
+     //      String{Game->Player; Game<-} tile = (String)this.rack.tiles.get(i);
+     //        rack += tile;
+     //    }
+     //   return rack;
+     //  }
+     //}
 
 }
