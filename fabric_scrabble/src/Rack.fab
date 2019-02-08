@@ -20,10 +20,10 @@ public class Rack[principal Game, principal Player]{
    /**
     * Initializes the rack with 7 random tiles
     */
-    public void populateRackTile{Game<-}(Bag[Game]{Game<-; Game->} bag){
+    public void populateRackTile{Game<-; Game->Player}(Bag[Game]{Game<-; Game->} bag){
       atomic{
         for(int i=0; i < 7; i++){
-          String{Game<-; Game->Player} temp = declassify(bag.getTile(), {Game->;Game<-} to {Game->Player;Game<-});
+          String{Game->Player; Game<-} temp = declassify(bag.getTile(), {Game->;Game<-} to {Game->Player;Game<-});
 
           this.tiles.add(temp);
         }

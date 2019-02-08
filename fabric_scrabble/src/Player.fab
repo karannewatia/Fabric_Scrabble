@@ -14,7 +14,7 @@ public class Player[principal Game, principal Player, principal allPlayers, labe
 
     public Player{Game->Player; Game<-}(RemoteWorker w){
       //this.w = w;
-      this.rack = new Rack();
+      this.rack = new Rack{Game->Player; Game<-}();
       this.score = 0;
     }
 

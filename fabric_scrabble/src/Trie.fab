@@ -1,0 +1,111 @@
+import java.io.*;
+import fabricated.util.ArrayList;
+
+// implementation of trie
+public class Trie[principal Game, principal allPlayers] {
+
+    // Alphabet size (# of symbols)
+    static final int{Game->; Game<-} ALPHABET_SIZE = 26;
+
+    // trie node
+    static class TrieNode[principal Game, principal allPlayers]
+    {
+        public TrieNode{Game->; Game<-} children[];
+
+        // isEndOfWord is true if the node represents
+        // end of a word
+        boolean{Game->; Game<-} isEndOfWord;
+
+        public TrieNode{Game->; Game<-} () {
+            this.isEndOfWord = false;
+            this.children =  new TrieNode{Game->; Game<-}[ALPHABET_SIZE];
+
+        }
+    }
+
+    static TrieNode{Game->; Game<-} root;
+
+    /** If not present, inserts key into trie
+    * If the key is prefix of trie node,
+    * just marks leaf node
+    */
+    public static void insert{Game->; Game<-}(String{Game->; Game<-} key)
+    {
+        int{Game->; Game<-} level;
+        int{Game->; Game<-} length = key.length();
+        int{Game->; Game<-} index;
+
+        TrieNode{Game->; Game<-} pCrawl = root;
+
+        for (level = 0; level < length; level++)
+        {
+            index = key.charAt(level) - 'a';
+            if (pCrawl.children[index] == null)
+                pCrawl.children[index] = new TrieNode{Game->; Game<-}();
+
+            pCrawl = pCrawl.children[index];
+        }
+
+        // mark last node as leaf
+        pCrawl.isEndOfWord = true;
+    }
+
+    // Returns true if key presents in trie, else false
+    public static boolean{Game->; Game<-} search{Game->; Game<-}(String{Game->; Game<-} key)
+    {
+        int{Game->; Game<-} level;
+        int{Game->; Game<-} length = key.length();
+        int{Game->; Game<-} index;
+        TrieNode{Game->; Game<-} pCrawl = root;
+
+        for (level = 0; level < length; level++)
+        {
+            index = key.charAt(level) - 'a';
+
+            if (pCrawl.children[index] == null)
+                return false;
+
+            pCrawl = pCrawl.children[index];
+        }
+
+        return (pCrawl != null && pCrawl.isEndOfWord);
+    }
+
+    // Driver
+    public static boolean{Game->allPlayers; Game<-} createDict(ArrayList{Game->; Game<-} wordsToCheck)
+    {
+        ArrayList{Game->; Game<-} words = new ArrayList();
+
+        File file = new File("/Users/karannewatia/Documents/GitHub/Fabric_Scrabble/fabil_scrabble/src/simple_dict.txt");
+
+        try {
+          FileReader fileReader = new FileReader(file);
+          BufferedReader reader = new BufferedReader(fileReader);
+         String line = reader.readLine();
+         while (line != null) {
+            words.add(line);
+            // read next line
+            line = reader.readLine();
+          }
+          reader.close();
+        } catch (Exception e ) {
+            e.printStackTrace();
+          }
+
+        root = new TrieNode().TrieNode$();
+
+        // Construct trie
+        for (int i = 0; i < words.size(); i++){
+            String temp = (String) words.get(i);
+            insert(temp);
+        }
+
+        for (int j = 0; j < wordsToCheck.size(); j++){
+            String temp = (String) wordsToCheck.get(j);
+            if (!search(temp)) return false;
+        }
+
+        return true;
+
+      }
+}
