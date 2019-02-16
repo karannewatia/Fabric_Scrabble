@@ -6,11 +6,11 @@ import fabricated.util.StringComparator;
  */
 public class Rack[principal Game, principal Player]{
 
-    public ArrayList[{Game->Player; Game<-}]{Game->Player; Game<-} tiles;
+    public ArrayList[{Game->Player; Game<-}]{Game<-} tiles;
 
-    public Rack{Game->Player; Game<-}(){
+    public Rack{Game<-}(){
       try{
-        this.tiles = new ArrayList{Game->Player; Game<-}(new StringComparator());
+        this.tiles = new ArrayList{Game<-}(new StringComparator());
         }
       catch (IllegalArgumentException exc){
 
@@ -20,12 +20,12 @@ public class Rack[principal Game, principal Player]{
    /**
     * Initializes the rack with 7 random tiles
     */
-    public void populateRackTile{Game<-; Game->Player}(Bag[Game]{Game<-; Game->} bag){
+    public void populateRackTile{Game<-; Game->Player}(Bag[Game]{Game<-} bag){
       atomic{
-        for(int i=0; i < 7; i++){
+        for(int{Game->Player; Game<-} i=0; i < 7; i++){
           String{Game->Player; Game<-} temp = declassify(bag.getTile(), {Game->;Game<-} to {Game->Player;Game<-});
 
-          this.tiles.add(temp);
+          tiles.add(temp);
         }
       }
     }
@@ -33,7 +33,7 @@ public class Rack[principal Game, principal Player]{
    /**
    * Replaces the input tile with a random tile drawn from Bag
    */
-    private void swapTile{Game<-; Game->Player}(String{Game<-; Game->Player} tile, Bag[Game]{Game<-; Game->} bag){
+    private void swapTile{Game<-; Game->Player}(String{Game<-; Game->Player} tile, Bag[Game]{Game<-} bag){
       atomic{
         if(this.tiles.indexOf(tile) != -1 ){
           String{Game->Player; Game<-} newTile = bag.swapTile(tile, Player);
@@ -47,7 +47,7 @@ public class Rack[principal Game, principal Player]{
     /**
     * Replaces all tiles in tileList with random tiles drawn from Bag
     */
-    public void swapTiles{Game<-}(String[]{Game<-; Game->Player} tileList, Bag[Game]{Game<-; Game->} bag){
+    public void swapTiles{Game<-}(String[]{Game<-; Game->Player} tileList, Bag[Game]{Game<-} bag){
       atomic{
         for (int i=0; i<tileList.length ;i++) {
          this.swapTile(tileList[i], bag);

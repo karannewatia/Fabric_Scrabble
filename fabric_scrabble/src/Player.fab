@@ -1,3 +1,5 @@
+import fabricated.util.ArrayList;
+
 /**
  * This class represents a player in the Scrabble game.
  */
@@ -7,14 +9,13 @@ public class Player[principal Game, principal Player, principal allPlayers, labe
      * It's fine to make the reference to the rack public, as all the
      * information contained in the board is readable only by P
      */
-    public Rack[Game, Player]{Game->Player; Game<-} rack;
-    public int{Game-> Player; Game<-} score;
-    public final RemoteWorker w;
-    //public int{Game-> Player, allPlayers; Game<-} score;
+    public Rack[Game, Player]{Game<-} rack;
+    //public final RemoteWorker w;
+    public int{Game<-} score;
 
-    public Player{Game->Player; Game<-}(RemoteWorker w){
+    public Player{Game<-}(){ //RemoteWorker w
       //this.w = w;
-      this.rack = new Rack{Game->Player; Game<-}();
+      this.rack = new Rack{Game<-}();
       this.score = 0;
     }
 
@@ -23,9 +24,10 @@ public class Player[principal Game, principal Player, principal allPlayers, labe
      */
      public String{Game->Player; Game<-} getRack{Game<-}() {
        atomic{
+        ArrayList[{Game->Player; Game<-}] tiles = this.rack.tiles;
         String{Game->Player; Game<-} rack = "";
-        for(int i=0; i<this.rack.tiles.size();i++){
-           String{Game->Player; Game<-} tile = (String)this.rack.tiles.get(i);
+        for(int i=0; i<tiles.size();i++){
+           String{Game->Player; Game<-} tile = (String)tiles.get(i);
              rack += tile;
          }
         return rack;
