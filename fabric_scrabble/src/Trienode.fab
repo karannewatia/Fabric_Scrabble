@@ -1,6 +1,6 @@
 
 public class TrieNode[principal Game, principal allPlayers] {
-     public TrieNode children[];
+     public TrieNode[Game, allPlayers] children[];
 
     // isEndOfWord is true if the node represents
     // end of a word
@@ -8,7 +8,7 @@ public class TrieNode[principal Game, principal allPlayers] {
 
     public TrieNode{Game<-} () {
         this.isEndOfWord = false;
-        this.children =  new TrieNode[ALPHABET_SIZE];
+        this.children =  new TrieNode[Game, allPlayers][26];
 
     }
 }
