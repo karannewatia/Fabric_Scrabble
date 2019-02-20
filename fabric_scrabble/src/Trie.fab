@@ -1,12 +1,12 @@
-import java.io.*;
+//import java.io.*;
 import fabricated.util.ArrayList;
 
 // implementation of trie
 public class Trie[principal Game, principal allPlayers] {
 
     // Alphabet size (# of symbols)
-    static final int{Game->; Game<-} ALPHABET_SIZE = 26;
-    static TrieNode{Game->; Game<-} root;
+    final int ALPHABET_SIZE = 26;
+    static TrieNode[Game, allPlayers]{Game->; Game<-} root = new TrieNode{Game->; Game<-}();
 
     /** If not present, inserts key into trie
     * If the key is prefix of trie node,
@@ -14,9 +14,9 @@ public class Trie[principal Game, principal allPlayers] {
     */
     public static void insert{Game->; Game<-}(String{Game->; Game<-} key)
     {
-        int{Game->; Game<-} level;
-        int{Game->; Game<-} length = key.length();
-        int{Game->; Game<-} index;
+        int level;
+        int length = key.length();
+        int index;
 
         TrieNode{Game->; Game<-} pCrawl = root;
 
@@ -36,9 +36,9 @@ public class Trie[principal Game, principal allPlayers] {
     // Returns true if key presents in trie, else false
     public static boolean{Game->; Game<-} search{Game->; Game<-}(String{Game->; Game<-} key)
     {
-        int{Game->; Game<-} level;
-        int{Game->; Game<-} length = key.length();
-        int{Game->; Game<-} index;
+        int level;
+        int length = key.length();
+        int index;
         TrieNode{Game->; Game<-} pCrawl = root;
 
         for (level = 0; level < length; level++)
@@ -54,41 +54,5 @@ public class Trie[principal Game, principal allPlayers] {
         return (pCrawl != null && pCrawl.isEndOfWord);
     }
 
-    // Driver
-    public static boolean{Game->allPlayers; Game<-} createDict(ArrayList{Game->; Game<-} wordsToCheck)
-    {
-        ArrayList{Game->; Game<-} words = new ArrayList();
 
-        File file = new File("/Users/karannewatia/Documents/GitHub/Fabric_Scrabble/fabil_scrabble/src/simple_dict.txt");
-
-        try {
-          FileReader fileReader = new FileReader(file);
-          BufferedReader reader = new BufferedReader(fileReader);
-         String line = reader.readLine();
-         while (line != null) {
-            words.add(line);
-            // read next line
-            line = reader.readLine();
-          }
-          reader.close();
-        } catch (Exception e ) {
-            e.printStackTrace();
-          }
-
-        root = new TrieNode().TrieNode$();
-
-        // Construct trie
-        for (int i = 0; i < words.size(); i++){
-            String temp = (String) words.get(i);
-            insert(temp);
-        }
-
-        for (int j = 0; j < wordsToCheck.size(); j++){
-            String temp = (String) wordsToCheck.get(j);
-            if (!search(temp)) return false;
-        }
-
-        return true;
-
-      }
 }
