@@ -20,7 +20,7 @@ public class Rack[principal Game, principal Player]{
    /**
     * Initializes the rack with 7 random tiles
     */
-    public void populateRackTile{Game<-; Game->Player}(Bag[Game]{Game<-} bag){
+    public void populateRackTile{Game<-}(Bag[Game]{Game<-} bag){
       atomic{
         for(int{Game->Player; Game<-} i=0; i < 7; i++){
           String{Game->Player; Game<-} temp = declassify(bag.getTile(), {Game->;Game<-} to {Game->Player;Game<-});
@@ -33,7 +33,7 @@ public class Rack[principal Game, principal Player]{
    /**
    * Replaces the input tile with a random tile drawn from Bag
    */
-    private void swapTile{Game<-; Game->Player}(String{Game<-; Game->Player} tile, Bag[Game]{Game<-} bag){
+    private void swapTile{Game<-}(String{Game<-; Game->Player} tile, Bag[Game]{Game<-} bag){
       atomic{
         if(this.tiles.indexOf(tile) != -1 ){
           String{Game->Player; Game<-} newTile = bag.swapTile(tile, Player);
@@ -49,7 +49,7 @@ public class Rack[principal Game, principal Player]{
     */
     public void swapTiles{Game<-}(String[]{Game<-; Game->Player} tileList, Bag[Game]{Game<-} bag){
       atomic{
-        for (int i=0; i<tileList.length ;i++) {
+        for(int{Game->Player; Game<-} i=0; i < 7; i++){
          this.swapTile(tileList[i], bag);
         }
       }
