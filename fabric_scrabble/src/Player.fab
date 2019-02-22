@@ -3,7 +3,7 @@ import fabricated.util.ArrayList;
 /**
  * This class represents a player in the Scrabble game.
  */
-public class Player[principal Game, principal Player, principal allPlayers, label L] {
+public class Player[principal Game, principal Player, principal allPlayers] {
     /**
      * This rack represents P's rack.
      * It's fine to make the reference to the rack public, as all the

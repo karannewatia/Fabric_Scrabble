@@ -199,30 +199,29 @@ public class Board[principal Game, principal allPlayers] {
     * Returns true if all words in list are present in the Scrabble dictionary,
     * and false otherwise
     */
-    private boolean validateAdjWords(ArrayList list) {
-      if (!Trie.createDict(list)) {  ;
-
+    private boolean validateAdjWords{Game<-}(ArrayList[{Game<-}]{Game<-} list) {
+      //if (!Trie.createDict(list)) {  ;
           //System.out.println("invalid secondary word");
-          return false;
-        }
+          //return false;
+      //  }
       return true;
     }
 
     /**
     * Helper function for hasTilesinRack
     */
-    private boolean tileHelper(String word, String rackCopy){
+    private boolean tileHelper{Game<-}(String{Game<-} word, String{Game<-} rackCopy){
       if (word.length() == 0 ) return true;
 
       if(rackCopy.indexOf(word.charAt(0)) !=-1){
         int idx = rackCopy.indexOf(word.charAt(0));
-        String newRack = rackCopy.substring(0, idx) + rackCopy.substring(idx + 1);
-        String newWord = word.substring(1);
+        String{Game<-} newRack = rackCopy.substring(0, idx) + rackCopy.substring(idx + 1);
+        String{Game<-} newWord = word.substring(1);
         return tileHelper(newWord, newRack);
       }
       else if (rackCopy.indexOf("*") !=-1){
-        String newRack = rackCopy.substring(0, rackCopy.indexOf("*")) + rackCopy.substring(rackCopy.indexOf("*") + 1);
-        String newWord = word.substring(1);
+        String{Game<-} newRack = rackCopy.substring(0, rackCopy.indexOf("*")) + rackCopy.substring(rackCopy.indexOf("*") + 1);
+        String{Game<-} newWord = word.substring(1);
         return tileHelper(newWord, newRack);
       }
       else return false;
@@ -232,9 +231,9 @@ public class Board[principal Game, principal allPlayers] {
     * Returns true if player has the tiles to play word in his/her rack,
     * and false otherwise
     */
-    private boolean hasTilesinRack(Player player, String word) {
+    private boolean hasTilesinRack{Game<-}(principal playerP,Player[Game, playerP , allPlayers] player, String{Game<-} word) {
 
-      String rackCopy = player.getRack();
+      String{Game<-} rackCopy = player.getRack();
       if (rackCopy.length() < word.length() ) return false;
       return tileHelper(word, rackCopy);
     }
