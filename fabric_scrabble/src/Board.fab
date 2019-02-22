@@ -261,7 +261,7 @@ public class Board[principal Game, principal allPlayers] {
     /**
     * Returns the tiles that must be swapped after placing word
     */
-    public String swapTiles(Player player, String word) {
+    public String swapTiles(principal playerP,Player[Game, playerP , allPlayers] player, String word) {
 
       String rackCopy = player.getRack();
       if (rackCopy.length() < word.length() ) return "";
@@ -272,7 +272,7 @@ public class Board[principal Game, principal allPlayers] {
     * Returns true if the given inputs form a valid placeWord move on the board,
     * and false otherwise
     */
-    public boolean isMoveValid(Player player, String word, String newEntries, boolean dir, int row, int col) {
+    public boolean isMoveValid(principal playerP,Player[Game, playerP , allPlayers] player, String word, String newEntries, boolean dir, int row, int col) {
 
         String rackCopy = player.getRack();
 
@@ -350,7 +350,7 @@ public class Board[principal Game, principal allPlayers] {
     * Returns the tiles in word that are not already present on the board
     */
     public String getNewEntries(String word, boolean isHorizontal, int row, int col) {
-      ArrayList newTiles = new ArrayList().fabric$util$ArrayList$();
+      ArrayList newTiles = new ArrayList(new StringComparator());
       if (isHorizontal){
         for(int i=0; i< word.length(); i++){
           String temp = Character.toString(word.charAt(i));
@@ -391,7 +391,7 @@ public class Board[principal Game, principal allPlayers] {
     /**
     * Places word on the board using the given inputs
     */
-    public void placeWord(Player player, String word, boolean isHorizontal, int row, int col){
+    public void placeWord(principal playerP,Player[Game, playerP , allPlayers] player, String word, boolean isHorizontal, int row, int col){
 
          atomic{
          if (isHorizontal){
@@ -412,7 +412,7 @@ public class Board[principal Game, principal allPlayers] {
     /**
     * Increments the score of player based on tiles
     */
-    public void incScore(Player player, String[] tiles){
+    public void incScore(principal playerP,Player[Game, playerP , allPlayers] player, String[] tiles){
       atomic{
         for(int i =0; i< tiles.length; i++){
           int temp = Integer.parseInt(this.points.get(tiles[i]).toString());
