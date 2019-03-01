@@ -17,25 +17,25 @@ public class Board[principal Game, principal allPlayers] {
     public Board{Game<-}() {
 
       this.moveNumber = 0;
-      //this.gameBoard  = new ArrayList{Game<-}(new StringComparator())[];
+      this.gameBoard  = new ArrayList{Game<-}(new StringComparator());
 
-      //try{
-      //this.points = new HashMap{Game<-}(new StringComparator(), new IdComparator());
-      //}
-      //catch (IllegalArgumentException exc){}
+      try{
+      this.points = new HashMap{Game<-}(new StringComparator(), new IdComparator());
+      }
+      catch (IllegalArgumentException exc){}
 
-      //for (int i=0; i<15; i++) {
-      //    try{
-      //   	this.gameBoard[i] = new ArrayList{Game<-}(new StringComparator());
-      //    }
-      //    catch (IllegalArgumentException exc){}
-      //}
+      for (int i=0; i<15; i++) {
+          try{
+         	this.gameBoard[i] = new ArrayList{Game<-}(new StringComparator());
+          }
+         catch (IllegalArgumentException exc){}
+      }
 
-      //for (int i=0; i<15; i++) {
-      //    for (int j=0; j<15; j++) {
-      //        (this.gameBoard[i]).add(" ");
-      //  }
-      //}
+      for (int i=0; i<15; i++) {
+         for (int j=0; j<15; j++) {
+              (this.gameBoard[i]).add(" ");
+        }
+      }
 
       //this.setPoints();
 
@@ -88,14 +88,9 @@ public class Board[principal Game, principal allPlayers] {
     * Returns true if word is present in the Scrabble dictionary,
     * and false otherwise
     */
-    private boolean validateWord(String word){
-    try{
-      ArrayList[{Game<-}]{Game<-} temp = new ArrayList{Game<-}(new StringComparator());
-      temp.add(word);
-      }
-    catch (IllegalArgumentException exc){}
+    private boolean{Game<-} validateWord(ArrayList[{Game<-}]{Game<-} wordList){
 
-      //return Trie.createDict(temp);
+      //return Trie.isValid(wordList);
       return true;
     }
 
@@ -295,10 +290,16 @@ public class Board[principal Game, principal allPlayers] {
         }
 
         // IS THE WORD VALID USING A DICT
-        if (!this.validateWord(word)) {
-            //System.out.println("isMoveValid err: This word doesn't exist.");
-            return false;
-        }
+        try{
+          ArrayList[{Game<-}]{Game<-} wordList = new ArrayList{Game<-}(new StringComparator());
+          wordList.add(word);
+          if (!this.validateWord(wordList)) {
+              //System.out.println("isMoveValid err: This word doesn't exist.");
+              return false;
+           }
+          }
+        catch (IllegalArgumentException exc){}
+
 
         // INTENDED WORD SHOULD BE THE LARGEST CONTIGUOUS STRING IN THAT DIRECTION
         if (dir) {
