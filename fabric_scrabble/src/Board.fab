@@ -243,9 +243,8 @@ public class Board[principal Game, principal allPlayers] {
     * Returns true if player has the tiles to play word in his/her rack,
     * and false otherwise
     */
-    private boolean hasTilesinRack{Game<-}(principal playerP,Player[Game, playerP , allPlayers] player, String{Game<-} word) {
+    private boolean{Game<-} hasTilesinRack{Game<-}(String{Game<-} rackCopy, String{Game<-} word) {
 
-      String{Game->playerP; Game<-} rackCopy = player.getRack();
       if (rackCopy.length() < word.length() ) return false;
       return tileHelper(word, rackCopy);
     }
@@ -273,9 +272,8 @@ public class Board[principal Game, principal allPlayers] {
     /**
     * Returns the tiles that must be swapped after placing word
     */
-    public String{Game<-} swapTiles{Game<-}(principal playerP,Player[Game, playerP , allPlayers] player, String word) {
+    public String{Game<-} swapTiles{Game<-}(String{Game<-} rackCopy, String{Game<-} word) {
 
-      String{Game->playerP; Game<-} rackCopy = player.getRack();
       if (rackCopy.length() < word.length() ) return "";
       return swapHelper(word, rackCopy);
     }
@@ -284,11 +282,10 @@ public class Board[principal Game, principal allPlayers] {
     * Returns true if the given inputs form a valid placeWord move on the board,
     * and false otherwise
     */
-    public boolean{Game<-} isMoveValid{Game<-}(principal playerP,Player[Game, playerP , allPlayers] player, String{Game<-} word, String{Game<-} newEntries, boolean dir, int row, int col) {
+    public boolean{Game<-} isMoveValid{Game<-}(String{Game<-} rackCopy, String{Game<-} word,
+    String{Game<-} newEntries, boolean{Game<-} dir, int{Game<-} row, int{Game<-} col) {
 
-        String{Game<-} rackCopy = player.getRack();
-
-        if (!hasTilesinRack(playerP, player, newEntries)){
+        if (!hasTilesinRack(rackCopy, newEntries)){
           //System.out.println("isMoveValid err: : Letters not in rack. Invalid move!");
           return false;
         }
@@ -361,7 +358,7 @@ public class Board[principal Game, principal allPlayers] {
     /**
     * Returns the tiles in word that are not already present on the board
     */
-    public String{Game<-} getNewEntries{Game<-}(String{Game<-} word, boolean isHorizontal, int row, int col) {
+    public String{Game<-} getNewEntries{Game<-}(String{Game<-} word, boolean{Game<-} isHorizontal, int{Game<-} row, int{Game<-} col) {
       ArrayList newTiles = new ArrayList(new StringComparator());
       if (isHorizontal){
         for(int i=0; i< word.length(); i++){
@@ -403,7 +400,7 @@ public class Board[principal Game, principal allPlayers] {
     /**
     * Places word on the board using the given inputs
     */
-    public void placeWord{Game<-}(principal playerP,Player[Game, playerP , allPlayers] player, String word, boolean isHorizontal, int row, int col){
+    public void placeWord{Game<-}(String{Game<-} word, boolean{Game<-} isHorizontal, int{Game<-} row, int{Game<-} col){
          atomic{
          if (isHorizontal){
            for (int i =0; i< word.length(); i++){
