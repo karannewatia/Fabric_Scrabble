@@ -1,0 +1,69 @@
+import fabricated.util.ArrayList;
+import fabricated.util.StringComparator;
+
+/**
+ * The class Scrabble is responsible for coordinating gameplay
+ * between two Players.
+ */
+public class Scrabble[principal Game, principal allPlayers] {
+
+  private ArrayList[{Game<-}]{Game<-} players;
+  private Bag[Game]{Game<-} bag;
+  private int currentPlayer;
+  private Board[Game, allPlayers]{Game<-} board;
+
+  public Scrabble{Game<-}(ArrayList[{Game<-}]{Game<-} playersList){
+    this.bag = new Bag{Game<-}();
+    this.board = new Board{Game<-}();
+    this.currentPlayer = 0;
+    try{
+      this.players = new ArrayList{Game->; Game<-}(new StringComparator());
+      }
+    catch (IllegalArgumentException exc){}
+
+    for (int i =0; i<playersList.size();i++){
+      this.players.add(playersList.get(i));
+    }
+  }
+
+  /**
+  * Initializes the Bag, and the racks of all players in this Scrabble game
+  */
+  public void startGame{Game<-}(){
+    atomic{
+      this.bag.populateBag();
+      for(int i=0; i<this.players.size();i++){
+        ((Player) this.players.get(i)).rack.populateRackTile(this.bag);
+      }
+    }
+  }
+
+  /**
+  * Returns true if any player has an empty rack,
+  * and false otherwise
+  */
+  public boolean emptyRack{Game<-} (){
+     for (int i=0; i<this.players.size(); i++){
+        if(((Player)this.players.get(i)).rack.tiles.size()==0) return true;
+     }
+     return false;
+  }
+
+
+  /**
+  * Returns the player who has the highest score,
+  */
+  public int getWinner{Game<-}(){
+     int highScore = ((Player)this.players.get(0)).score;
+     int winner = 0;
+
+     for (int i=1; i<this.players.size(); i++){
+        if(((Player)this.players.get(i)).score > highScore){
+          highScore = ((Player)this.players.get(i)).score;
+          winner = i;
+        }
+     }
+     return winner;
+  }
+
+}
