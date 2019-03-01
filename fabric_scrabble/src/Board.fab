@@ -17,27 +17,32 @@ public class Board[principal Game, principal allPlayers] {
     public Board{Game<-}() {
 
       this.moveNumber = 0;
-      this.gameBoard  = new ArrayList{Game<-}(new StringComparator());
+      //this.gameBoard  = new ArrayList[{Game<-}]{Game<-}(new StringComparator());
+
+      this.gameBoard  = new ArrayList[{Game<-}][15];
 
       try{
       this.points = new HashMap{Game<-}(new StringComparator(), new IdComparator());
+      this.setPoints();
       }
-      catch (IllegalArgumentException exc){}
+      catch (Exception exc){}
 
       for (int i=0; i<15; i++) {
           try{
          	this.gameBoard[i] = new ArrayList{Game<-}(new StringComparator());
-          }
-         catch (IllegalArgumentException exc){}
+         }
+        catch (Exception exc){}
       }
+
 
       for (int i=0; i<15; i++) {
          for (int j=0; j<15; j++) {
+         try{
               (this.gameBoard[i]).add(" ");
+          }
+          catch (Exception exc){}
         }
       }
-
-      //this.setPoints();
 
     }
 
@@ -416,14 +421,14 @@ public class Board[principal Game, principal allPlayers] {
     /**
     * Increments the score of player based on tiles
     */
-    public void incScore{Game<-}(principal playerP,Player[Game, playerP , allPlayers] player, String{Game<-}tiles){
+    public void incScore{Game<-}(principal playerP,Player[Game, playerP , allPlayers]{Game<-} player, String{Game<-}tiles){
       atomic{
         for(int i =0; i< tiles.length(); i++){
           String{Game<-} tile = Character.toString(tiles.charAt(i));
           //int temp = Integer.parseInt(this.points.get(tiles[i]).toString());
-          Object{Game<-} temp = this.points.get(tile);
-          //player.score = player.score + temp;
+          Integer{Game<-} temp = (Integer)this.points.get(tile);
+          player.score = player.score + temp.intValue();
         }
       }
     }
-}
+  }

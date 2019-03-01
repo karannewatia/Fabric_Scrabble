@@ -6,6 +6,7 @@ import fabricated.util.StringComparator;
  */
 public class Rack[principal Game, principal Player]{
 
+
     public ArrayList[{Game->Player; Game<-}]{Game<-} tiles;
 
     public Rack{Game<-}(){
@@ -17,10 +18,12 @@ public class Rack[principal Game, principal Player]{
       }
     }
 
+
    /**
     * Initializes the rack with 7 random tiles
     */
     public void populateRackTile{Game<-}(Bag[Game]{Game<-} bag){
+
       atomic{
         for(int{Game<-} i=0; i < 7; i++){
           //String{Game->Player; Game<-} temp = declassify(bag.getTilePlayer(), {Game->;Game<-} to {Game->Player;Game<-});
@@ -30,6 +33,7 @@ public class Rack[principal Game, principal Player]{
         }
       }
     }
+
 
    /**
    * Replaces the input tile with a random tile drawn from Bag
@@ -43,6 +47,7 @@ public class Rack[principal Game, principal Player]{
           this.tiles.add(newTile);
         }
       }
+
     }
 
     /**

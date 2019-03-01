@@ -10,11 +10,11 @@ public class Player[principal Game, principal Player, principal allPlayers] {
      * information contained in the board is readable only by P
      */
     public Rack[Game, Player]{Game<-} rack;
-    //public final RemoteWorker w;
+    public final RemoteWorker w;
     public int{Game<-} score;
 
-    public Player{Game<-}(){ //RemoteWorker w
-      //this.w = w;
+    public Player{Game<-}(RemoteWorker{} w){ //RemoteWorker w
+      this.w = w;
       this.rack = new Rack{Game<-}();
       this.score = 0;
     }
@@ -22,6 +22,7 @@ public class Player[principal Game, principal Player, principal allPlayers] {
     /**
      * Returns this player's rack as a string (useful for printing)
      */
+
      public String{Game->Player; Game<-} getRack{Game<-}() {
        atomic{
         ArrayList[{Game->Player; Game<-}] tiles = this.rack.tiles;
@@ -33,5 +34,6 @@ public class Player[principal Game, principal Player, principal allPlayers] {
         return rack;
        }
      }
+
 
 }
