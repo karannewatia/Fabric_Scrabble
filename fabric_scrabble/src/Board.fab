@@ -10,28 +10,34 @@ import fabricated.util.HashMap;
  */
 public class Board[principal Game, principal allPlayers] {
 
-    public ArrayList[{Game<-}][]{Game<-} gameBoard;
+    public ArrayList[{Game<-}]{Game<-}[]{Game<-} gameBoard;
     public int{Game<-} moveNumber;
     public HashMap[{Game<-}]{Game<-} points;
 
     public Board{Game<-}() {
 
       this.moveNumber = 0;
-      //this.gameBoard  = new ArrayList{Game<-}(new StringComparator())[15];
-      this.gameBoard  = new String[15];
-      this.points = new HashMap{Game<-}(new StringComparator(), new IdComparator());
+      //this.gameBoard  = new ArrayList{Game<-}(new StringComparator())[];
 
-      for (int i=0; i<15; i++) {
-         	this.gameBoard[i] = new ArrayList{Game<-}(new StringComparator());
-      }
+      //try{
+      //this.points = new HashMap{Game<-}(new StringComparator(), new IdComparator());
+      //}
+      //catch (IllegalArgumentException exc){}
 
-      for (int i=0; i<15; i++) {
-          for (int j=0; j<15; j++) {
-              (this.gameBoard[i]).add(" ");
-        }
-      }
+      //for (int i=0; i<15; i++) {
+      //    try{
+      //   	this.gameBoard[i] = new ArrayList{Game<-}(new StringComparator());
+      //    }
+      //    catch (IllegalArgumentException exc){}
+      //}
 
-      this.setPoints();
+      //for (int i=0; i<15; i++) {
+      //    for (int j=0; j<15; j++) {
+      //        (this.gameBoard[i]).add(" ");
+      //  }
+      //}
+
+      //this.setPoints();
 
     }
 
@@ -82,9 +88,13 @@ public class Board[principal Game, principal allPlayers] {
     * Returns true if word is present in the Scrabble dictionary,
     * and false otherwise
     */
-    private boolean validateWord{Game<-}(String word){
-      ArrayList temp = new ArrayList(new StringComparator());
+    private boolean validateWord(String word){
+    try{
+      ArrayList[{Game<-}]{Game<-} temp = new ArrayList{Game<-}(new StringComparator());
       temp.add(word);
+      }
+    catch (IllegalArgumentException exc){}
+
       //return Trie.createDict(temp);
       return true;
     }
@@ -92,12 +102,14 @@ public class Board[principal Game, principal allPlayers] {
     /**
     * Returns the tile present in the row, column pair input on the board
     */
-    public String{Game<-} getTileOnBoard{Game<-}(int row, int col) {
-      if (row<=0) row = 0;
-      if (col<=0) col = 0;
-      if (row>=14) row = 14;
-      if (row>=14) col = 14;
-      String{Game<-} tile = (String) (this.gameBoard[row]).get(col);
+    public String{Game<-} getTileOnBoard{Game<-}(int{Game<-} row, int{Game<-} col) {
+      int newRow = row;
+      int newCol = col;
+      if (row<=0) newRow = 0;
+      if (col<=0) newCol = 0;
+      if (row>=14) newRow = 14;
+      if (row>=14) newCol = 14;
+      String{Game<-} tile = (String) (this.gameBoard[newRow]).get(newCol);
       return tile;
     }
 
@@ -105,8 +117,8 @@ public class Board[principal Game, principal allPlayers] {
     * Returns the letters on the board starting from the row, column pair given
     * in the given direction using letter
     */
-    private String{Game<-} constructWord{Game<-}(int row, int col, String{Game<-} letter, boolean direction) {
-        //StringBuilder newWord = new StringBuilder();
+    private String{Game<-} constructWord{Game<-}(int{Game<-} row, int{Game<-} col, String{Game<-} letter, boolean{Game<-} direction) {
+
         String{Game<-} newWord = "";
         int start;
         int end;
@@ -164,7 +176,7 @@ public class Board[principal Game, principal allPlayers] {
     * Returns the adjacent words on the board starting from the
     * given row, column pair in the given direction using word
     */
-    public ArrayList[{Game<-}]{Game<-} getAdjWords{Game<-}(String{Game<-} word, boolean dir, int row, int col) {
+    public ArrayList[{Game<-}]{Game<-} getAdjWords{Game<-}(String{Game<-} word, boolean{Game<-} dir, int{Game<-} row, int{Game<-} col) {
         ArrayList[{Game<-}]{Game<-} adjWords = new ArrayList(new StringComparator());
 
         if (dir) {
@@ -210,7 +222,7 @@ public class Board[principal Game, principal allPlayers] {
     /**
     * Helper function for hasTilesinRack
     */
-    private boolean tileHelper{Game<-}(String{Game<-} word, String{Game<-} rackCopy){
+    private boolean{Game<-} tileHelper{Game<-}(String{Game<-} word, String{Game<-} rackCopy){
       if (word.length() == 0 ) return true;
 
       if(rackCopy.indexOf(word.charAt(0)) !=-1){
@@ -233,7 +245,7 @@ public class Board[principal Game, principal allPlayers] {
     */
     private boolean hasTilesinRack{Game<-}(principal playerP,Player[Game, playerP , allPlayers] player, String{Game<-} word) {
 
-      String{Game<-} rackCopy = player.getRack();
+      String{Game->playerP; Game<-} rackCopy = player.getRack();
       if (rackCopy.length() < word.length() ) return false;
       return tileHelper(word, rackCopy);
     }
@@ -241,18 +253,18 @@ public class Board[principal Game, principal allPlayers] {
     /**
     * Helper function for swapTiles
     */
-    private String swapHelper(String word, String rackCopy){
+    private String{Game<-} swapHelper{Game<-}(String{Game<-} word, String{Game<-} rackCopy){
       if (word.length() == 0 ) return "";
 
       if(rackCopy.indexOf(word.charAt(0)) !=-1){
         int idx = rackCopy.indexOf(word.charAt(0));
-        String newRack = rackCopy.substring(0, idx) + rackCopy.substring(idx + 1);
-        String newWord = word.substring(1);
+        String{Game<-} newRack = rackCopy.substring(0, idx) + rackCopy.substring(idx + 1);
+        String{Game<-} newWord = word.substring(1);
         return (word.charAt(0)) + swapHelper(newWord, newRack);
       }
       else if (rackCopy.indexOf("*") !=-1){
-        String newRack = rackCopy.substring(0, rackCopy.indexOf("*")) + rackCopy.substring(rackCopy.indexOf("*") + 1);
-        String newWord = word.substring(1);
+        String{Game<-} newRack = rackCopy.substring(0, rackCopy.indexOf("*")) + rackCopy.substring(rackCopy.indexOf("*") + 1);
+        String{Game<-} newWord = word.substring(1);
         return "*" + swapHelper(newWord, newRack);
       }
       else return "";
@@ -261,9 +273,9 @@ public class Board[principal Game, principal allPlayers] {
     /**
     * Returns the tiles that must be swapped after placing word
     */
-    public String swapTiles(principal playerP,Player[Game, playerP , allPlayers] player, String word) {
+    public String{Game<-} swapTiles{Game<-}(principal playerP,Player[Game, playerP , allPlayers] player, String word) {
 
-      String rackCopy = player.getRack();
+      String{Game->playerP; Game<-} rackCopy = player.getRack();
       if (rackCopy.length() < word.length() ) return "";
       return swapHelper(word, rackCopy);
     }
@@ -272,11 +284,11 @@ public class Board[principal Game, principal allPlayers] {
     * Returns true if the given inputs form a valid placeWord move on the board,
     * and false otherwise
     */
-    public boolean isMoveValid(principal playerP,Player[Game, playerP , allPlayers] player, String word, String newEntries, boolean dir, int row, int col) {
+    public boolean{Game<-} isMoveValid{Game<-}(principal playerP,Player[Game, playerP , allPlayers] player, String{Game<-} word, String{Game<-} newEntries, boolean dir, int row, int col) {
 
-        String rackCopy = player.getRack();
+        String{Game<-} rackCopy = player.getRack();
 
-        if (!hasTilesinRack(player, newEntries)){
+        if (!hasTilesinRack(playerP, player, newEntries)){
           //System.out.println("isMoveValid err: : Letters not in rack. Invalid move!");
           return false;
         }
@@ -349,7 +361,7 @@ public class Board[principal Game, principal allPlayers] {
     /**
     * Returns the tiles in word that are not already present on the board
     */
-    public String getNewEntries(String word, boolean isHorizontal, int row, int col) {
+    public String{Game<-} getNewEntries{Game<-}(String{Game<-} word, boolean isHorizontal, int row, int col) {
       ArrayList newTiles = new ArrayList(new StringComparator());
       if (isHorizontal){
         for(int i=0; i< word.length(); i++){
@@ -380,7 +392,7 @@ public class Board[principal Game, principal allPlayers] {
         }
       }
 
-      String result = "";
+      String{Game<-} result = "";
       for(int i =0; i< newTiles.size();i++){
         result += (String) newTiles.get(i);
       }
@@ -391,18 +403,17 @@ public class Board[principal Game, principal allPlayers] {
     /**
     * Places word on the board using the given inputs
     */
-    public void placeWord(principal playerP,Player[Game, playerP , allPlayers] player, String word, boolean isHorizontal, int row, int col){
-
+    public void placeWord{Game<-}(principal playerP,Player[Game, playerP , allPlayers] player, String word, boolean isHorizontal, int row, int col){
          atomic{
          if (isHorizontal){
            for (int i =0; i< word.length(); i++){
-             String temp = Character.toString(word.charAt(i));
+             String{Game<-} temp = Character.toString(word.charAt(i));
              (this.gameBoard[row]).set(col+i, temp);
            }
          }
          else{
            for (int j =0; j< word.length(); j++){
-             String temp = Character.toString(word.charAt(j));
+             String{Game<-} temp = Character.toString(word.charAt(j));
              (this.gameBoard[row + j]).set(col, temp);
            }
          }
@@ -412,11 +423,12 @@ public class Board[principal Game, principal allPlayers] {
     /**
     * Increments the score of player based on tiles
     */
-    public void incScore(principal playerP,Player[Game, playerP , allPlayers] player, String[] tiles){
+    public void incScore{Game<-}(principal playerP,Player[Game, playerP , allPlayers] player, String{Game<-}[] tiles){
       atomic{
         for(int i =0; i< tiles.length; i++){
-          int temp = Integer.parseInt(this.points.get(tiles[i]).toString());
-          player.score = player.score + temp;
+          //int temp = Integer.parseInt(this.points.get(tiles[i]).toString());
+          Object{Game<-} temp = this.points.get(tiles[i]);
+          //player.score = player.score + temp;
         }
       }
     }
