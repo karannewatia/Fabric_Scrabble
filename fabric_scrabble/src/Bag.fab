@@ -5,7 +5,9 @@ import fabricated.util.StringComparator;
 /**
  * This class represents the bag in the Scrabble game.
  */
-public class Bag[principal Game] {
+// This is a class that can act with the Game server's authority.  Any code
+// constructing a Bag must also be acting with the Game server's authority.
+public class Bag[principal Game] authority(Game) {
 
     public ArrayList[{Game->; Game<-}]{Game->; Game<-} tiles;
 
@@ -42,7 +44,7 @@ public class Bag[principal Game] {
     * Returns a random tile from Bag,
     * and removes this tile from Bag
     */
-    public String{Game<-; Game->} getTile{Game<-}(){
+    public String{Game<-; Game->} getTile{Game<-}() {
 
       atomic{
         //Random rand = new Random();
@@ -50,24 +52,32 @@ public class Bag[principal Game] {
         int rand_value = this.tiles.size()-1;
         String{Game<-; Game->}  tile =  (String) this.tiles.get(rand_value);
 
-        this.tiles.remove(rand_value);
+        try {
+          this.tiles.remove(rand_value);
+          // Change the below to log an error or something to avoid making a bug
+          // go silently unnoticed
+        } catch (Exception e) { /*Shouldn't be possible*/ }
 
         return tile;
-        }
+      }
     }
 
-    public String{Game<-; Game->player} getTilePlayer{Game<-}(principal player){
+    public String{Game<-; Game->player} getTilePlayer{Game<-}(principal player)
+      // This should only be called by code that has the Game server's authority
+      where authority (Game) {
 
       atomic{
-        //Random rand = new Random();
-        //int rand_value = rand.nextInt(this.tiles.size());
-        //int rand_value = this.tiles.size()-1;
-        //String{Game<-; Game->}  tile =  (String) this.tiles.get(rand_value);
+        int rand_value = this.tiles.size()-1;
+        String{Game<-; Game->}  tile =  (String) this.tiles.get(rand_value);
 
-        //this.tiles.remove(rand_value);
+        try {
+          this.tiles.remove(rand_value);
+          // Change the below to log an error or something to avoid making a bug
+          // go silently unnoticed
+        } catch (Exception e) { /*Shouldn't be possible*/ }
 
-        return "";
-        }
+        return declassify(tile, {Game->; Game<-} to {Game->player; Game<-});
+      }
     }
 
     /**
@@ -75,14 +85,15 @@ public class Bag[principal Game] {
     * removes this tile from Bag,
     * and adds the input tile to the Bag
     */
-    public String{Game<-; Game->player} swapTile{Game<-; Game->}(String {Game<-; Game->player} tile, principal player){
+    public String{Game<-; Game->player} swapTile{Game<-}(String {Game<-; Game->player} tile, principal player){
       atomic{
-        //String{Game<-; Game->} newTile = this.getTile();
-        //String{Game<-; Game->player} declassified = declassify(this.getTile(), {Game->;Game<-} to {Game->player;Game<-});
-        //this.tiles.add(tile);
-
-        //return declassified;
-        return "";
+        String{Game<-; Game->player} newTile = getTilePlayer(player);
+        try {
+          this.tiles.add(tile);
+          // Change the below to log an error or something to avoid making a bug
+          // go silently unnoticed
+        } catch (Exception e) { /*Shouldn't be possible*/ }
+        return newTile;
       }
     }
 
