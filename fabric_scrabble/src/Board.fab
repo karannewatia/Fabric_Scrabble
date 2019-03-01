@@ -139,8 +139,6 @@ public class Board[principal Game, principal allPlayers] {
             end = col+j-1;
 
             for (int newCol=start; newCol<=end;  newCol++) {
-                //if (newCol == col) { newWord.append(letter); }
-                //else {  newWord.append(this.getTileOnBoard(row, newCol));  }
                 if (newCol == col) { newWord += newWord + letter; }
                 else {  newWord += (this.getTileOnBoard(row, newCol));  }
             }
@@ -161,13 +159,10 @@ public class Board[principal Game, principal allPlayers] {
             end = row+i-1;
 
             for (int newRow = start; newRow <= end; newRow++) {
-                //if (newRow == row) {    newWord.append(letter);                  }
-                //else {  newWord.append(this.getTileOnBoard(newRow, col));  }
                 if (newRow == row) {  newWord += newWord + letter;}
                 else {   newWord += (this.getTileOnBoard(newRow, col));}
             }
 
-            //return newWord.toString().trim();
             return newWord;
         }
     }
@@ -420,11 +415,12 @@ public class Board[principal Game, principal allPlayers] {
     /**
     * Increments the score of player based on tiles
     */
-    public void incScore{Game<-}(principal playerP,Player[Game, playerP , allPlayers] player, String{Game<-}[] tiles){
+    public void incScore{Game<-}(principal playerP,Player[Game, playerP , allPlayers] player, String{Game<-}tiles){
       atomic{
-        for(int i =0; i< tiles.length; i++){
+        for(int i =0; i< tiles.length(); i++){
+          String{Game<-} tile = Character.toString(tiles.charAt(i));
           //int temp = Integer.parseInt(this.points.get(tiles[i]).toString());
-          Object{Game<-} temp = this.points.get(tiles[i]);
+          Object{Game<-} temp = this.points.get(tile);
           //player.score = player.score + temp;
         }
       }
