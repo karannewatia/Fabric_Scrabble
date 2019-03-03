@@ -17,8 +17,6 @@ public class Board[principal Game, principal allPlayers] {
     public Board{Game<-}() {
 
       this.moveNumber = 0;
-      //this.gameBoard  = new ArrayList[{Game<-}]{Game<-}(new StringComparator());
-
       this.gameBoard  = new ArrayList[{Game<-}][15];
 
       try{

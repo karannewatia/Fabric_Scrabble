@@ -25,7 +25,7 @@ public class Rack[principal Game, principal Player]{
     public void populateRackTile{Game<-}(Bag[Game]{Game<-} bag){
 
       atomic{
-        for(int{Game<-} i=0; i < 7; i++){
+        for(int i=0; i < 7; i++){
           //String{Game->Player; Game<-} temp = declassify(bag.getTilePlayer(), {Game->;Game<-} to {Game->Player;Game<-});
 
           //tiles.add(temp);
