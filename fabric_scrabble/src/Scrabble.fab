@@ -44,7 +44,7 @@ public class Scrabble[principal Game, principal allPlayers] {
   */
   public boolean emptyRack{Game<-} (){
      for (int i=0; i<this.players.size(); i++){
-        if(((Player)this.players.get(i)).rack.tiles.size()==0) return true;
+        if(((Player)this.players.get(i)).rack.tiles.length==0) return true;
      }
      return false;
   }

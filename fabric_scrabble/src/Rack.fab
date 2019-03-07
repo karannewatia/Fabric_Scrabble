@@ -6,7 +6,7 @@ import fabricated.util.StringComparator;
  */
 public class Rack[principal Game, principal Player] authority(Game){
 
-    private String{Game->Player; Game<-}[]{Game<-} tiles;
+    public String{Game->Player; Game<-}[]{Game<-} tiles;
 
     public Rack{Game<-}(){
       this.tiles = new String[7];
