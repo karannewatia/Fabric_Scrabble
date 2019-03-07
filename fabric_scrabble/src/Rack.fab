@@ -7,11 +7,11 @@ import fabricated.util.StringComparator;
 public class Rack[principal Game, principal Player]{
 
 
-    public ArrayList[{Game->Player; Game<-}]{Game<-} tiles;
+    public CustomArrayList[{Game<-}, {Game->Player; Game<-}]{Game<-} tiles;
 
     public Rack{Game<-}(){
       try{
-        this.tiles = new ArrayList{Game<-}(new StringComparator());
+        this.tiles = new CustomArrayList{Game<-}(new StringComparator());
         }
       catch (IllegalArgumentException exc){
 
