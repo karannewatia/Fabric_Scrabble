@@ -6,19 +6,10 @@ import fabricated.util.StringComparator;
  */
 public class Rack[principal Game, principal Player] authority(Game){
 
-
-    public ArrayList[{Game->Player; Game<-}]{Game<-} tiles;
-    //private String{Game<-} tiles;
-
+    private String{Game->Player; Game<-}[]{Game<-} tiles;
 
     public Rack{Game<-}(){
-      try{
-        this.tiles = new ArrayList{Game<-}(new StringComparator());
-        }
-      catch (IllegalArgumentException exc){
-      //this.tiles = ""
-
-      }
+      this.tiles = new String[7];
     }
 
 
@@ -33,7 +24,8 @@ public class Rack[principal Game, principal Player] authority(Game){
         for(int i=0; i < 7; i++){
           try {
             String{Game->Player; Game<-} temp = declassify(bag.getTilePlayer(Player), {Game->;Game<-} to {Game->Player;Game<-});
-            tiles.add(temp);
+            //tiles.add(temp);
+            this.tiles[i] = temp;
             // Change the below to log an error or something to avoid making a bug
             // go silently unnoticed
           } catch (Exception e) { /*Shouldn't be possible*/ }
@@ -50,18 +42,21 @@ public class Rack[principal Game, principal Player] authority(Game){
     // This should only be called by code that has the Game server's authority
     where authority (Game) {
       atomic{
-        if(this.tiles.indexOf(tile) != -1 ){
+         int idx = -1;
+         for (int i = 0; i < this.tiles.length; i++) {
+          if ((this.tiles[i]).equals(tile)) {
+             idx = i;
+           }
+          }
           try {
-            String{Game->Player; Game<-} newTile = bag.swapTile(tile, Player);
-            this.tiles.remove(this.tiles.indexOf(tile));
-            this.tiles.add(newTile);
-            // Change the below to log an error or something to avoid making a bug
-            // go silently unnoticed
-          } catch (Exception e) { /*Shouldn't be possible*/ }
-
-        }
+            if (idx != -1) {
+              String{Game->Player; Game<-} newTile = bag.swapTile(tile, Player);
+              this.tiles[idx] = newTile;
+              // Change the below to log an error or something to avoid making a bug
+              // go silently unnoticed
+            }
+        } catch (Exception e) { /*Shouldn't be possible*/ }
       }
-
     }
 
     /**

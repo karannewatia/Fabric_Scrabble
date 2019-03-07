@@ -45,7 +45,6 @@ public class Bag[principal Game] authority(Game) {
     * and removes this tile from Bag
     */
     public String{Game<-; Game->} getTile{Game<-}() {
-
       atomic{
         //Random rand = new Random();
         //int rand_value = rand.nextInt(this.tiles.size());
