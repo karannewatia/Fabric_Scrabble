@@ -1,6 +1,6 @@
 package fabricated.util;
 
-public class customArrayList[label L1, label L2] extends AbstractList[L1] implements List[L1], RandomAccess
+public class customArrayList[label L1, label L2] extends AbstractList[L2] implements List[L2], RandomAccess
 {
   /**
    * The default capacity for new ArrayLists.
@@ -11,19 +11,20 @@ public class customArrayList[label L1, label L2] extends AbstractList[L1] implem
    * The number of elements in this list.
    * @serial the list size
    */
-  private int{L1} size;
+  private int{L2} size;
 
   /**
    * Where the data is stored.
    */
   private final Object{L2}[]{L1} data;
+
   /**
    * Construct a new ArrayList with the supplied initial capacity.
    *
    * @param capacity initial capacity of this ArrayList
    * @throws IllegalArgumentException if capacity is negative
    */
-  public customArrayList{L1}(Comparator[L2]{L2} compare, int{L1} capacity) throws (IllegalArgumentException)
+  public customArrayList{L2}(Comparator[L2]{L2} compare, int{L2} capacity) throws (IllegalArgumentException{L2})
   {
     // Must explicitly check, to get correct exception.
     if (capacity < 0)
@@ -35,39 +36,9 @@ public class customArrayList[label L1, label L2] extends AbstractList[L1] implem
   /**
  * Construct a new ArrayList with the default capacity (16).
  */
-  public customArrayList{L1}(Comparator[L2]{L2} compare) throws (IllegalArgumentException)
+  public customArrayList{L2}(Comparator[L2]{L2} compare) throws (IllegalArgumentException{L2})
   {
     this(compare,DEFAULT_CAPACITY);
-  }
-
-  /**
-   * Construct a new ArrayList, and initialize it with the elements
-   * in the supplied Collection. The initial capacity is 110% of the
-   * Collection's size.
-   *
-   * @param c the collection whose elements will initialize this list
-   * @throws NullPointerException if c is null
-   */
-  public customArrayList{L1}(Comparator[L2]{L2} compare, Collection[L1]{L1} c)
-      throws (IllegalArgumentException{L1}, ClassCastException{L1}, NullPointerException{L1})
-  {
-    this(compare,(int) (c.size() * 1.1f));
-    try {
-      addAll(c);
-    } catch (UnsupportedOperationException{L1} uoe) {
-    } catch (IllegalStateException{L1} ise) {
-    }
-  }
-
-  /**
-   * Trims the capacity of this List to be equal to its size;
-   * a memory saver.
-   */
-  public void trimToSize{L1}()
-  {
-    // Not a structural change from the perspective of iterators on this list,
-    // so don't update modCount.
-    data.length = size;
   }
 
   /**
@@ -80,9 +51,9 @@ public class customArrayList[label L1, label L2] extends AbstractList[L1] implem
    *
    * @param minCapacity the minimum guaranteed capacity
    */
-  public void ensureCapacity{L1}(int{L1} minCapacity)
+  public void ensureCapacity{L2}(int{L2} minCapacity)
   {
-    int current = data.length;
+    int{L2} current = data.length;
     if (minCapacity > current)
       data.length = (current * 2 > minCapacity) ? (current * 2) : minCapacity;
   }
@@ -92,7 +63,7 @@ public class customArrayList[label L1, label L2] extends AbstractList[L1] implem
    *
    * @return the list size
    */
-  public int{L1} size()
+  public int{L2} size()
   {
     return size;
   }
@@ -102,35 +73,9 @@ public class customArrayList[label L1, label L2] extends AbstractList[L1] implem
    *
    * @return true if there are no elements
    */
-  public boolean{L1} isEmpty()
+  public boolean{L2} isEmpty()
   {
     return size == 0;
-  }
-
-  /**
- * Returns true iff element is in this ArrayList.
- *
- * @param e the element whose inclusion in the List is being tested
- * @return true if the list contains e
- */
-  public boolean{L1} contains{L1}(Object{L2} e) throws (ClassCastException{L1}, NullPointerException{L1})
-  {
-    return indexOf(e) != -1;
-  }
-
-  /**
-   * Returns the lowest index at which element appears in this List, or
-   * -1 if it does not appear.
-   *
-   * @param e the element whose inclusion in the List is being tested
-   * @return the index where e was found
-   */
-  public int{L1} indexOf{L1}(Object{L2} e) throws (ClassCastException{L1}, NullPointerException{L1})
-  {
-    for (int i = 0; i < size; i++)
-      if (compare.equals(e, data[i]))
-        return i;
-    return -1;
   }
 
   /**
@@ -139,7 +84,7 @@ public class customArrayList[label L1, label L2] extends AbstractList[L1] implem
    * @param index the index of the element we are fetching
    * @throws IndexOutOfBoundsException if index &lt; 0 || index &gt;= size()
    */
-  public Object{L2} get{L1}(int{L1} index) throws (IndexOutOfBoundsException{L1})
+  public Object{L2} get{L2}(int{L2} index) throws (IndexOutOfBoundsException{L2})
   {
     checkBoundExclusive(index);
     return data[index];
@@ -152,8 +97,8 @@ public class customArrayList[label L1, label L2] extends AbstractList[L1] implem
   * @param e the element to be appended to this list
   * @return true, the add will always succeed
   */
- public boolean{L1} add{L1}(Object{L2} e) throws (UnsupportedOperationException{L1},
-     ClassCastException{L1}, NullPointerException{L1}, IllegalArgumentException{L1})
+ public boolean{L2} add{L2}(Object{L2} e) throws (UnsupportedOperationException{L2},
+     ClassCastException{L2}, NullPointerException{L2}, IllegalArgumentException{L2})
  {
    modCount++;
    if (size == data.length)
@@ -169,8 +114,8 @@ public class customArrayList[label L1, label L2] extends AbstractList[L1] implem
    * @return the removed Object
    * @throws IndexOutOfBoundsException if index &lt; 0 || index &gt;= size()
    */
-  public Object{L2} remove{L1}(int{L1} index) throws (UnsupportedOperationException{L1},
-      IndexOutOfBoundsException{L1})
+  public Object{L2} remove{L2}(int{L2} index) throws (UnsupportedOperationException{L2},
+      IndexOutOfBoundsException{L2})
   {
     checkBoundExclusive(index);
     Object r = data[index];
@@ -183,28 +128,12 @@ public class customArrayList[label L1, label L2] extends AbstractList[L1] implem
   }
 
   /**
-   * Checks that the index is in the range of possible elements (inclusive).
-   *
-   * @param index the index to check
-   * @throws IndexOutOfBoundsException if index &gt; size
-   */
-  private void checkBoundInclusive{L1}(int{L1} index) throws (IndexOutOfBoundsException{L1})
-  {
-    // Implementation note: we do not check for negative ranges here, since
-    // use of a negative index will cause an ArrayIndexOutOfBoundsException,
-    // a subclass of the required exception, with no effort on our part.
-    if (index > size)
-      throw new IndexOutOfBoundsException("Index: " + index + ", Size: "
-                                          + size);
-  }
-
-  /**
    * Checks that the index is in the range of existing elements (exclusive).
    *
    * @param index the index to check
    * @throws IndexOutOfBoundsException if index &gt;= size
    */
-  private void checkBoundExclusive{L1}(int{L1} index) throws (IndexOutOfBoundsException{L1})
+  private void checkBoundExclusive{L2}(int{L2} index) throws (IndexOutOfBoundsException{L2})
   {
     // Implementation note: we do not check for negative ranges here, since
     // use of a negative index will cause an ArrayIndexOutOfBoundsException,

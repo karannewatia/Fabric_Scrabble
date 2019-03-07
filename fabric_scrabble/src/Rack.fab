@@ -4,16 +4,19 @@ import fabricated.util.StringComparator;
 /**
  * This class represents a player's rack in the Scrabble game.
  */
-public class Rack[principal Game, principal Player]{
+public class Rack[principal Game, principal Player] authority(Game){
 
 
-    public CustomArrayList[{Game<-}, {Game->Player; Game<-}]{Game<-} tiles;
+    public ArrayList[{Game->Player; Game<-}]{Game<-} tiles;
+    //private String{Game<-} tiles;
+
 
     public Rack{Game<-}(){
       try{
-        this.tiles = new CustomArrayList{Game<-}(new StringComparator());
+        this.tiles = new ArrayList{Game<-}(new StringComparator());
         }
       catch (IllegalArgumentException exc){
+      //this.tiles = ""
 
       }
     }
@@ -22,14 +25,19 @@ public class Rack[principal Game, principal Player]{
    /**
     * Initializes the rack with 7 random tiles
     */
-    public void populateRackTile{Game<-}(Bag[Game]{Game<-} bag){
+    public void populateRackTile{Game<-}(Bag[Game]{Game<-} bag)
+    // This should only be called by code that has the Game server's authority
+    where authority (Game) {
 
       atomic{
         for(int i=0; i < 7; i++){
-          //String{Game->Player; Game<-} temp = declassify(bag.getTilePlayer(), {Game->;Game<-} to {Game->Player;Game<-});
+          try {
+            String{Game->Player; Game<-} temp = declassify(bag.getTilePlayer(Player), {Game->;Game<-} to {Game->Player;Game<-});
+            tiles.add(temp);
+            // Change the below to log an error or something to avoid making a bug
+            // go silently unnoticed
+          } catch (Exception e) { /*Shouldn't be possible*/ }
 
-          //tiles.add(temp);
-          tiles.add(bag.getTilePlayer(Player));
         }
       }
     }
@@ -38,13 +46,19 @@ public class Rack[principal Game, principal Player]{
    /**
    * Replaces the input tile with a random tile drawn from Bag
    */
-    private void swapTile{Game<-}(String{Game<-; Game->Player} tile, Bag[Game]{Game<-} bag){
+    private void swapTile{Game<-}(String{Game<-; Game->Player} tile, Bag[Game]{Game<-} bag)
+    // This should only be called by code that has the Game server's authority
+    where authority (Game) {
       atomic{
         if(this.tiles.indexOf(tile) != -1 ){
-          String{Game->Player; Game<-} newTile = bag.swapTile(tile, Player);
+          try {
+            String{Game->Player; Game<-} newTile = bag.swapTile(tile, Player);
+            this.tiles.remove(this.tiles.indexOf(tile));
+            this.tiles.add(newTile);
+            // Change the below to log an error or something to avoid making a bug
+            // go silently unnoticed
+          } catch (Exception e) { /*Shouldn't be possible*/ }
 
-          this.tiles.remove(this.tiles.indexOf(tile));
-          this.tiles.add(newTile);
         }
       }
 
@@ -53,7 +67,9 @@ public class Rack[principal Game, principal Player]{
     /**
     * Replaces all tiles in tileList with random tiles drawn from Bag
     */
-    public void swapTiles{Game<-}(String[]{Game<-; Game->Player} tileList, Bag[Game]{Game<-} bag){
+    public void swapTiles{Game<-}(String[]{Game<-; Game->Player} tileList, Bag[Game]{Game<-} bag)
+    // This should only be called by code that has the Game server's authority
+    where authority (Game) {
       atomic{
         for(int i=0; i < 7; i++){
          this.swapTile(tileList[i], bag);

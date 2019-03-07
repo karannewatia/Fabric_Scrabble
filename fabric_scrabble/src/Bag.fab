@@ -56,7 +56,7 @@ public class Bag[principal Game] authority(Game) {
           this.tiles.remove(rand_value);
           // Change the below to log an error or something to avoid making a bug
           // go silently unnoticed
-        } catch (Exception e) { /*Shouldn't be possible*/ }
+        } catch (Exception e) { }
 
         return tile;
       }
@@ -74,7 +74,9 @@ public class Bag[principal Game] authority(Game) {
           this.tiles.remove(rand_value);
           // Change the below to log an error or something to avoid making a bug
           // go silently unnoticed
-        } catch (Exception e) { /*Shouldn't be possible*/ }
+        } catch (Exception e) {
+         // do something
+        }
 
         return declassify(tile, {Game->; Game<-} to {Game->player; Game<-});
       }
@@ -85,14 +87,18 @@ public class Bag[principal Game] authority(Game) {
     * removes this tile from Bag,
     * and adds the input tile to the Bag
     */
-    public String{Game<-; Game->player} swapTile{Game<-}(String {Game<-; Game->player} tile, principal player){
+    public String{Game<-; Game->player} swapTile{Game<-}(String {Game<-; Game->player} tile, principal player)
+    // This should only be called by code that has the Game server's authority
+    where authority (Game) {
       atomic{
         String{Game<-; Game->player} newTile = getTilePlayer(player);
         try {
           this.tiles.add(tile);
           // Change the below to log an error or something to avoid making a bug
           // go silently unnoticed
-        } catch (Exception e) { /*Shouldn't be possible*/ }
+        } catch (Exception e) {
+         // do something
+        }
         return newTile;
       }
     }
