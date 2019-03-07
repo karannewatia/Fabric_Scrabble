@@ -48,14 +48,15 @@ public class Rack[principal Game, principal Player] authority(Game){
              idx = i;
            }
           }
-          try {
-            if (idx != -1) {
-              String{Game->Player; Game<-} newTile = bag.swapTile(tile, Player);
-              this.tiles[idx] = newTile;
+          if (idx != -1) {
+          //try {
+              idx = idx;
+              //String{Game->Player; Game<-} newTile = bag.swapTile(tile, Player);
+              //this.tiles[idx] = newTile;
               // Change the below to log an error or something to avoid making a bug
               // go silently unnoticed
-            }
-        } catch (Exception e) { /*Shouldn't be possible*/ }
+            //} catch (Exception e) { /*Shouldn't be possible*/ }
+        }
       }
     }
 
