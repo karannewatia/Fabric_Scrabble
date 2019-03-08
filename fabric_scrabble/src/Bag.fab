@@ -40,7 +40,7 @@ public class Bag[principal Game] authority(Game) {
        }
     }
 
-    public String{Game<-; Game->player} getTilePlayer{Game<-}(principal player)
+    public String{Game<-; Game->player} getTilePlayer{Game<-; Game->player}(principal player)
       // This should only be called by code that has the Game server's authority
       where authority (Game) {
 
@@ -65,7 +65,7 @@ public class Bag[principal Game] authority(Game) {
     * removes this tile from Bag,
     * and adds the input tile to the Bag
     */
-    public String{Game<-; Game->player} swapTile{Game<-}(String {Game<-; Game->player} tile, principal player)
+    public String{Game<-; Game->player} swapTile{Game<-; Game->player}(String {Game<-; Game->player} tile, principal player)
     // This should only be called by code that has the Game server's authority
     where authority (Game) {
       atomic{
