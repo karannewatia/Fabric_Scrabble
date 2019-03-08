@@ -10,11 +10,11 @@ public class Player[principal Game, principal Player, principal allPlayers] {
      * information contained in the board is readable only by P
      */
     public Rack[Game, Player]{Game<-} rack;
-    public final RemoteWorker w;
+    public RemoteWorker w;
     public int{Game<-} score;
 
-    public Player{Game<-}(RemoteWorker{} w){ //RemoteWorker w
-      this.w = w;
+    public Player{Game<-}(RemoteWorker{} worker){ //RemoteWorker w
+      this.w = worker;
       this.rack = new Rack{Game<-}();
       this.score = 0;
     }

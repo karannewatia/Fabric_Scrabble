@@ -40,44 +40,23 @@ public class Bag[principal Game] authority(Game) {
        }
     }
 
-    /**
-    * Returns a random tile from Bag,
-    * and removes this tile from Bag
-    */
-    public String{Game<-; Game->} getTile{Game<-}() {
-      atomic{
-        //Random rand = new Random();
-        //int rand_value = rand.nextInt(this.tiles.size());
-        int rand_value = this.tiles.size()-1;
-        String{Game<-; Game->}  tile =  (String) this.tiles.get(rand_value);
-
-        try {
-          this.tiles.remove(rand_value);
-          // Change the below to log an error or something to avoid making a bug
-          // go silently unnoticed
-        } catch (Exception e) { }
-
-        return tile;
-      }
-    }
-
     public String{Game<-; Game->player} getTilePlayer{Game<-}(principal player)
       // This should only be called by code that has the Game server's authority
       where authority (Game) {
 
       atomic{
         int rand_value = this.tiles.size()-1;
-        String{Game<-; Game->}  tile =  (String) this.tiles.get(rand_value);
-
-        try {
-          this.tiles.remove(rand_value);
-          // Change the below to log an error or something to avoid making a bug
-          // go silently unnoticed
-        } catch (Exception e) {
-         // do something
+        if (rand_value < 0){
+          throw new Error("bag is empty");
         }
-
+        String{Game<-; Game->}  tile =  (String) this.tiles.get(rand_value);
+        try{
+         this.tiles.remove(rand_value);
+        } catch (Exception e) {
+          //print
+        }
         return declassify(tile, {Game->; Game<-} to {Game->player; Game<-});
+
       }
     }
 
@@ -96,7 +75,7 @@ public class Bag[principal Game] authority(Game) {
           // Change the below to log an error or something to avoid making a bug
           // go silently unnoticed
         } catch (Exception e) {
-         // do something
+          //print
         }
         return newTile;
       }

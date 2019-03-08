@@ -6,13 +6,13 @@ public class Trie[principal Game, principal allPlayers] {
 
     // Alphabet size (# of symbols)
     final int ALPHABET_SIZE = 26;
-    TrieNode[Game, allPlayers]{Game->; Game<-} root = new TrieNode{Game->; Game<-}();
+    TrieNode[Game, allPlayers]{Game<-} root = new TrieNode{Game<-}();
 
     /** If not present, inserts key into trie
     * If the key is prefix of trie node,
     * just marks leaf node
     */
-    public void insert{Game->; Game<-}(String{Game->; Game<-} key)
+    public void insert{Game<-}(String{Game<-} key)
     {
         int level;
         int length = key.length();
@@ -34,7 +34,7 @@ public class Trie[principal Game, principal allPlayers] {
     }
 
     // Returns true if key presents in trie, else false
-    public boolean{Game->; Game<-} search{Game->; Game<-}(String{Game->; Game<-} key)
+    public boolean{Game->allPlayers; Game<-} search{Game<-}(String{Game<-} key)
     {
         int level;
         int length = key.length();
