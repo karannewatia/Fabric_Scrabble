@@ -43,7 +43,7 @@ public class Bag[principal Game] authority(Game) {
     public String{Game<-; Game->player} getTilePlayer{Game<-; Game->player}(principal player)
       // This should only be called by code that has the Game server's authority
       where authority (Game) {
-
+      String{Game<-; Game->player}  result = null;
       atomic{
         int rand_value = this.tiles.size()-1;
         if (rand_value < 0){
@@ -55,9 +55,9 @@ public class Bag[principal Game] authority(Game) {
         } catch (Exception e) {
           //print
         }
-        return declassify(tile, {Game->; Game<-} to {Game->player; Game<-});
-
+        result = declassify(tile, {Game->; Game<-} to {Game->player; Game<-});
       }
+      return result;
     }
 
     /**

@@ -36,15 +36,23 @@ public class Scrabble[principal Game, principal allPlayers] {
   * and false otherwise
   */
   public boolean{Game<-} emptyRack{Game<-} (){
-     for (int i=0; i<this.players.size(); i++){
-        String flag = "";
-        for (int j=0; j<7; j++){
-          flag += ((Player)this.players.get(i)).rack.tiles[j];
-          if (flag.equals("")){
-            return true;
-          }
+    /**
+     for (int{Game<-} i=0; i<this.players.size(); i++){
+        String{Game<-} flag = "";
+        String{Game<-} blank = "";
+        for (int{Game<-} j=0; j<7; j++){
+          try{
+            Player{Game<-} p = (Player)this.players.get(i);
+            flag = flag + p.rack.tiles[j];
+          }catch (Exception e){}
+
+
+        }
+        if (flag.equals(blank)){
+          return true;
         }
      }
+     */
      return false;
   }
 
@@ -52,15 +60,24 @@ public class Scrabble[principal Game, principal allPlayers] {
   /**
   * Returns the player who has the highest score,
   */
-  public int{Game<-} getWinner{Game<-}(){
-     int highScore = ((Player)this.players.get(0)).score;
+  public int{Game<-} getWinner{Game<-}() {
      int{Game<-} winner = 0;
+     Player{Game<-} p = (Player)this.players.get(0);
+     if (p != null){
+       int{Game<-} highScore = p.score;
 
-     for (int i=1; i<this.players.size(); i++){
-        if(((Player)this.players.get(i)).score > highScore){
-          highScore = ((Player)this.players.get(i)).score;
-          winner = i;
-        }
+       for (int{Game<-} i=1; i<this.players.size(); i++){
+          Object{Game<-} ob = this.players.get(i);
+
+          if (ob != null){
+            Player{Game<-} r = (Player)ob;
+            int{Game<-} score = r.score;
+            if(score > highScore){
+              highScore = score;
+              winner = i;
+            }
+          }
+       }
      }
      return winner;
   }

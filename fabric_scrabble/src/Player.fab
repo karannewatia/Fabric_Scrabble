@@ -3,7 +3,7 @@ import fabricated.util.ArrayList;
 /**
  * This class represents a player in the Scrabble game.
  */
-public class Player[principal Game, principal Player, principal allPlayers] {
+public class Player[principal Game, principal Player] {
     /**
      * This rack represents P's rack.
      * It's fine to make the reference to the rack public, as all the
@@ -11,7 +11,7 @@ public class Player[principal Game, principal Player, principal allPlayers] {
      */
     public Rack[Game, Player]{Game<-} rack;
     public RemoteWorker w;
-    public int{Game->Player; Game<-} score;
+    public int{Game<-} score;
 
     public Player{Game<-}(RemoteWorker{} worker){ //RemoteWorker w
       this.w = worker;
@@ -24,15 +24,16 @@ public class Player[principal Game, principal Player, principal allPlayers] {
      */
 
      public String{Game->Player; Game<-} getRack{Game<-}() {
+       String{Game->Player; Game<-} rack = "";
        atomic{
         String{Game->Player; Game<-}[]{Game<-} tiles = this.rack.tiles;
-        String{Game->Player; Game<-} rack = "";
         for(int i=0; i<tiles.length; i++){
            String{Game->Player; Game<-} tile = (String)tiles[i];
              rack += tile;
          }
-        return rack;
+
        }
+       return rack;
      }
 
 
