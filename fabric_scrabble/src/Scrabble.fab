@@ -7,12 +7,12 @@ import fabricated.util.StringComparator;
  */
 public class Scrabble[principal Game, principal allPlayers] {
 
-  private ArrayList[{}]{} players;
+  private ArrayList[{Game<-}]{Game<-} players;
   private Bag[Game]{Game<-} bag;
-  private int currentPlayer;
+  private int{Game<-} currentPlayer;
   private Board[Game, allPlayers]{Game<-} board;
 
-  public Scrabble{Game<-}(ArrayList[{}]{} playersList){
+  public Scrabble{Game<-}(ArrayList[{Game<-}]{Game<-} playersList){
     this.bag = new Bag{Game<-}();
     this.board = new Board{Game<-}();
     this.currentPlayer = 0;
@@ -35,10 +35,14 @@ public class Scrabble[principal Game, principal allPlayers] {
   * Returns true if any player has an empty rack,
   * and false otherwise
   */
-  public boolean{} emptyRack{Game<-} (){
+  public boolean{Game<-} emptyRack{Game<-} (){
      for (int i=0; i<this.players.size(); i++){
-        if(((Player)this.players.get(i)).rack.tiles.length==0){
-          return true;
+        String flag = "";
+        for (int j=0; j<7; j++){
+          flag += ((Player)this.players.get(i)).rack.tiles[j];
+          if (flag.equals("")){
+            return true;
+          }
         }
      }
      return false;
@@ -48,9 +52,9 @@ public class Scrabble[principal Game, principal allPlayers] {
   /**
   * Returns the player who has the highest score,
   */
-  public int{} getWinner{Game<-}(){
+  public int{Game<-} getWinner{Game<-}(){
      int highScore = ((Player)this.players.get(0)).score;
-     int winner = 0;
+     int{Game<-} winner = 0;
 
      for (int i=1; i<this.players.size(); i++){
         if(((Player)this.players.get(i)).score > highScore){
@@ -59,6 +63,38 @@ public class Scrabble[principal Game, principal allPlayers] {
         }
      }
      return winner;
+  }
+
+  /**
+  * Runs the Scrabble game
+  * the game ends when the number of moves played is equal to 50
+  */
+  public void gameLoop{Game<-}(){
+    atomic{
+      while(this.board.moveNumber < 50){
+         if (this.emptyRack()){
+            int{Game<-} winner = this.getWinner();
+            //System.out.println("The winner is player " + (winner) );
+            break;
+         }
+         else{
+           //this.print_helper();
+           boolean success = false;
+           RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
+           RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
+
+           while (!success){
+             // Remote call
+              int temp = (this.currentPlayer + 1) % this.players.size();
+              //this.readBoard_remote@w2(Worker.getWorker().getPrincipal(), temp);
+              //success = this.move_remote@w1(Worker.getWorker().getPrincipal());
+           }
+          this.currentPlayer = (this.currentPlayer + 1) % this.players.size();
+         }
+      }
+      int{Game<-} winner = this.getWinner();
+      //System.out.println("The winner is player " + (winner) );
+    }
   }
 
 }

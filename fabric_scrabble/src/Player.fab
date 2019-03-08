@@ -11,7 +11,7 @@ public class Player[principal Game, principal Player, principal allPlayers] {
      */
     public Rack[Game, Player]{Game<-} rack;
     public RemoteWorker w;
-    public int{Game<-} score;
+    public int{Game->Player; Game<-} score;
 
     public Player{Game<-}(RemoteWorker{} worker){ //RemoteWorker w
       this.w = worker;
