@@ -8,7 +8,8 @@ import fabricated.util.StringComparator;
 public class Scrabble[principal Game, principal allPlayers] {
 
   private ArrayList[{Game<-}]{Game<-} players;
-  private ArrayList[{Game<-}]{Game<-} playerLabels;
+  private final ArrayList[{Game<-}]{Game<-} playerLabels;
+
   private Bag[Game]{Game<-} bag;
   private int{Game<-} currentPlayer;
   private Board[Game, allPlayers]{Game<-} board;
@@ -38,13 +39,14 @@ public class Scrabble[principal Game, principal allPlayers] {
   * and false otherwise
   */
   public boolean{Game<-} emptyRack{Game<-} (){
-    /**
+
      for (int{Game<-} i=0; i<this.players.size(); i++){
         String{Game<-} flag = "";
         String{Game<-} blank = "";
         for (int{Game<-} j=0; j<7; j++){
           try{
-            Player{Game<-} p = (Player)this.players.get(i);
+            final principal pr =  (Principal)this.playerLabels.get(i);
+            Player{Game<-} p = (Player[Game, pr])this.players.get(i);
             flag = flag + p.rack.tiles[j];
           }catch (Exception e){}
 
@@ -54,7 +56,6 @@ public class Scrabble[principal Game, principal allPlayers] {
           return true;
         }
      }
-     */
      return false;
   }
 
@@ -62,17 +63,19 @@ public class Scrabble[principal Game, principal allPlayers] {
   /**
   * Returns the player who has the highest score,
   */
-  public int{Game<-} getWinner{Game<-}() {
-     int{Game<-} winner = 0;
-     Player{Game<-} p = (Player)this.players.get(0);
+  public int getWinner{Game<-}() {
+     int winner = 0;
+     final principal pr0 =  (Principal)this.playerLabels.get(0);
+     Player{Game<-} p = (Player[Game, pr0])this.players.get(0);
      if (p != null){
        int{Game<-} highScore = p.score;
 
-       for (int{Game<-} i=1; i<this.players.size(); i++){
+       for (int i=1; i<this.players.size(); i++){
           Object{Game<-} ob = this.players.get(i);
+          final principal pr =  (Principal)this.playerLabels.get(0);
 
           if (ob != null){
-            Player{Game<-} r = (Player)ob;
+            Player{Game<-} r = (Player[Game, pr])ob;
             int{Game<-} score = r.score;
             if(score > highScore){
               highScore = score;
