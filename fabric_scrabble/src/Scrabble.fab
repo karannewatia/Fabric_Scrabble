@@ -9,17 +9,19 @@ public class Scrabble[principal Game, principal allPlayers] {
 
   private ArrayList[{Game<-}]{Game<-} players;
   private final ArrayList[{Game<-}]{Game<-} playerPrincipals;
+  private ArrayList[{}]{Game<-} playerScores;
 
   private Bag[Game]{Game<-} bag;
   private int{Game<-} currentPlayer;
   private Board[Game, allPlayers]{Game<-} board;
 
-  public Scrabble{Game<-}(ArrayList[{Game<-}]{Game<-} playersList, ArrayList[{Game<-}]{Game<-} playerPrincipalsList){
+  public Scrabble{Game<-}(ArrayList[{Game<-}]{Game<-} playersList, ArrayList[{Game<-}]{Game<-} playerPrincipalsList, ArrayList[{}]{Game<-} playerScoresList){
     this.bag = new Bag{Game<-}();
     this.board = new Board{Game<-}();
     this.currentPlayer = 0;
     this.players = playersList;
     this.playerPrincipals = playerPrincipalsList;
+    this.playerScores = playerScoresList;
   }
 
   /**
@@ -60,30 +62,25 @@ public class Scrabble[principal Game, principal allPlayers] {
      return result;
   }
 
-
   /**
   * Returns the player who has the highest score,
   */
-  public int getWinner{Game<-}() {
+  public int{} getWinner{Game<-}() {
      int winner = 0;
-     final principal pr0 =  (Principal)this.playerPrincipals.get(0);
-     Player{Game<-} p = (Player[Game, pr0])this.players.get(0);
-     if (p != null){
-       int{Game<-} highScore = p.score;
+     int highScore = 0;
+     Integer score0 = (Integer)this.playerScores.get(0);
+     highScore = score0.intValue();
 
-       for (int i=1; i<this.players.size(); i++){
-          Object{Game<-} ob = this.players.get(i);
-          final principal pr =  (Principal)this.playerPrincipals.get(0);
+     for (int i=1; i<this.playerScores.size(); i++){
+        //final principal pr =  (Principal)this.playerPrincipals.get(i);
+        //Player{Game<-} p = (Player[Game, pr])this.players.get(i);
 
-          if (ob != null && pr != null){
-            Player{Game<-} r = (Player[Game, pr])ob;
-            int{Game<-} score = r.score;
-            if(score > highScore){
-              highScore = score;
-              //winner = i;
-            }
-          }
-       }
+        Integer temp = (Integer)this.playerScores.get(i);
+        int score = temp.intValue();
+        if(score > highScore){
+          highScore = score;
+          winner = i;
+        }
      }
      return winner;
   }
@@ -96,7 +93,7 @@ public class Scrabble[principal Game, principal allPlayers] {
     atomic{
       while(this.board.moveNumber < 50){
          if (this.emptyRack()){
-            int{Game<-} winner = this.getWinner();
+            int winner = this.getWinner();
             //System.out.println("The winner is player " + (winner) );
             break;
          }
@@ -115,7 +112,7 @@ public class Scrabble[principal Game, principal allPlayers] {
           this.currentPlayer = (this.currentPlayer + 1) % this.players.size();
          }
       }
-      int{Game<-} winner = this.getWinner();
+      int winner = this.getWinner();
       //System.out.println("The winner is player " + (winner) );
     }
   }
