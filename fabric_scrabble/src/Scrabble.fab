@@ -8,18 +8,18 @@ import fabricated.util.StringComparator;
 public class Scrabble[principal Game, principal allPlayers] {
 
   private ArrayList[{Game<-}]{Game<-} players;
-  private final ArrayList[{Game<-}]{Game<-} playerLabels;
+  private final ArrayList[{Game<-}]{Game<-} playerPrincipals;
 
   private Bag[Game]{Game<-} bag;
   private int{Game<-} currentPlayer;
   private Board[Game, allPlayers]{Game<-} board;
 
-  public Scrabble{Game<-}(ArrayList[{Game<-}]{Game<-} playersList, ArrayList[{Game<-}]{Game<-} playerLabelsList){
+  public Scrabble{Game<-}(ArrayList[{Game<-}]{Game<-} playersList, ArrayList[{Game<-}]{Game<-} playerPrincipalsList){
     this.bag = new Bag{Game<-}();
     this.board = new Board{Game<-}();
     this.currentPlayer = 0;
     this.players = playersList;
-    this.playerLabels = playerLabelsList;
+    this.playerPrincipals = playerPrincipalsList;
   }
 
   /**
@@ -39,13 +39,13 @@ public class Scrabble[principal Game, principal allPlayers] {
   * and false otherwise
   */
   public boolean{Game<-} emptyRack{Game<-} (){
-
+     boolean{Game<-} result = false;
      for (int{Game<-} i=0; i<this.players.size(); i++){
         String{Game<-} flag = "";
         String{Game<-} blank = "";
         for (int{Game<-} j=0; j<7; j++){
           try{
-            final principal pr =  (Principal)this.playerLabels.get(i);
+            final principal pr =  (Principal)this.playerPrincipals.get(i);
             Player{Game<-} p = (Player[Game, pr])this.players.get(i);
             flag = flag + p.rack.tiles[j];
           }catch (Exception e){}
@@ -53,10 +53,11 @@ public class Scrabble[principal Game, principal allPlayers] {
 
         }
         if (flag.equals(blank)){
-          return true;
+          result = true;
+          return result;
         }
      }
-     return false;
+     return result;
   }
 
 
@@ -65,21 +66,21 @@ public class Scrabble[principal Game, principal allPlayers] {
   */
   public int getWinner{Game<-}() {
      int winner = 0;
-     final principal pr0 =  (Principal)this.playerLabels.get(0);
+     final principal pr0 =  (Principal)this.playerPrincipals.get(0);
      Player{Game<-} p = (Player[Game, pr0])this.players.get(0);
      if (p != null){
        int{Game<-} highScore = p.score;
 
        for (int i=1; i<this.players.size(); i++){
           Object{Game<-} ob = this.players.get(i);
-          final principal pr =  (Principal)this.playerLabels.get(0);
+          final principal pr =  (Principal)this.playerPrincipals.get(0);
 
-          if (ob != null){
+          if (ob != null && pr != null){
             Player{Game<-} r = (Player[Game, pr])ob;
             int{Game<-} score = r.score;
             if(score > highScore){
               highScore = score;
-              winner = i;
+              //winner = i;
             }
           }
        }
