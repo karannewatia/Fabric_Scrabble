@@ -1,5 +1,6 @@
 import fabricated.util.ArrayList;
 import fabricated.util.StringComparator;
+import fabricated.util.IdComparator;
 
 /**
  * The class App is responsible for starting and playing a Scrabble game
@@ -16,23 +17,23 @@ public class App[principal Game, principal p1, principal p2, principal allPlayer
      try{
        RemoteWorker w1 = FabricWorker.getWorker().getWorker("worker");
        RemoteWorker w2 = FabricWorker.getWorker().getWorker("worker2");
-       Player[Game, p2]{Game<-} alice = new Player{Game<-}(w1);
+       Player[Game, p1]{Game<-} alice = new Player{Game<-}(w1);
        Player[Game, p2]{Game<-} bob = new Player{Game<-}(w2);
 
-       this.players = new ArrayList(new StringComparator());
+       this.players = new ArrayList{Game<-}(new StringComparator());
        players.add(alice);
        players.add(bob);
 
-       this.tilesLeft = new ArrayList[{Game<-}]{Game<-}(new StringComparator());
+       this.tilesLeft = new ArrayList{Game<-}(new IdComparator());
        tilesLeft.add(new Integer(7));
        tilesLeft.add(new Integer(7));
 
-       this.scores = new ArrayList[{Game<-}]{Game<-}(new StringComparator());
+       this.scores = new ArrayList{Game<-}(new IdComparator());
        scores.add(new Integer(0));
        scores.add(new Integer(0));
 
        final Store store = FabricWorker.getWorker().getStore("store");
-       //this.scrabble = new Scrabble@store(players, scores, tilesLeft);
+       //this.scrabble = new Scrabble{Game<-}@store(players, scores, tilesLeft);
        //scrabble.startGame();
 
        } catch (Exception exc) {}

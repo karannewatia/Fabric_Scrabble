@@ -86,26 +86,24 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
   public void gameLoop{Game<-}(){
     atomic{
       while(this.board.moveNumber < 50){
+
+         //this.print_helper();
+         boolean success = false;
+         RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
+         RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
+
+         while (!success){
+           // Remote call
+            int temp = (this.currentPlayer + 1) % this.players.size();
+            //this.readBoard_remote@w2(Worker.getWorker().getPrincipal(), temp);
+            //success = this.move_remote@w1(Worker.getWorker().getPrincipal());
+         }
          if (this.emptyRack()){
-         //if (this.currentPlayer==1){
             int winner = this.getWinner();
             //System.out.println("The winner is player " + (winner) );
             break;
          }
-         else{
-           //this.print_helper();
-           boolean success = false;
-           RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
-           RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
-
-           while (!success){
-             // Remote call
-              int temp = (this.currentPlayer + 1) % this.players.size();
-              //this.readBoard_remote@w2(Worker.getWorker().getPrincipal(), temp);
-              //success = this.move_remote@w1(Worker.getWorker().getPrincipal());
-           }
-          this.currentPlayer = (this.currentPlayer + 1) % this.players.size();
-         }
+         this.currentPlayer = (this.currentPlayer + 1) % this.players.size();
       }
       int winner = this.getWinner();
       //System.out.println("The winner is player " + (winner) );
