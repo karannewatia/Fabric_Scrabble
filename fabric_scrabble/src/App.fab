@@ -9,7 +9,7 @@ public class App[principal Game, principal allPlayers] authority(Game) {
    public Scrabble[Game, allPlayers]{Game<-} scrabble;
    public ArrayList[{Game<-}]{Game<-} players;
    public ArrayList[{Game<-}]{Game<-} tilesLeft;
-   public ArrayList[{}]{Game<-} scores;
+   public ArrayList[{Game<-}]{Game<-} scores;
 
    public App{Game<-}() {
 
@@ -19,7 +19,7 @@ public class App[principal Game, principal allPlayers] authority(Game) {
        Player{Game<-} alice = new Player{Game<-}(w1);
        Player{Game<-} bob = new Player{Game<-}(w2);
 
-       this.scores = new ArrayList{Game<-}(new StringComparator());
+       this.scores = new ArrayList[{Game<-}]{Game<-}(new StringComparator());
        scores.add(new Integer(0));
        scores.add(new Integer(0));
 
@@ -32,8 +32,8 @@ public class App[principal Game, principal allPlayers] authority(Game) {
        tilesLeft.add(new Integer(7));
 
        final Store store = FabricWorker.getWorker().getStore("store");
-       this.scrabble = new Scrabble@store(players, scores, tilesLeft);
-       scrabble.startGame();
+       //this.scrabble = new Scrabble@store(players, scores, tilesLeft);
+       //scrabble.startGame();
 
        } catch (Exception exc) {}
 
