@@ -1,0 +1,42 @@
+import fabricated.util.ArrayList;
+
+/**
+ * The class App is responsible for starting and playing a Scrabble game
+ */
+public class App[principal Game, principal allPlayers] authority(Game) {
+
+   public Scrabble[Game, allPlayers]{Game<-} scrabble;
+
+    public App{Game<-}() {
+
+       RemoteWorker w1 = Worker.getWorker().getWorker("worker");
+       RemoteWorker w2 = Worker.getWorker().getWorker("worker2");
+
+       Player alice = new Player().Player$(w1);
+       Player bob = new Player().Player$(w2);
+       ArrayList players = new ArrayList();
+       players.add(alice);
+       players.add(bob);
+
+       final Store store = Worker.getWorker().getStore("store");
+
+       this.scrabble = new Scrabble@store().Scrabble$(players);
+       scrabble.startGame();
+
+    }
+
+    public static void main(String[] args) {
+        final Store store = Worker.getWorker().getStore("store");
+        App app = null;
+        atomic{
+           app = new App@store().App$();
+        }
+        //System.out.println(" ");
+        //System.out.println("Let's play Scrabble!!");
+        //System.out.println("----------------");
+        //System.out.println(" ");
+
+        app.scrabble.gameLoop();
+    }
+
+}
