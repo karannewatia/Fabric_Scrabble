@@ -7,33 +7,36 @@ import fabricated.util.StringComparator;
 public class App[principal Game, principal allPlayers] authority(Game) {
 
    public Scrabble[Game, allPlayers]{Game<-} scrabble;
+   public ArrayList[{Game<-}]{Game<-} players;
+   public ArrayList[{Game<-}]{Game<-} tilesLeft;
+   public ArrayList[{}]{Game<-} scores;
 
    public App{Game<-}() {
 
-     RemoteWorker w1 = FabricWorker.getWorker().getWorker("worker");
-     RemoteWorker w2 = FabricWorker.getWorker().getWorker("worker2");
-
-     Player{Game<-} alice = new Player{Game<-}(w1);
-     Player{Game<-} bob = new Player{Game<-}(w2);
-
      try{
-       ArrayList{Game->; Game<-} players = new ArrayList{Game->; Game<-}(new StringComparator());
+       RemoteWorker w1 = FabricWorker.getWorker().getWorker("worker");
+       RemoteWorker w2 = FabricWorker.getWorker().getWorker("worker2");
+       Player{Game<-} alice = new Player{Game<-}(w1);
+       Player{Game<-} bob = new Player{Game<-}(w2);
+
+       this.scores = new ArrayList{Game<-}(new StringComparator());
+       scores.add(new Integer(0));
+       scores.add(new Integer(0));
+
+       this.players = new ArrayList[{Game<-}]{Game<-}(new StringComparator());
        players.add(alice);
        players.add(bob);
 
-       ArrayList{Game->; Game<-} scores = new ArrayList{Game->; Game<-}(new StringComparator());
-       scores.add(new Integer(0));
-       scores.add(new Integer(0));
-
-       ArrayList{Game->; Game<-} tilesLeft = new ArrayList{Game->; Game<-}(new StringComparator());
+       this.tilesLeft = new ArrayList[{Game<-}]{Game<-}(new StringComparator());
        tilesLeft.add(new Integer(7));
        tilesLeft.add(new Integer(7));
 
        final Store store = FabricWorker.getWorker().getStore("store");
        this.scrabble = new Scrabble@store(players, scores, tilesLeft);
-       } catch (IllegalArgumentException exc) {}
+       scrabble.startGame();
 
-     scrabble.startGame();
+       } catch (Exception exc) {}
+
 
     }
    /**
