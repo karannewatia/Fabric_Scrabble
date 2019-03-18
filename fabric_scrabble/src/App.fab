@@ -12,7 +12,7 @@ public class App[principal Game, principal p1, principal p2, principal allPlayer
    public ArrayList[{Game<-}]{Game<-} tilesLeft;
    public ArrayList[{Game<-}]{Game<-} scores;
 
-   public App{Game<-}() {
+   public App{Game<-}() where authority(Game) {
 
      try{
        RemoteWorker w1 = FabricWorker.getWorker().getWorker("worker");
@@ -33,8 +33,8 @@ public class App[principal Game, principal p1, principal p2, principal allPlayer
        scores.add(new Integer(0));
 
        final Store store = FabricWorker.getWorker().getStore("store");
-       //this.scrabble = new Scrabble{Game<-}@store(players, scores, tilesLeft);
-       //scrabble.startGame();
+       this.scrabble = new Scrabble[Game, allPlayers]{Game<-}@store(players, scores, tilesLeft);
+       scrabble.startGame();
 
        } catch (Exception exc) {}
 
