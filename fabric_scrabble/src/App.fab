@@ -4,7 +4,7 @@ import fabricated.util.StringComparator;
 /**
  * The class App is responsible for starting and playing a Scrabble game
  */
-public class App[principal Game, principal allPlayers] authority(Game) {
+public class App[principal Game, principal p1, principal p2, principal allPlayers] authority(Game) {
 
    public Scrabble[Game, allPlayers]{Game<-} scrabble;
    public ArrayList[{Game<-}]{Game<-} players;
@@ -16,20 +16,20 @@ public class App[principal Game, principal allPlayers] authority(Game) {
      try{
        RemoteWorker w1 = FabricWorker.getWorker().getWorker("worker");
        RemoteWorker w2 = FabricWorker.getWorker().getWorker("worker2");
-       Player{Game<-} alice = new Player{Game<-}(w1);
-       Player{Game<-} bob = new Player{Game<-}(w2);
+       Player[Game, p2]{Game<-} alice = new Player{Game<-}(w1);
+       Player[Game, p2]{Game<-} bob = new Player{Game<-}(w2);
 
-       this.scores = new ArrayList[{Game<-}]{Game<-}(new StringComparator());
-       scores.add(new Integer(0));
-       scores.add(new Integer(0));
-
-       this.players = new ArrayList[{Game<-}]{Game<-}(new StringComparator());
+       this.players = new ArrayList(new StringComparator());
        players.add(alice);
        players.add(bob);
 
        this.tilesLeft = new ArrayList[{Game<-}]{Game<-}(new StringComparator());
        tilesLeft.add(new Integer(7));
        tilesLeft.add(new Integer(7));
+
+       this.scores = new ArrayList[{Game<-}]{Game<-}(new StringComparator());
+       scores.add(new Integer(0));
+       scores.add(new Integer(0));
 
        final Store store = FabricWorker.getWorker().getStore("store");
        //this.scrabble = new Scrabble@store(players, scores, tilesLeft);
