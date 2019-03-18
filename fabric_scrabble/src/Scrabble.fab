@@ -80,6 +80,68 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
   }
 
   /**
+  * helper function for the swap move for a player
+  */
+  public boolean swap(principal Player){
+    boolean success = false;
+
+    //String{Game<-} word = this.swap_gui();
+    //String[] letters = this.stringToStringArray(word);
+    String[]{Game<-; Game->Player} letters = new String[1];
+    atomic{
+      //((Player) this.players.get(this.currentPlayer)).rack.swapTiles(letters, this.bag);
+      success = true;
+      return success;
+    }
+  }
+
+  /**
+  * Helper function move.
+  * calls the relevant functions using moveType
+  */
+  public boolean moveHelper(String moveType){
+    boolean success = false;
+    atomic{
+      if (moveType.equals("swap")){
+        //return this.swap();
+        return success;
+      }
+      else if (moveType.equals("place")){
+        //return this.place();
+        return success;
+      }
+      else if (moveType.equals("pass")){
+        success = true;
+        //System.out.println("turn passed");
+        return success;
+      }
+    }
+    //System.out.println("try again");
+    return success;
+
+  }
+
+  /**
+  * This functions asks the user to enter the type of move he/she wants to play.
+  */
+  public boolean move(){
+    //this.readBoard(this.currentPlayer);
+    //String moveType = this.move_gui();
+    boolean result = false;
+    String moveType = "";
+
+    if (moveType==null){
+      return result;
+     }
+    if (moveHelper(moveType)==true){
+       //this.print_helper();
+       result = true;
+       return result;
+     }
+    return result;
+    }
+
+  /**
   * Runs the Scrabble game
   * the game ends when the number of moves played is equal to 50
   */
