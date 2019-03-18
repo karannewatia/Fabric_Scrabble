@@ -427,6 +427,9 @@ public class Board[principal Game, principal allPlayers] {
           Integer{Game<-} temp = (Integer)this.points.get(tile);
           player.score = player.score + temp.intValue();
         }
+        if (tiles.length() == 7){
+          player.score = player.score + 50;
+        }
       }
     }
   }
