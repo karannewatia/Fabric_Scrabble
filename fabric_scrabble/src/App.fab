@@ -1,4 +1,5 @@
 import fabricated.util.ArrayList;
+import fabricated.util.StringComparator;
 
 /**
  * The class App is responsible for starting and playing a Scrabble game
@@ -7,29 +8,40 @@ public class App[principal Game, principal allPlayers] authority(Game) {
 
    public Scrabble[Game, allPlayers]{Game<-} scrabble;
 
-    public App{Game<-}() {
+   public App{Game<-}() {
 
-       RemoteWorker w1 = Worker.getWorker().getWorker("worker");
-       RemoteWorker w2 = Worker.getWorker().getWorker("worker2");
+     RemoteWorker w1 = FabricWorker.getWorker().getWorker("worker");
+     RemoteWorker w2 = FabricWorker.getWorker().getWorker("worker2");
 
-       Player alice = new Player().Player$(w1);
-       Player bob = new Player().Player$(w2);
-       ArrayList players = new ArrayList();
+     Player{Game<-} alice = new Player{Game<-}(w1);
+     Player{Game<-} bob = new Player{Game<-}(w2);
+
+     try{
+       ArrayList{Game->; Game<-} players = new ArrayList{Game->; Game<-}(new StringComparator());
        players.add(alice);
        players.add(bob);
 
-       final Store store = Worker.getWorker().getStore("store");
+       ArrayList{Game->; Game<-} scores = new ArrayList{Game->; Game<-}(new StringComparator());
+       scores.add(new Integer(0));
+       scores.add(new Integer(0));
 
-       this.scrabble = new Scrabble@store().Scrabble$(players);
-       scrabble.startGame();
+       ArrayList{Game->; Game<-} tilesLeft = new ArrayList{Game->; Game<-}(new StringComparator());
+       tilesLeft.add(new Integer(7));
+       tilesLeft.add(new Integer(7));
+
+       final Store store = FabricWorker.getWorker().getStore("store");
+       this.scrabble = new Scrabble@store(players, scores, tilesLeft);
+       } catch (IllegalArgumentException exc) {}
+
+     scrabble.startGame();
 
     }
-
+   /**
     public static void main(String[] args) {
-        final Store store = Worker.getWorker().getStore("store");
+        final Store store = FabricWorker.getWorker().getStore("store");
         App app = null;
         atomic{
-           app = new App@store().App$();
+           app = new App@store().App();
         }
         //System.out.println(" ");
         //System.out.println("Let's play Scrabble!!");
@@ -37,6 +49,6 @@ public class App[principal Game, principal allPlayers] authority(Game) {
         //System.out.println(" ");
 
         app.scrabble.gameLoop();
-    }
+    }*/
 
 }

@@ -8,7 +8,7 @@ import fabricated.util.StringComparator;
 public class Scrabble[principal Game, principal allPlayers] authority(Game) {
 
   private ArrayList[{Game<-}]{Game<-} players;
-  private ArrayList[{Game<-}]{Game<-} playerPrincipals;
+  //private ArrayList[{Game<-}]{Game<-} playerPrincipals;
   private ArrayList[{}]{Game<-} playerScores;
   private ArrayList[{Game<-}]{Game<-} playerTilesLeft;
 
@@ -16,14 +16,15 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
   private int{Game<-} currentPlayer;
   private Board[Game, allPlayers]{Game<-} board;
 
-  public Scrabble{Game<-}(ArrayList[{Game<-}]{Game<-} playersList, ArrayList[{Game<-}]{Game<-} playerPrincipalsList,
+  public Scrabble{Game<-}(ArrayList[{Game<-}]{Game<-} playersList,
+                       // ArrayList[{Game<-}]{Game<-} playerPrincipalsList,
                         ArrayList[{}]{Game<-} playerScoresList, ArrayList[{Game<-}]{Game<-} playerTilesLeftList){
 
     this.bag = new Bag{Game<-}();
     this.board = new Board{Game<-}();
     this.currentPlayer = 0;
     this.players = playersList;
-    this.playerPrincipals = playerPrincipalsList;
+    //this.playerPrincipals = playerPrincipalsList;
     this.playerScores = playerScoresList;
     this.playerTilesLeft =  playerTilesLeftList;
   }
