@@ -56,5 +56,43 @@ public class Trie[principal Game] {
         return (pCrawl != null && pCrawl.isEndOfWord);
     }
 
+    /**
+    public static boolean createDict(ArrayList wordsToCheck)
+    {
+        ArrayList words = new ArrayList().fabric$util$ArrayList$();
+
+        //File file = new File("/Users/karannewatia/Documents/GitHub/Fabric_Scrabble/fabil_scrabble/src/simple_dict.txt");
+
+        try {
+          FileReader fileReader = new FileReader(file);
+          BufferedReader reader = new BufferedReader(fileReader);
+         String line = reader.readLine();
+         while (line != null) {
+            words.add(line);
+            // read next line
+            line = reader.readLine();
+          }
+          reader.close();
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+
+        root = new TrieNode().TrieNode$();
+
+        // Construct trie
+        for (int i = 0; i < words.size(); i++){
+            String temp = (String) words.get(i);
+            insert(temp);
+        }
+
+        for (int j = 0; j < wordsToCheck.size(); j++){
+            String temp = (String) wordsToCheck.get(j);
+            if (!search(temp)) return false;
+        }
+
+        return true;
+
+      }*/
+
 
 }

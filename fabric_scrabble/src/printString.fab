@@ -4,10 +4,12 @@ public class PrintString [label L] extends java.lang.Object {
 	private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
 	private static int __JIF_PARAMS_RUNTIME_REPRESENTED$20051007 = 0;
 
+	/*
 	public PrintString{L} (String{L} s) {
 		super();
 	}
+	*/
 
-	public native void print{L}();
+	public native void print{L}(String{L} s);
 
 }

@@ -14,7 +14,7 @@ public class Bag[principal Game] authority(Game) {
 
     private int[]{Game<-} counts;
 
-    private transient RandomGenerator[{Game<-}]{Game<-} random;
+    private transient RandomGenerator[{Game->; Game<-}]{Game<-}  random;
 
     public int{Game<-} numTiles;
 
@@ -27,7 +27,7 @@ public class Bag[principal Game] authority(Game) {
     }
     this.counts = new int[]{2,9,2,2,4,12,2,3,2,9,1,1,4,2,6,8,2,1,6,4,6,4,2,2,1,2,1};
 
-    this.random = new RandomGenerator[{Game<-}]();
+    this.random = new RandomGenerator[{Game->; Game<-}]();
     this.numTiles = 100;
 
     }
@@ -51,13 +51,15 @@ public class Bag[principal Game] authority(Game) {
     public String{Game<-; Game->player} getTilePlayer{Game<-; Game->player}(principal player)
       // This should only be called by code that has the Game server's authority
       where authority (Game) {
+      if (this.tiles.isEmpty()){
+        throw new Error("bag is empty");
+      }
       String{Game<-; Game->player}  result = null;
+
       atomic{
-        int rand_value = this.tiles.size()-1;
-        //int rand_value = this.random.nextInt(this.tiles.size());
-        if (rand_value < 0){
-          throw new Error("bag is empty");
-        }
+        //int rand_value = this.tiles.size()-1;
+        int rand_value = this.random.nextInt(this.tiles.size());
+
         String{Game<-; Game->}  tile =  (String) this.tiles.get(rand_value);
         try{
          this.tiles.remove(rand_value);

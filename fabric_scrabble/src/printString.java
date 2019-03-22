@@ -6,15 +6,15 @@ public class PrintString {
 
 	protected final Label L;
 
-	protected final String _impl;
+	//protected final String _impl;
 
-	public PrintString(Label L, String s) {
+	public PrintString(Label L) {
 		this.L = L;
-		this._impl = s;
+		//this._impl = s;
 	}
 
-	protected void print() {
-		System.out.println(this._impl);
+	protected void print(String s) {
+		System.out.println(s);
 	}
 
 }

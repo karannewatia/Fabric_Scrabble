@@ -4,25 +4,29 @@ public class Main {
 
     public static void main{game<-}(principal{*<-} game, String[] args) where caller(game) {
         final Store store = FabricWorker.getWorker().getStore("store");
-        PrintString[{}]p = new PrintString[{}]("kkkk");
-        p.print();
-        /**
-        if (store actsfor game) {
-          final Store p1store = FabricWorker.getWorker().getStore("worker");
-          final Store p2store = FabricWorker.getWorker().getStore("worker2");
-          final principal p1 = p1store.getPrincipal();
-          final principal p2 = p2store.getPrincipal();
-          final principal allPlayers = game;
-          App app = null;
-          atomic{
-             app = new App[game, p1, p2, game]@store();
-          }
-          //System.out.println(" ");
-          //System.out.println("Let's play Scrabble!!");
-          //System.out.println("----------------");
-          //System.out.println(" ");
+        //PrintString[{}]p = new PrintString[{}]();
+        //p.print("kkkk");
 
-          app.scrabble.gameLoop();
-        } */
+        atomic{
+          if (store actsfor game) {
+            final Store p1store = FabricWorker.getWorker().getStore("worker");
+            final Store p2store = FabricWorker.getWorker().getStore("worker2");
+            final principal p1 = p1store.getPrincipal();
+            final principal p2 = p2store.getPrincipal();
+            final principal allPlayers = game;
+            App app = null;
+            atomic{
+               app = new App[game, p1, p2, game]@store();
+            }
+            //System.out.println(" ");
+            //System.out.println("Let's play Scrabble!!");
+            //System.out.println("----------------");
+            //System.out.println(" ");
+
+            app.scrabble.gameLoop();
+          }
+        }
+
+
     }
 }

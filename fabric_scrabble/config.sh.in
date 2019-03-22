@@ -1,0 +1,8 @@
+# FabFX configuration properties.
+
+# Base directory of FABRIC installation.
+#
+#   This is optional if the FABRIC JARs are in the lib directory.
+#   Must be an absolute path.
+#
+# fabric.home=${env.HOME}/FABRIC

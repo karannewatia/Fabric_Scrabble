@@ -27,4 +27,8 @@ public class Text extends Shape {
 	public final void setText(String value) {
 		_impl().setText(value);
 	}
+
+	public final String getText() {
+		return _impl().getText();
+	}
 }
