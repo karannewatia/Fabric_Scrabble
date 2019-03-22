@@ -40,19 +40,5 @@ public class App[principal Game, principal p1, principal p2, principal allPlayer
 
 
     }
-   /**
-    public static void main(String[] args) {
-        final Store store = FabricWorker.getWorker().getStore("store");
-        App app = null;
-        atomic{
-           app = new App@store().App();
-        }
-        //System.out.println(" ");
-        //System.out.println("Let's play Scrabble!!");
-        //System.out.println("----------------");
-        //System.out.println(" ");
-
-        app.scrabble.gameLoop();
-    }*/
 
 }
