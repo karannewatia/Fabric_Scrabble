@@ -6,6 +6,8 @@
   <description>
     Build Scrabble app
   </description>
+  <property environment="env" />
+  <property file="config.properties" />
 
   <!--
   ****************************************************************************
@@ -13,7 +15,7 @@
   ****************************************************************************
   -->
 
-  <import file="../../../../Downloads/fabric/common.xml" />
+   <import file="${fabric.home}/common.xml" />
 
   <import file="${fabric.home}/src/lib/sif/common.xml" />
   <import file="${fabric.home}/src/lib/collections/common.xml" />
