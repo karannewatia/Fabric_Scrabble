@@ -30,9 +30,6 @@ public class Bag[principal Game] authority(Game) {
     this.random = new RandomGenerator[{Game<-}]();
     this.numTiles = 100;
 
-    //PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
-    //p.print("k");
-
     }
 
    /**

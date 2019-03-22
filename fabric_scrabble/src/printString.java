@@ -2,19 +2,19 @@ package fabric.util;
 
 import fabric.lang.security.Label;
 
-public class RandomGenerator {
-
-	//private String _impl;
+public class PrintString {
 
 	protected final Label L;
 
-	public PrintString(Label L) {
+	protected final String _impl;
+
+	public PrintString(Label L, String s) {
 		this.L = L;
-		//this.makeImpl = s;
+		this._impl = s;
 	}
 
-	protected void print(String s) {
-		System.out.println(s);
+	protected void print() {
+		System.out.println(this._impl);
 	}
 
 }

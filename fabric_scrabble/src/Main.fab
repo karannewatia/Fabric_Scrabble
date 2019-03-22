@@ -1,7 +1,12 @@
+import fabric.util.PrintString;
+
 public class Main {
 
     public static void main{game<-}(principal{*<-} game, String[] args) where caller(game) {
         final Store store = FabricWorker.getWorker().getStore("store");
+        PrintString[{}]p = new PrintString[{}]("kkkk");
+        p.print();
+        /**
         if (store actsfor game) {
           final Store p1store = FabricWorker.getWorker().getStore("worker");
           final Store p2store = FabricWorker.getWorker().getStore("worker2");
@@ -18,7 +23,6 @@ public class Main {
           //System.out.println(" ");
 
           app.scrabble.gameLoop();
-        }
+        } */
     }
 }
-

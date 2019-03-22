@@ -1,11 +1,13 @@
 package fabric.util;
 
-// Use a different name from 'Random' to avoid colliding with
-// the other fabric.util.Random defined by Fabric.
 public class PrintString [label L] extends java.lang.Object {
 	private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
 	private static int __JIF_PARAMS_RUNTIME_REPRESENTED$20051007 = 0;
 
-	public native void print{L}(String{L} stringToPrint);
+	public PrintString{L} (String{L} s) {
+		super();
+	}
+
+	public native void print{L}();
 
 }
