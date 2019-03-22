@@ -1,0 +1,6 @@
+package java.util;
+
+public abstract class List [label L] extends Collection[L] {	
+	static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
+	
+}

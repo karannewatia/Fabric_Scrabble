@@ -1,0 +1,19 @@
+package game1024;
+
+import fabfx.event.EventHandler;
+import fabfx.event.Event;
+
+public class EndMoveHandler extends EventHandler[{User->;User<-}] {
+
+	protected Game{User->;User<-} game;
+
+	public EndMoveHandler{User->;User<-} (Game{User->;User<-} g) {
+		this.game = g;
+	}
+
+	public void handle{User->;User<-} (Event[{User->;User<-}]{User->;User<-} e) {
+		game.setLabelsFromState();
+		game.resetTilePosns();
+	}
+
+}

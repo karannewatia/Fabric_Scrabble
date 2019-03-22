@@ -1,0 +1,14 @@
+package javafx.scene.text;
+
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.FontPosture;
+
+public final class Font extends java.lang.Object {
+	private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
+	private static int __JIF_PARAMS_RUNTIME_REPRESENTED$20051007 = 0;
+	
+	public static native Font font (String family, FontWeight weight, double size);
+
+	public static native Font font (String family, FontWeight weight, FontPosture posture, double size);
+
+}

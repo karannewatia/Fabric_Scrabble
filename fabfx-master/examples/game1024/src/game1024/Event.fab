@@ -1,0 +1,11 @@
+package fabfx.event;
+
+import javafx.event.EventType;
+
+public class Event[label M] extends java.lang.Object {
+	private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
+	private static int __JIF_PARAMS_RUNTIME_REPRESENTED$20051007 = 0;
+
+	public native EventType{M} getEventType();
+	public native void consume ();
+}

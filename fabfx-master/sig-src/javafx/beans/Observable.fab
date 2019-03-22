@@ -1,0 +1,9 @@
+package javafx.beans;
+
+public interface Observable[label L, label M] {
+
+	public void addListener{L} (InvalidationListener[L,M]{L} listener);
+	
+	public void removeListener{L} (InvalidationListener[L,M]{L} listener);
+	
+}

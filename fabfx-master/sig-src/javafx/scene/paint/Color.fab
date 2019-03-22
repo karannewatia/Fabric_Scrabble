@@ -1,0 +1,17 @@
+package javafx.scene.paint;
+
+public class Color extends Paint {
+	private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
+
+	public Color{this} (double{this} red, double{this} green, double{this} blue, double{this} opacity) {
+		super();
+	}
+	
+    /**
+     * The color white with an RGB value of #FFFFFF
+     * <div style="border:1px solid black;width:40px;height:20px;background-color:#FFFFFF;float:right;margin: 0 10px 0 0"></div><br/><br/>
+     */
+	public static final Color WHITE;
+
+	public native Color interpolate(Color endValue, double t);
+}

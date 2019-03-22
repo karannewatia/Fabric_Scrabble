@@ -1,4 +1,4 @@
-//import fabric.util.Random;
+import fabric.util.RandomGenerator;
 import fabricated.util.ArrayList;
 import fabricated.util.StringComparator;
 
@@ -13,6 +13,10 @@ public class Bag[principal Game] authority(Game) {
 
     private int[]{Game<-} counts;
 
+    private transient RandomGenerator[{Game<-}]{Game<-} random;
+
+    public int{Game<-} numTiles;
+
     public Bag{Game<-}(){
     try{
       this.tiles = new ArrayList{Game->; Game<-}(new StringComparator());
@@ -21,6 +25,9 @@ public class Bag[principal Game] authority(Game) {
 
     }
     this.counts = new int[]{2,9,2,2,4,12,2,3,2,9,1,1,4,2,6,8,2,1,6,4,6,4,2,2,1,2,1};
+
+    this.random = new RandomGenerator[{Game<-}]();
+    this.numTiles = 100;
 
     }
 
@@ -46,6 +53,7 @@ public class Bag[principal Game] authority(Game) {
       String{Game<-; Game->player}  result = null;
       atomic{
         int rand_value = this.tiles.size()-1;
+        //int rand_value = this.random.nextInt(this.tiles.size());
         if (rand_value < 0){
           throw new Error("bag is empty");
         }

@@ -1,0 +1,42 @@
+package fabric.principals;
+
+import fabric.util.Map;
+import fabric.Config;
+
+public class User extends ExternalPrincipal {
+	public User () {
+		super("Calendar user");
+	}
+
+	public static User{*!:} getInstance{*!:}() {
+		atomic {
+			FabricWorker cl = FabricWorker.getWorker();
+			if (cl != null) {
+				final Store store = cl.getStore(Config.appStoreName);
+				if (store != null) {
+					Map rootMap = store.getRoot();
+					if (rootMap != null) {
+						Object obj = rootMap.get(Config.appPrincipalMapKey);
+						User user = null;
+						if (obj instanceof User) {
+							user = (User) obj;
+						} else {
+							user = new User@store();
+							rootMap.put(Config.appPrincipalMapKey, user);
+						}
+
+						return user;
+					}
+				}
+			}
+
+			return null;
+		}
+	}
+
+	// Don't much care what store is, we're going to create it where we want
+	public static User{⊤←} getInstance{⊤←}(Store store) {
+		return getInstance();
+	}
+
+}

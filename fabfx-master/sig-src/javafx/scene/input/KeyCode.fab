@@ -1,0 +1,10 @@
+package javafx.scene.input;
+
+public class KeyCode {
+	private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
+
+	public static KeyCode LEFT;
+	public static KeyCode UP;
+	public static KeyCode RIGHT;
+	public static KeyCode DOWN;
+}

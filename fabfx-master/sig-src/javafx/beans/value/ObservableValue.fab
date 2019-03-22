@@ -1,0 +1,13 @@
+package javafx.beans.value;
+
+import javafx.beans.Observable;
+
+public interface ObservableValue[label L, label M] extends Observable[L,M] where M <= L {
+
+	public void addListener{L} (ChangeListener[L,M]{L} listener);
+	
+	public void removeListener{L} (ChangeListener[L,M]{L} listener);
+	
+	public java.lang.Object{L} getValue();
+	
+}

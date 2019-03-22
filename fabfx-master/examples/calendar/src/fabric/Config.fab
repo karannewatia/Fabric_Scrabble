@@ -1,0 +1,12 @@
+package fabric;
+
+public final class Config {
+
+  public static final String{*<-} appStoreName = "store";  
+  
+  /**
+   * The key in the root map for finding the principal.
+   */
+  public static final String{*<-} appPrincipalMapKey = "Calendar user";
+  
+}

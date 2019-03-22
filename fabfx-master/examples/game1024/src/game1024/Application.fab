@@ -1,0 +1,23 @@
+package fabfx.application;
+
+import fabfx.stage.Stage;
+
+abstract public class Application extends java.lang.Object {
+    private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
+    private static int __JIF_PARAMS_RUNTIME_REPRESENTED$20051007 = 0;
+
+	abstract public void run{User->;User<-} (Stage{User->;User<-} primaryStage);
+
+	native public void launchApp{User->;User<-} ();
+
+}
+
+/**************************************
+ ***This is the parameterized version
+
+abstract public class Application[principal p] extends java.lang.Object {
+	abstract public void run{p->;p<-} (Stage[p]{p->;p<-} primaryStage);
+	native public void launchApp{p->;p<-} ();
+}
+
+**************************************/

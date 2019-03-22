@@ -1,0 +1,17 @@
+package fabfx.scene.text;
+
+import fabfx.scene.shape.Shape;
+import javafx.scene.text.Font;
+
+public class Text[label L, label E] extends Shape[L, E] {
+	private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
+	private static int __JIF_PARAMS_RUNTIME_REPRESENTED$20051007 = 0;
+	
+	public Text() {
+		super();
+	}
+	
+	public native final void setFont{L} (Font{L} value);
+	public native final void setText{L} (String{L} value);
+	
+}

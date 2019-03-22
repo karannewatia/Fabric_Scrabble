@@ -1,0 +1,14 @@
+package game1024;
+
+/** A move made by a tile. */
+public class Move[label L] {
+
+	public final Location[L]{L} fromLoc;
+	public final Location[L]{L} toLoc;
+	public boolean{L} merge;
+	public Move{L} (Location[L]{L} f, Location[L]{L} t, boolean{L} mrg) {
+		fromLoc = f; toLoc = t; merge = mrg;
+		super();
+	}
+
+}

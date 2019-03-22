@@ -1,0 +1,34 @@
+package hello;
+
+import fabfx.application.Application;
+import fabfx.stage.Stage;
+import fabfx.scene.*;
+import fabfx.scene.layout.*;
+import fabfx.collections.ObservableList;
+
+public class HelloApp extends Application {
+
+	public void run{User->;User<-} (Stage{User->;User<-} primaryStage) {
+		atomic {
+			if (this.store$ actsfor User) {
+				final label l = new label {User->;User<-};
+				final Pane[l,l] content = new Pane[l,l]();
+				final Group[l,l] outer = new Group[l,l]();
+				final Scene[l,l] scene = new Scene[l,l](l,l,outer);
+				if (outer.store$ actsfor User) {
+					primaryStage.setScene(l,l,scene);
+					final ObservableList outer_ = outer.getChildren();
+					if (outer_.store$ actsfor User) {
+						outer_.add(l,l,content);
+						primaryStage.setTitle("Hello world!");
+						primaryStage.show();
+						return;
+					}
+				} 
+				primaryStage.setTitle("Security alert!");
+				primaryStage.show();
+			}		
+		}
+	}
+
+}

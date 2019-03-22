@@ -1,0 +1,36 @@
+package game1024;
+
+/** A location in the game. */
+public class Location[label L] {
+
+	final int{L}@{L} row;
+	final int{L} col;
+	final GameModel[L]{L} model;
+
+	public Location{L} (int{L} r, int{L} c, GameModel[L]{L} m) {
+		row = r;
+		col = c;
+		model = m;
+		super();
+	}
+
+	/** Create a location for (x,y) in the coordinate system where
+	 *  (dx, dy) is to the right.
+	 */
+	public Location{L} (int{L} x, int{L} y, int{L} dx, int{L} dy, GameModel[L]{L} m) {
+		model = m;
+		try {
+			switch (dx * 2 + dy) {
+				case 2:	row = y; col = x; break;
+				case -2: row = y; col = model.size-1-x; break;
+				case 1: row = x; col = y; break;
+				case -1: row = model.size-1-x; col = y; break;
+				default: throw new Error("Illegal location");
+			}
+		} catch (NullPointerException e) {
+			// Impossible
+			throw new Error("Null GameModel");
+		}
+		super();
+	}
+}

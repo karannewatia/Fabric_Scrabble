@@ -1,0 +1,16 @@
+package fabfx.scene;
+
+public class Scene [label L, label M] {
+    private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
+    private static int __JIF_PARAMS_RUNTIME_REPRESENTED$20051007 = 0;
+    
+	public Scene (label rL, label rM, Parent[rL,rM]{L} root) {
+		super();
+	}
+
+	public Scene (label rL, label rM, Parent[rL,rM]{L} root, double{L}
+			width, double{L} height) {
+		super();
+	}
+
+}

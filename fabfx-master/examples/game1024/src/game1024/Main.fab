@@ -1,0 +1,17 @@
+package game1024;
+
+import fabfx.application.Application;
+import fabfx.stage.Stage;
+import fabric.principals.User;
+
+public class Main {
+
+	public static void main {User->;User<-}
+			(principal{p<-} p, String[] args):{User->;User<-} 
+			throws Exception {
+		atomic {
+			new Game().launchApp();
+		}
+	}
+
+}

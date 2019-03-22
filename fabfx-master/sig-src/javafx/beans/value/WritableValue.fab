@@ -1,0 +1,11 @@
+package javafx.beans.value;
+
+import javafx.beans.Observable;
+
+public interface WritableValue[label L] {
+
+	public java.lang.Object{L} getValue();
+	
+	public void setValue{L} (java.lang.Object{L} value);
+	
+}

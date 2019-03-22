@@ -1,0 +1,37 @@
+package game1024;
+
+import fabfx.event.Event;
+import fabfx.event.EventHandler;
+import fabfx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
+
+public class ArrowHandler extends EventHandler[{User->;User<-}] {
+
+	protected Game{User->;User<-} game;
+
+	public ArrowHandler{User->;User<-} (Game{User->;User<-} g) {
+		this.game = g;
+	}
+
+	public void handle{User->;User<-} (Event[{User->;User<-}]{User->;User<-} ev_) {
+		atomic {
+			if (ev_ instanceof KeyEvent[{User->;User<-}]) {
+				KeyEvent[{User->;User<-}] ev = (KeyEvent[{User->;User<-}]) ev_;
+				if (ev.getEventType() == KeyEvent.KEY_PRESSED) {
+					KeyCode key = ev.getCode();
+					if (key == KeyCode.LEFT) {
+						game.doMove(-1, 0);
+					} else if (key == KeyCode.UP) {
+						game.doMove(0, -1);
+					} else if (key == KeyCode.RIGHT) {
+						game.doMove(1, 0);
+					} else {
+						game.doMove(0, 1);
+					}
+				}
+				ev_.consume();
+			}
+		}
+	}
+
+}

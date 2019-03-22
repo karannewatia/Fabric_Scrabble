@@ -1,0 +1,17 @@
+package fabfx.scene.layout;
+
+import fabfx.scene.Parent;
+
+public class Region [label L, label M] extends Parent[L,M] {
+    private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
+    private static int __JIF_PARAMS_RUNTIME_REPRESENTED$20051007 = 0;	
+
+	public Region () {
+		super();
+	}
+	
+	public native void setPrefWidth{L}(double{L} value);
+	
+    public native void setPrefHeight{L}(double{L} value);
+
+}

@@ -1,0 +1,49 @@
+package game1024;
+
+import fabfx.scene.layout.StackPane;
+import fabfx.scene.text.Text;
+import javafx.scene.text.Font;
+import fabfx.scene.shape.Rectangle;
+
+/** A tile node on the game board. Keeps track of its contained
+ *  background and label.
+ */
+public class Tile extends StackPane[{User->;User<-}, {User->;User<-}] {
+
+	public Text[{User->;User<-},{User->;User<-}]{User->;User<-} text;
+	public Rectangle[{User->;User<-},{User->;User<-}]{User->;User<-} background;
+	public int{User->;User<-} row, column;
+
+	public Tile{User->;User<-} (int{User->;User<-} row, int{User->;User<-} column) {
+		super();
+		atomic {
+			try {
+				final label l = new label {User->;User<-};
+				this.text = new Text[l,l]();
+				this.background = new Rectangle[l,l]();
+				this.row = row;
+				this.column = column;
+
+				getChildren().add(l, l, background);
+				getChildren().add(l, l, text);
+				background.setWidth(Game.tileSize);
+				background.setHeight(Game.tileSize);
+				background.setFill(Game.tileColor);
+				background.setStrokeWidth(0);
+				background.setStroke(Game.tileColor);
+				background.setArcWidth(Game.tileSize * 0.30);
+				background.setArcHeight(Game.tileSize * 0.30);
+				text.setFont(Game.numFont);
+				text.setFill(Game.numColor);
+			} catch (NullPointerException e) {
+				// Impossible
+			}
+		}
+	}
+
+	public void setPosn{User->;User<-} () {
+		setLayoutX(Game.gutter + column * (Game.tileSize + Game.gutter));
+		setLayoutY(Game.gutter + row * (Game.tileSize + Game.gutter));
+	}
+
+}

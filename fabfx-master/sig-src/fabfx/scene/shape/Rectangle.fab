@@ -1,0 +1,14 @@
+package fabfx.scene.shape;
+
+import javafx.scene.paint.Paint;
+
+public class Rectangle[label L, label E] extends Shape[L, E] {
+	private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
+	private static int __JIF_PARAMS_RUNTIME_REPRESENTED$20051007 = 0;
+	
+	public final native void setHeight{L} (double{L} value);
+	public final native void setWidth{L}(double{L} value);
+	public final native void setArcWidth{L}(double{L} value);
+	public final native void setArcHeight{L}(double{L} value);
+
+}

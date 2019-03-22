@@ -1,0 +1,12 @@
+package javafx.animation;
+
+import javafx.beans.value.WritableValue;
+
+public class KeyValue [label L] extends java.lang.Object {
+	private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
+//	private static int __JIF_PARAMS_RUNTIME_REPRESENTED$20051007 =	0;
+
+    public KeyValue (WritableValue[L] target, java.lang.Object endValue) {
+    }
+
+}

@@ -1,0 +1,15 @@
+package fabric.util;
+
+public class Boolean2DArray [label L] extends java.lang.Object {
+	private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
+	private static int __JIF_PARAMS_RUNTIME_REPRESENTED$20051007 = 0;
+
+	public Boolean2DArray{L} (int{L} dim1, int{L} dim2) throws (NegativeArraySizeException{L}) {
+		super();
+	}
+	
+	public native boolean{L;idx1;idx2} get(int idx1, int idx2);
+	
+	public native void set{L}(int{L} idx1, int{L} idx2, boolean{L} value);
+
+}

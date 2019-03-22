@@ -1,0 +1,7 @@
+package calendar;
+
+import fabfx.application.Application;
+
+public class CalendarApp extends Application {
+
+}

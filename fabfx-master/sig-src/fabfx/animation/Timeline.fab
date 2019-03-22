@@ -1,0 +1,15 @@
+package fabfx.animation;
+
+import fabfx.collections.ObservableList;
+
+public class Timeline [label L, label M] extends Animation[L, M] {
+	private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
+	private static int __JIF_PARAMS_RUNTIME_REPRESENTED$20051007 = 0;
+	
+	public Timeline (double targetFramerate) {
+	}
+	
+	public native ObservableList[L,M]{L} getKeyFrames(); 
+	
+	
+}

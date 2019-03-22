@@ -1,0 +1,10 @@
+package fabfx.scene;
+
+public abstract class Parent [label L, label M] extends Node[L,M] {
+    private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
+    private static int __JIF_PARAMS_RUNTIME_REPRESENTED$20051007 = 0;
+	
+	public Parent() {
+		super();
+	}
+}

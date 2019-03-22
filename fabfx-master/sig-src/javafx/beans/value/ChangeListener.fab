@@ -1,0 +1,8 @@
+package javafx.beans.value;
+
+public interface ChangeListener [label L, label M] where M <= L {
+		
+	public void changed{M}
+		(ObservableValue[L,M]{M} observable, Object{M} oldValue, Object{M} newValue);
+
+}

@@ -1,0 +1,8 @@
+package java.util;
+
+public abstract class Collection [label L] extends java.lang.Object {
+	private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
+	
+	public abstract boolean{L} add{L} (java.lang.Object{L} o);
+	
+}

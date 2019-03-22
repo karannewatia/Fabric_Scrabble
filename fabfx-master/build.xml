@@ -1,0 +1,153 @@
+<!--
+  This is the Apache Ant build file for the Fabric FX library
+  implementation.
+-->
+
+<project name="fabfx" default="build-all" basedir=".">
+  <description>
+    Build file for the Fabric FX library.
+  </description>
+
+  <!--
+  ****************************************************************************
+    Global properties for this build.
+  ****************************************************************************
+  -->
+
+  <!-- set the prefix for accessing environment variables -->
+  <property environment="env" />
+
+  <!-- Import properties file. -->
+  <property file="${basedir}/config.properties" />
+  <echo message="fabric.home is ${fabric.home}" level="verbose" />
+  <condition property="fabric.home" value="${env.FABRIC}">
+  <not> <isset property="fabric.home" /> </not>
+  </condition>
+
+  <import file="${fabric.home}/common.xml" />
+  <import file="common.xml" />
+
+	<!--
+  <import file="${fabric.home}/src/lib/collections/common.xml" />
+	-->
+
+  <!-- signature source directory -->
+  <property name="sig-src" location="${fabfx.home}/sig-src" />
+
+  <!-- fabric source directory -->
+  <property name="fab-src" location="${fabfx.home}/fab-src" />
+
+  <!-- java source directory -->
+  <property name="src" location="${fabfx.home}/src" />
+
+  <!-- directory for class file targets -->
+  <property name="fabfx.classes" location="${fabfx.home}/classes" />
+
+  <!-- directory for signature classes -->
+  <property name="fabfx.sig-classes" location="${fabfx.home}/sig-classes" />
+
+  <!--
+  ****************************************************************************
+    Targets for cleaning up the directory tree.
+  ****************************************************************************
+  -->
+
+  <target name="clean" description="Removes generated files">
+    <delete dir="${fabfx.classes}"/>
+	<delete dir="${fabfx.sig-classes}"/>
+    <delete file="${jar.fabfx}"/>
+	<delete file="${jar.fabfx-sig}"/>
+  </target>
+
+  <target name="clobber" depends="clean" />
+
+  <!--
+  ****************************************************************************
+    Compilation targets.
+  ****************************************************************************
+  -->
+
+  <target name="init">
+		<!-- Create the time stamp -->
+		<tstamp />
+		<!-- Create the build directory structures used by compile -->
+		<mkdir dir="${fabfx.classes}" />
+		<mkdir dir="${fabfx.sig-classes}" />
+	</target>
+
+	<target name="build-fabfx-fab" depends="init">
+		<fabc dest="${fabfx.classes}">
+			<arg value="-sourcepath" /> <arg value="${fab-src}" />
+			<arg value="-cp"/> <arg value="${fabfx.classes}"/>
+      <arg value="-debugpositions"/>
+      <arg value="-trusted-providers"/>
+			<fileset dir="${fab-src}" includes="**/*.fab" />
+		</fabc>
+	</target>
+
+  <target name="build-fabfx-java" depends="init, build-fabfx-fab">
+		<javac source="1.7"
+           target="1.7"
+           srcdir="${src}"
+           destdir="${fabfx.classes}"
+           debug="true"
+           includeAntRuntime="false"
+           debuglevel="lines,vars,source">
+      <classpath>
+        <path refid="lib.classpath" />
+        <path refid="fabric.classpath" />
+				<!--
+        <path refid="collections.classpath" />
+				-->
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="build-fabfx-sig" depends="init, build-fabfx-user">
+    <fabsigc dest="${fabfx.sig-classes}">
+      <arg value="-cp"/> <arg value="${fabfx.classes}" />
+			<!--
+			<arg pathref="collections.classpath" />
+			-->
+      <arg value="-trusted-providers" />
+      <arg value="-sourcepath" /> <arg value="${sig-src}" />
+      <fileset dir="${sig-src}" includes="**/*.fab" />
+    </fabsigc>
+  </target>
+
+  <target name="build-fabfx-user" depends="init">
+    <fabc dest="${fabfx.classes}">
+      <arg value="-trusted-providers" />
+      <fileset dir="${fab-src}" includes="fabric/principals/*.fab" />
+    </fabc>
+  </target>
+
+  <target name="build-source"
+		  depends="build-fabfx-java, build-fabfx-fab, build-fabfx-sig"
+		  description="Builds all kinds of source files" />
+  <target name="build-all" depends="build-source, jar" />
+  <target name="all" depends="build-all" />
+
+  <!--
+  ****************************************************************************
+    Jar targets         
+  ****************************************************************************
+  -->
+
+  <uptodate property="jar.uptodate" targetfile="${jar.fabfx}">
+    <srcfiles dir="${src}" />
+    <srcfiles dir="${fab-src}" />
+    <srcfiles dir="${sig-src}" />
+  </uptodate>
+
+  <target name="jar" unless="jar.uptodate" description="Creates FabFX jar file">
+    <antcall target="build-source" />
+    <jar jarfile="${jar.fabfx}" basedir="${fabfx.classes}" excludes="**/*.java" />
+    <jar jarfile="${jar.fabfx-sig}" basedir="${fabfx.sig-classes}" excludes="**/*.java" />
+  </target>
+
+</project>
+
+<!--
+vim: ts=2 sw=2 ai et
+-->

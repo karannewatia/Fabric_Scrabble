@@ -1,0 +1,20 @@
+package fabfx.scene.control;
+
+import fabfx.event.Event;
+import fabfx.event.EventHandler;
+
+public class Button[label L, label M] {
+
+	public Button () {}
+
+	public Button {L} (String{L} text) {}
+
+	native public String {L} getText ();
+
+	native public void setText {L} (String{L} text);
+
+	native public void setOnAction {M} (EventHandler[M]{M} handler);
+
+	native public void fire {M} ();
+
+}

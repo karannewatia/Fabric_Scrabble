@@ -1,0 +1,8 @@
+package java.util;
+
+public class ArrayList [label L] extends List[L] {
+	private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
+	
+	public native boolean{L} add{L} (java.lang.Object{L} o);
+	
+}

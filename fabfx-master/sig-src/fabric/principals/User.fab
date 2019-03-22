@@ -1,0 +1,9 @@
+package fabric.principals;
+
+public class User extends ExternalPrincipal {
+
+	public User() {
+		super("GUI User");
+	}
+
+}

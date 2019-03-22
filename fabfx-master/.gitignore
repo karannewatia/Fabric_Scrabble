@@ -1,0 +1,9 @@
+classes
+sig-classes
+.*.sw?
+.classpath
+var
+config.properties
+lib/fabfx-sig.jar
+lib/fabfx.jar
+/eclipse-classes/

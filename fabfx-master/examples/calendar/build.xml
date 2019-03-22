@@ -1,0 +1,66 @@
+<!--
+  This is the Apache Ant build file for the calendar application
+-->
+
+<project name="calendar" default="build-all" basedir=".">
+  <description>
+    Build the calendar application
+  </description>
+
+  <!--
+  ****************************************************************************
+    Global properties for this build.
+  ****************************************************************************
+  -->
+
+  <property environment="env" />
+  <property file="../../config.properties" />
+  <import file="${fabric.home}/common.xml" />
+  <import file="../../common.xml" />
+
+  <dirname property="calendar.home" file="${ant.file.calendar}" />
+
+  <!--
+  ****************************************************************************
+    Targets for cleaning up the directory tree.
+  ****************************************************************************
+  -->
+
+  <target name="clean" description="Removes generated files">
+    <delete dir="${calendar.home}/classes"/>
+  </target>
+
+  <target name="clobber" depends="clean"
+          description="Removes generated files and state of stores">
+    <delete dir="${calendar.home}/var"/>
+  </target>
+
+  <!--
+  ****************************************************************************
+    Compilation targets.
+  ****************************************************************************
+  -->
+
+  <target name="build"
+          depends="fabfx"
+          description="Builds the Calendar Application">
+    <fabc dest="${calendar.home}/classes">
+      <arg value="-sourcepath" /> <arg value="${calendar.home}/src" />
+      <arg value="-cp"         /> <arg value="/usr/lib/jvm/default/jre/lib/ext/jfxrt.jar" />
+      <arg value="-cp"         /> <arg value="${calendar.home}/classes" />
+	  <arg value="-cp"         /> <arg pathref="fabfx.classpath"/>
+	  <arg value="-addsigcp"   /> <arg pathref="fabfx.sigcp"/>
+      <arg value="-trusted-providers" />
+
+      <fileset dir="${calendar.home}/src" includes="**/*.fab" />
+    </fabc>
+  </target>
+
+  <target name="build-all" depends="build" />
+  <target name="all" depends="build-all" />
+
+</project>
+
+<!--
+vim: ts=2 sw=2 et ai
+-->

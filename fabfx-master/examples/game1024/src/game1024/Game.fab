@@ -1,0 +1,171 @@
+package game1024;
+
+import fabfx.application.Application;
+import fabfx.stage.Stage;
+import fabfx.scene.*;
+import fabfx.scene.layout.*;
+import fabfx.collections.ObservableList;
+import fabfx.scene.text.Text;
+import fabfx.event.EventHandler;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.animation.KeyValue;
+import fabfx.animation.KeyFrame;
+import fabfx.animation.Timeline;
+import javafx.util.Duration;
+import fabric.util.java.Object2DArray;
+import fabricated.util.List;
+import fabricated.util.ArrayList;
+
+public class Game extends Application {
+
+	static Color{User->;User<-} numColor;
+	static Color{User->;User<-} tileColor;
+	static Color{User->;User<-} sepColor;
+	static Font{User->;User<-} numFont;
+	static Font{User->;User<-} smallNumFont;
+	static double{User->;User<-} tileSize = 120.0;
+	static double{User->;User<-} gutter;
+	static Color{User->;User<-} native []{User->;User<-} colors;
+
+	// The model of the game.
+	private GameModel[{User->;User<-}]{User->;User<-} model;
+	// The nodes corresponding to each of the tiles of the game
+	private Object2DArray[{User->;User<-}]{User->;User<-} tiles;
+
+	public void run{User->;User<-} (Stage{User->;User<-} primaryStage) {
+		atomic {
+			final label l = new label {User->;User<-};
+			if (this.store$ actsfor User) {
+				try {
+					model = new GameModel[l]@store$(4);
+					model.addNewTile();
+					gutter = tileSize / 10;
+					int s = model.size();
+					numColor = new Color(0.4, 0.4, 0.4, 1.0);
+					tileColor = new Color(0.8, 0.8, 0.8, 1.0);
+					sepColor = new Color(0.6, 0.6, 0.6, 1.0);
+					colors = new Color native []{ 
+						tileColor, new Color(0.8, 0.8, 0.75, 1.0),
+						new Color(0.8, 0.75, 0.75, 1.0), new Color(0.85, 0.75, 0.7, 1.0),
+						new Color(0.8, 0.8, 0.7, 1.0), new Color(0.8, 0.7, 0.7, 1.0),
+						new Color(0.8, 0.7, 0.6, 1.0), new Color(0.8, 0.6, 0.7, 1.0),
+						new Color(0.7, 0.8, 0.7, 1.0), new Color(0.7, 0.8, 0.6, 1.0),
+						new Color(0.6, 0.7, 0.8, 1.0), new Color(0.6, 0.6, 0.8, 1.0),
+						new Color(0.8, 0.8, 0.5, 1.0), new Color(0.8, 0.7, 0.5, 1.0),
+						new Color(0.8, 0.6, 0.5, 1.0), new Color(0.8, 0.5, 0.7, 1.0),
+						new Color(0.8, 0.5, 0.5, 1.0)
+					};
+					numFont = Font.font("Helvetica-Bold", FontWeight.BOLD, 64);
+					smallNumFont = Font.font("Helvetica-Bold", FontWeight.BOLD, 32);
+
+					final Pane[l,l] content = new Pane[l,l]();
+					final Group[l,l] outer = new Group[l,l]();
+					final Scene[l,l] scene = new Scene[l,l](l, l, outer);
+
+					primaryStage.setScene(l,l,scene);
+					outer.getChildren().add(l,l,content);
+					content.setPrefHeight(s * tileSize + (s + 1) * gutter);
+					content.setPrefWidth(s * tileSize + (s + 1) * gutter);
+					content.setStyle("-fx-background-color: #999999");
+
+					tiles = new Object2DArray[l](model.size(), model.size());
+					for (int i = 0; i < model.size(); i++) {
+						for (int j = 0; j < model.size(); j++) {
+							Tile tile = new Tile(i,j); // extra blank tile
+							content.getChildren().add(l, l, (Tile) tile);
+							tile.setPosn();
+							tile.toBack();
+
+							tiles.set(i, j, new Tile(i, j));
+							content.getChildren().add(l, l, 
+									(Tile) tiles.get(i, j)); // j,i
+						}			
+					}
+
+					resetTilePosns();
+					setLabelsFromState();
+
+					outer.requestFocus();
+					outer.setOnKeyPressed(new ArrowHandler(this));
+
+				} catch (NegativeArraySizeException e) {
+					// Impossible
+				}
+				primaryStage.setTitle("1024");
+				primaryStage.show();
+			}
+		}
+	}
+
+	protected void resetTilePosns{User->;User<-}() {
+		for (int i = 0; i < model.size(); i++) {
+			for (int j = 0; j < model.size(); j++) {
+				((Tile) tiles.get(i,j)).setPosn();
+			}
+		}
+	}
+
+	protected void setLabelsFromState{User->;User<-}() {
+		for (int r = 0; r < model.size(); r++) {
+			for (int c = 0; c < model.size(); c++) {
+				int v = model.tile(r, c);
+				Text[{User->;User<-},{User->;User<-}] t = ((Tile) tiles.get(r, c)).text;
+				if (v == 0) {
+					t.setText("");
+				} else {
+					t.setText(String.valueOf(v));
+					t.setFont(v >= 100 ? smallNumFont : numFont);
+				}
+				int j = 0;
+				while (v != 0) {
+					v = v / 2;
+					j++;
+				}
+				if (j >= colors.length)
+					j = colors.length - 1;
+				((Tile) tiles.get(r, c)).background.setFill(colors[j]);
+			}
+		}
+	}
+
+	protected void doMove{User->;User<-} (int{User->;User<-} dx, int{User->;User<-} dy) {
+		final label l = new label {User->;User<-};
+		List[l] moves = model.doMove(dx, dy);
+		java.util.List[l] move_anims = new java.util.ArrayList[l]();
+		java.util.List[l] flash_anims = new java.util.ArrayList[l]();
+		for (int i = 0; i < moves.size(); ++i) {
+			Move[l] m = (Move[l]) moves.get(i);
+			Tile from_tile = (Tile) tiles.get(m.fromLoc.row, m.fromLoc.col);
+			Tile to_tile = (Tile) tiles.get(m.toLoc.row, m.toLoc.col);
+			from_tile.toFront();
+			KeyValue[l] xkv = new KeyValue[l](from_tile.layoutXProperty(),
+				Double.valueOf(to_tile.getLayoutX()));
+			move_anims.add(xkv);
+			KeyValue[l] ykv = new KeyValue[l](from_tile.layoutYProperty(),
+				Double.valueOf(to_tile.getLayoutY()));
+			move_anims.add(ykv);
+			KeyValue[l] fillkv = new KeyValue[l](from_tile.background.fillProperty(),
+				from_tile.background.getFill());
+			move_anims.add(fillkv);
+			if (m.merge) {
+				javafx.beans.property.ObjectProperty fillProperty = from_tile.background.fillProperty();
+				Color color = (Color) (from_tile.background.getFill());
+				Color endColor = color.interpolate(Color.WHITE, 0.3);
+				KeyValue[l] colorkv = new KeyValue[l](fillProperty, endColor);
+				flash_anims.add(colorkv);
+			}
+		}
+
+		Timeline timeline = new Timeline(60);
+		EventHandler[{User->;User<-}] h1 = new EmptyHandler();
+		timeline.getKeyFrames().add(l,l,
+			new KeyFrame(Duration.seconds(0.2), "end_slide", h1, move_anims));
+		EventHandler[{User->;User<-}] h2 = new EndMoveHandler(this);
+		timeline.getKeyFrames().add(l,l,
+			new KeyFrame(Duration.seconds(0.3), "end", h2, flash_anims));
+		timeline.play();
+	}
+	
+}

@@ -1,0 +1,14 @@
+package fabfx.stage;
+
+import fabfx.scene.Scene;
+
+public class Stage [label L, label M] {
+
+	native public void Stage ();
+
+	native public void show {L} () where L <= {⊤→User};
+
+	native public void setScene {L} (label sL, label sM, Scene[sL,sM] {L} scene)
+	where {*sL} <= {L}, {M; scene} <= {*sM};
+
+}

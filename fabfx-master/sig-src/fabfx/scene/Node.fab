@@ -1,0 +1,28 @@
+package fabfx.scene;
+
+import javafx.beans.property.DoubleProperty;
+import fabfx.event.EventHandler;
+
+public abstract class Node [label L, label M] extends java.lang.Object {
+	private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
+	private static int __JIF_PARAMS_RUNTIME_REPRESENTED$20051007 = 0;
+
+	public Node() {
+		super();
+	}
+
+	public final native void setStyle{L} (String{L} value);
+	public final native void setLayoutX{L} (double{L} value);
+	public final native void setLayoutY{L} (double{L} value);
+	public final native void toBack{L} ();
+	public final native void toFront{L} ();
+
+	public final native double{L} getLayoutX ();
+	public final native double{L} getLayoutY ();
+	public final native DoubleProperty[L,M]{L} layoutXProperty ();
+	public final native DoubleProperty[L,M]{L} layoutYProperty ();
+ 	
+	public native void requestFocus{L} ();
+
+	public final native void setOnKeyPressed{L} (EventHandler[M]{L} value);
+}

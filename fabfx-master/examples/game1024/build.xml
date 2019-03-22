@@ -1,0 +1,65 @@
+<!--
+  This is the Apache Ant build file for the FabFX "1024" game
+-->
+
+<project name="game1024" default="build-all" basedir=".">
+  <description>
+    Build Game "1024"
+  </description>
+
+  <!--
+  ****************************************************************************
+    Global properties for this build.
+  ****************************************************************************
+  -->
+
+  <property environment="env" />
+  <import file="../../common.xml" />
+  <property file="../../config.properties" />
+  <import file="${fabric.home}/common.xml" />
+
+  <dirname property="game1024.home" file="${ant.file.game1024}" />
+
+  <!--
+  ****************************************************************************
+    Targets for cleaning up the directory tree.
+  ****************************************************************************
+  -->
+
+  <target name="clean" description="Removes generated files">
+    <delete dir="${game1024.home}/classes"/>
+  </target>
+
+  <target name="clobber" depends="clean"
+          description="Removes generated files and state of stores">
+    <delete dir="${game1024.home}/var"/>
+  </target>
+
+  <!--
+  ****************************************************************************
+    Compilation targets.
+  ****************************************************************************
+  -->
+
+  <target name="build"
+          description="Builds the FabFX 1024 Game">
+    <fabc dest="${game1024.home}/classes">
+      <arg value="-sourcepath" /> <arg value="${game1024.home}/src" />
+      <arg value="-cp"         /> <arg value="/usr/lib/jvm/default/jre/lib/ext/jfxrt.jar" />
+      <arg value="-cp"         /> <arg value="${game1024.home}/classes" />
+	  <arg value="-cp"         /> <arg pathref="fabfx.classpath"/>
+	  <arg value="-addsigcp"   /> <arg pathref="fabfx.sigcp"/>
+      <arg value="-trusted-providers" />
+
+      <fileset dir="${game1024.home}/src" includes="**/*.fab" />
+    </fabc>
+  </target>
+
+  <target name="build-all" depends="build" />
+  <target name="all" depends="build-all" />
+
+</project>
+
+<!--
+vim: ts=2 sw=2 et ai
+-->

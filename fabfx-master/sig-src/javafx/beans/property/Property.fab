@@ -1,0 +1,15 @@
+package javafx.beans.property;
+
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.WritableValue;
+
+public interface Property[label L, label M] extends ObservableValue[L,M], WritableValue[L] 
+		where M <= L {
+
+	public void bind{L} (ObservableValue[L,M]{L} observable);
+	
+	public void unbind{L} ();
+	
+	public boolean{L} isBound ();
+	
+}

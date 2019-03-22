@@ -1,0 +1,11 @@
+package fabric.util;
+
+// Use a different name from 'Random' to avoid colliding with 
+// the other fabric.util.Random defined by Fabric.
+public class RandomGenerator [label L] extends java.lang.Object {
+	private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
+	private static int __JIF_PARAMS_RUNTIME_REPRESENTED$20051007 = 0;
+	
+	public native int{L} nextInt{L}(int{L} bound);
+
+}

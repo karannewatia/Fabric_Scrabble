@@ -1,0 +1,14 @@
+package fabfx.scene.input;
+
+import javafx.event.EventType;
+import javafx.scene.input.KeyCode;
+
+public class KeyEvent[label M] extends InputEvent[M] {
+	private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
+	private static int __JIF_PARAMS_RUNTIME_REPRESENTED$20051007 = 0;
+
+	public static final EventType KEY_PRESSED;
+	
+	public final native KeyCode{M} getCode();
+	
+}
