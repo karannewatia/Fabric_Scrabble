@@ -1,6 +1,4 @@
 package fabric.util;
-import fabricated.util.ArrayList;
-import fabricated.util.StringComparator;
 
 // Use a different name from 'Random' to avoid colliding with
 // the other fabric.util.Random defined by Fabric.
