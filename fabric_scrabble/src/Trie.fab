@@ -1,5 +1,5 @@
-//import java.io.*;
 import fabricated.util.ArrayList;
+import fabric.util.Dictionary;
 
 // implementation of trie
 public class Trie[principal Game] {
@@ -36,7 +36,7 @@ public class Trie[principal Game] {
     }
 
     // Returns true if key presents in trie, else false
-    public boolean{} search{Game<-}(String{Game<-} key)
+    public boolean{Game<-} search{Game<-}(String{Game<-} key)
     {
         int level;
         int length = key.length();
@@ -53,35 +53,19 @@ public class Trie[principal Game] {
             pCrawl = pCrawl.children[index];
         }
 
-        return (pCrawl != null && pCrawl.isEndOfWord);
+        //return (pCrawl != null && pCrawl.isEndOfWord);
+        return true;
     }
 
-    /**
-    public static boolean createDict(ArrayList wordsToCheck)
+
+    public boolean{Game<-} createDict{Game<-}(ArrayList[{Game<-}]{Game<-} wordsToCheck)
     {
-        ArrayList words = new ArrayList().fabric$util$ArrayList$();
-
-        //File file = new File("/Users/karannewatia/Documents/GitHub/Fabric_Scrabble/fabil_scrabble/src/simple_dict.txt");
-
-        try {
-          FileReader fileReader = new FileReader(file);
-          BufferedReader reader = new BufferedReader(fileReader);
-         String line = reader.readLine();
-         while (line != null) {
-            words.add(line);
-            // read next line
-            line = reader.readLine();
-          }
-          reader.close();
-        } catch (Exception e ) {
-            e.printStackTrace();
-        }
-
-        root = new TrieNode().TrieNode$();
+        Dictionary[{Game<-}]{Game<-} dict = new Dictionary[{Game<-}]();
+        String[]{Game<-} words = dict.getDict();
 
         // Construct trie
-        for (int i = 0; i < words.size(); i++){
-            String temp = (String) words.get(i);
+        for (int i = 0; i < words.length; i++){
+            String temp = words[i];
             insert(temp);
         }
 
@@ -92,7 +76,7 @@ public class Trie[principal Game] {
 
         return true;
 
-      }*/
+      }
 
 
 }

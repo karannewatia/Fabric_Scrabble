@@ -4,7 +4,7 @@ public class TrieNode[principal Game] {
 
     // isEndOfWord is true if the node represents
     // end of a word
-    public boolean isEndOfWord;
+    public boolean{Game<-} isEndOfWord;
 
     public TrieNode{Game<-} () {
         this.isEndOfWord = false;

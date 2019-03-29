@@ -1,5 +1,6 @@
 import fabricated.util.ArrayList;
 import fabricated.util.StringComparator;
+import fabric.util.PrintString;
 
 /**
  * The class Scrabble is responsible for coordinating gameplay
@@ -148,6 +149,8 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
   public void gameLoop{Game<-}(){
     atomic{
       while(this.board.moveNumber < 50){
+        //PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
+        //p.print("kkkk");
 
          //this.print_helper();
          boolean success = false;
