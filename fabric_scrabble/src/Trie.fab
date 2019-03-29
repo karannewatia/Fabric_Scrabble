@@ -53,8 +53,7 @@ public class Trie[principal Game] {
             pCrawl = pCrawl.children[index];
         }
 
-        //return (pCrawl != null && pCrawl.isEndOfWord);
-        return true;
+        return (pCrawl != null && pCrawl.isEndOfWord);
     }
 
 
