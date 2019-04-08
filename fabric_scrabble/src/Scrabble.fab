@@ -149,8 +149,8 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
   public void gameLoop{Game<-}(){
     atomic{
       while(this.board.moveNumber < 50){
-        //PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
-        //p.print("kkkk");
+        PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
+        p.print("kkkk");
 
          //this.print_helper();
          boolean success = false;

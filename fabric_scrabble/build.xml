@@ -30,6 +30,7 @@
 
   <target name="clean" description="Removes generated files">
     <delete dir="${scrabble.home}/classes"/>
+    <delete dir="${scrabble.home}/sig-classes"/>
   </target>
 
   <target name="clobber" depends="clean"
@@ -43,7 +44,7 @@
   ****************************************************************************
   -->
 
-  <target name="build"
+  <target name="build" depends="build-sig,build-java"
           description="Builds the Scrabble app">
 
     <fabc dest="${scrabble.home}/classes">
@@ -51,6 +52,7 @@
 
       <arg value="-cp"         /> <arg value="${scrabble.home}/classes" />
       <arg value="-cp" /> <arg pathref="collections.classpath" />
+      <arg value="-addsigcp" /> <arg value="${scrabble.home}/sig-classes" />
       <arg value="-trusted-providers" />
       <arg value="-explain" />
 
@@ -63,6 +65,36 @@
 
       <fileset dir="${scrabble.home}/src" includes="**/*.fil" />
     </filc>
+  </target>
+
+  <target name="build-java"
+      description="Builds java behind signatures">
+    <mkdir dir="${scrabble.home}/classes" />
+    <javac source="1.8"
+           target="1.8"
+           srcdir="${scrabble.home}/src-java"
+           destdir="${scrabble.home}/classes"
+           debug="true"
+           includeAntRuntime="false"
+           debuglevel="lines,vars,source">
+       <classpath>
+         <path refid="fabric.classpath" />
+       </classpath>
+     </javac>
+  </target>
+
+  <target name="build-sig"
+      description="Builds signature definitions">
+    <fabsigc dest="${scrabble.home}/sig-classes">
+      <arg value="-sourcepath" /> <arg value="${scrabble.home}/src" />
+
+      <arg value="-cp"         /> <arg value="${scrabble.home}/classes" />
+      <arg value="-cp" /> <arg pathref="collections.classpath" />
+      <arg value="-trusted-providers" />
+      <arg value="-explain" />
+
+      <fileset dir="${scrabble.home}/src-sig" includes="**/*.fab" />
+    </fabsigc>
   </target>
 
   <target name="build-all" depends="build" />
