@@ -7,7 +7,4 @@ public class KeyCode {
 	public static KeyCode UP;
 	public static KeyCode RIGHT;
 	public static KeyCode DOWN;
-	public static KeyCode S;
-	public static KeyCode P;
-	public static KeyCode M;
 }

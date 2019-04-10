@@ -1,18 +1,7 @@
 import fabricated.util.ArrayList;
 import fabricated.util.StringComparator;
 import fabric.util.PrintString;
-
 import fabfx.application.Application;
-import fabfx.stage.Stage;
-import fabfx.scene.*;
-import fabfx.scene.layout.*;
-import fabfx.scene.text.Text;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import fabfx.event.Event;
-import fabfx.event.EventHandler;
-import fabfx.scene.input.KeyEvent;
-import javafx.scene.input.KeyCode;
 
 /**
  * The class Scrabble is responsible for coordinating gameplay
@@ -189,29 +178,6 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
       return printBoard;
   }
 
-  public boolean{Game<-} moveHandler{Game<-} (Event[{Game<-}]{Game<-} ev_) {
-    boolean success = false;
-		atomic {
-			if (ev_ instanceof KeyEvent[{Game<-}]) {
-				KeyEvent[{Game<-}] ev = (KeyEvent[{Game<-}]) ev_;
-				if (ev.getEventType() == KeyEvent.KEY_PRESSED) {
-					KeyCode key = ev.getCode();
-					if (key == KeyCode.P) {
-						//return this.place;
-            return success;
-					} else if (key == KeyCode.S) {
-						return success;
-					} else {
-					//pass;
-          success = true;
-          return success;
-					}
-				}
-				ev_.consume();
-			}
-		}
-	}
-
   /**
   * Runs the Scrabble game
   * the game ends when the number of moves played is equal to 50
@@ -219,30 +185,29 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
   public void gameLoop{Game<-}(){
     atomic{
       while(this.board.moveNumber < 50){
-        //PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
-        //p.print(this.readBoard());
+        PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
+        p.print(this.readBoard());
 
-        //new Gui().launchApp();
+         //this.print_helper();
+         boolean success = false;
+         RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
+         RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
 
-        boolean success = false;
-        RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
-        RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
-
-       while (!success){
-         // Remote call
-          int temp = (this.currentPlayer + 1) % this.players.size();
-          //this.readBoard_remote@w2(Worker.getWorker().getPrincipal(), temp);
-          //success = this.move_remote@w1(Worker.getWorker().getPrincipal());
-       }
-       if (this.emptyRack()){
-          int winner = this.getWinner();
-          //System.out.println("The winner is player " + (winner) );
-          break;
-       }
-       this.currentPlayer = (this.currentPlayer + 1) % this.players.size();
-    }
-    int winner = this.getWinner();
-    //System.out.println("The winner is player " + (winner) );
+         while (!success){
+           // Remote call
+            int temp = (this.currentPlayer + 1) % this.players.size();
+            //this.readBoard_remote@w2(Worker.getWorker().getPrincipal(), temp);
+            //success = this.move_remote@w1(Worker.getWorker().getPrincipal());
+         }
+         if (this.emptyRack()){
+            int winner = this.getWinner();
+            //System.out.println("The winner is player " + (winner) );
+            break;
+         }
+         this.currentPlayer = (this.currentPlayer + 1) % this.players.size();
+      }
+      int winner = this.getWinner();
+      //System.out.println("The winner is player " + (winner) );
     }
   }
 

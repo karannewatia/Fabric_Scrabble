@@ -20,7 +20,7 @@ public class Bag[principal Game] authority(Game) {
 
     public Bag{Game<-}(){
     try{
-      this.tiles = new ArrayList{Game->; Game<-}();
+      this.tiles = new ArrayList{Game->; Game<-}(new StringComparator());
       }
     catch (IllegalArgumentException exc){
 

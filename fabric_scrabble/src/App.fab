@@ -20,15 +20,15 @@ public class App[principal Game, principal p1, principal p2, principal allPlayer
        Player[Game, p1]{Game<-} alice = new Player{Game<-}(w1);
        Player[Game, p2]{Game<-} bob = new Player{Game<-}(w2);
 
-       this.players = new ArrayList{Game<-}();
+       this.players = new ArrayList{Game<-}(new StringComparator());
        players.add(alice);
        players.add(bob);
 
-       this.tilesLeft = new ArrayList{Game<-}();
+       this.tilesLeft = new ArrayList{Game<-}(new IdComparator());
        tilesLeft.add(new Integer(7));
        tilesLeft.add(new Integer(7));
 
-       this.scores = new ArrayList{Game<-}();
+       this.scores = new ArrayList{Game<-}(new IdComparator());
        scores.add(new Integer(0));
        scores.add(new Integer(0));
 
