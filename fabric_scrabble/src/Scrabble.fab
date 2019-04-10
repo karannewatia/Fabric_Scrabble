@@ -140,7 +140,42 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
        return result;
      }
     return result;
+  }
+
+  /**
+  * Prints the game board for every turn
+  */
+  public String{Game<-} readBoard{Game<-}(){
+    String{Game<-} printBoard = "";
+    atomic{
+      printBoard += "\n";
+      printBoard += "  "; //beginning 2 spaces
+      for(int i = 0; i < this.board.gameBoard.length; ++i){
+        if(i>9) printBoard += " " + (i) + " "; //print letters separately.
+        else printBoard += " " + (i) +"  "; //print letters separately.
+      }
+      for(int i = 0; i < this.board.gameBoard.length; i++){
+        printBoard += "\n";
+        for(int j = 0; j < this.board.gameBoard.length; j++){
+            if(j == 0){
+                if(i>9) {
+                  printBoard += i;
+                  printBoard += "| ";
+                } else {
+                  printBoard += " " + i;
+                  printBoard += "| ";
+                }
+            }
+            printBoard += (String)(this.board.gameBoard[i].get(j)) + " | ";
+          }
+        }
+        printBoard += "\n" + "\n" + "Player " + this.currentPlayer + "'s turn \n";
+        printBoard += "Your score: " + ((Integer)this.playerScores.get(this.currentPlayer)).intValue() + "\n";
+        //printBoard += "Your rack: " + ((Player)this.players.get(this.currentPlayer)).getRack() + "\n";
+
     }
+      return printBoard;
+  }
 
   /**
   * Runs the Scrabble game
@@ -150,7 +185,7 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
     atomic{
       while(this.board.moveNumber < 50){
         PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
-        p.print("kkkk");
+        p.print(this.readBoard());
 
          //this.print_helper();
          boolean success = false;
