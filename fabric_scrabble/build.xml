@@ -20,6 +20,9 @@
   <import file="${fabric.home}/src/lib/sif/common.xml" />
   <import file="${fabric.home}/src/lib/collections/common.xml" />
 
+  <import file="../fabfx-master/common.xml" />
+  <property file="../fabfx-master/config.properties" />
+
   <dirname property="scrabble.home" file="${ant.file.scrabble}" />
 
   <!--
@@ -49,10 +52,13 @@
 
     <fabc dest="${scrabble.home}/classes">
       <arg value="-sourcepath" /> <arg value="${scrabble.home}/src" />
+      <arg value="-cp"         /> <arg value="/Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/jre/lib/ext/jfxrt.jar" />
 
       <arg value="-cp"         /> <arg value="${scrabble.home}/classes" />
       <arg value="-cp" /> <arg pathref="collections.classpath" />
       <arg value="-addsigcp" /> <arg value="${scrabble.home}/sig-classes" />
+          <arg value="-cp"         /> <arg pathref="fabfx.classpath"/>
+	        <arg value="-addsigcp"   /> <arg pathref="fabfx.sigcp"/>
       <arg value="-trusted-providers" />
       <arg value="-explain" />
 

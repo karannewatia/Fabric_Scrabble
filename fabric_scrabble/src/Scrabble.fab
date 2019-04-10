@@ -1,6 +1,7 @@
 import fabricated.util.ArrayList;
 import fabricated.util.StringComparator;
 import fabric.util.PrintString;
+import fabfx.application.Application;
 
 /**
  * The class Scrabble is responsible for coordinating gameplay
