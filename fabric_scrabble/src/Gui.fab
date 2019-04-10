@@ -1,0 +1,45 @@
+import fabfx.application.Application;
+import fabfx.stage.Stage;
+import fabfx.scene.*;
+import fabfx.scene.layout.*;
+import fabfx.collections.ObservableList;
+import fabfx.scene.text.Text;
+import fabfx.event.EventHandler;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.animation.KeyValue;
+import fabfx.animation.KeyFrame;
+import fabfx.animation.Timeline;
+import javafx.util.Duration;
+import fabric.util.java.Object2DArray;
+import fabricated.util.List;
+import fabricated.util.ArrayList;
+
+public class Gui extends Application {
+
+	public void run{User->;User<-} (Stage{User->;User<-} primaryStage) {
+		atomic {
+			final label l = new label {User->;User<-};
+			if (this.store$ actsfor User) {
+
+					final Pane[l,l] content = new Pane[l,l]();
+					final Group[l,l] outer = new Group[l,l]();
+					final Scene[l,l] scene = new Scene[l,l](l, l, outer);
+
+					primaryStage.setScene(l,l,scene);
+
+          Text[{User->;User<-},{User->;User<-}]{User->;User<-} t = new Text[l,l]();
+          //t.setText(this.readBoard());
+          t.setText("kkkk");
+          //t.setFont(new Font(20));
+          outer.getChildren().add(l,l, t);
+
+				  primaryStage.setTitle("board");
+				  primaryStage.show();
+			}
+		}
+	}
+
+
+}
