@@ -3,6 +3,7 @@ import fabricated.util.StringComparator;
 import fabricated.util.IdComparator;
 import fabricated.util.Arrays;
 import fabricated.util.HashMap;
+import fabric.util.PrintString;
 
 /**
  * This class represents a board in the Scrabble game.
@@ -93,7 +94,7 @@ public class Board[principal Game, principal allPlayers] {
     */
     private boolean{Game<-} validateWord(ArrayList[{Game<-}]{Game<-} wordList){
 
-      //return Trie.isValid(wordList);
+      //return Trie.createDict(wordList);
       return true;
     }
 
@@ -205,10 +206,10 @@ public class Board[principal Game, principal allPlayers] {
     * and false otherwise
     */
     private boolean validateAdjWords{Game<-}(ArrayList[{Game<-}]{Game<-} list) {
-      //if (!Trie.createDict(list)) {  ;
+      //if (!Trie.createDict(list)) {
           //System.out.println("invalid secondary word");
           //return false;
-      //  }
+      //}
       return true;
     }
 
@@ -278,17 +279,23 @@ public class Board[principal Game, principal allPlayers] {
     public boolean{Game<-} isMoveValid{Game<-}(String{Game<-} rackCopy, String{Game<-} word,
     String{Game<-} newEntries, boolean{Game<-} dir, int{Game<-} row, int{Game<-} col) {
 
+        PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
         if (!hasTilesinRack(rackCopy, newEntries)){
-          //System.out.println("isMoveValid err: : Letters not in rack. Invalid move!");
+            p.print("isMoveValid err: : Letters not in rack. Invalid move!");
           return false;
         }
 
         boolean tilesPresent = false;
 
         // DOES THE BOARD OVERFLOW
+        if ((col > 14) || (row > 14)) {
+          p.print("isMoveValid err: : Board overflow . Invalid move!");
+          return false;
+        }
+
         if ((dir&& (col + word.length() > 14)) ||
                 (!dir && (row + word.length() > 14))) {
-            //System.out.println("isMoveValid err: : Board overflow. Invalid move!");
+            p.print("isMoveValid err: : Board overflow. Invalid move!");
             return false;
         }
 
@@ -297,7 +304,7 @@ public class Board[principal Game, principal allPlayers] {
           ArrayList[{Game<-}]{Game<-} wordList = new ArrayList{Game<-}(new StringComparator());
           wordList.add(word);
           if (!this.validateWord(wordList)) {
-              //System.out.println("isMoveValid err: This word doesn't exist.");
+                p.print("isMoveValid err: This word doesn't exist.");
               return false;
            }
           }
@@ -308,13 +315,13 @@ public class Board[principal Game, principal allPlayers] {
         if (dir) {
             if (!this.getTileOnBoard(row, col+word.length()+1).equals(" ")||
                     (col-1>0 && !this.getTileOnBoard(row, col-1).equals(" "))) {
-                //System.out.println("isMoveValid err: Incomplete input word ");
+                  p.print("isMoveValid err: Incomplete input word ");
                 return false;
             }
         } else {
             if (!this.getTileOnBoard(row+word.length()+1, col).equals(" ")||
                     (row-1>0 && !this.getTileOnBoard(row-1, col).equals(" "))) {
-                //System.out.println("Incomplete input word");
+                  p.print("isMoveValid err: Incomplete input word ");
                 return false;
             }
         }
@@ -324,7 +331,7 @@ public class Board[principal Game, principal allPlayers] {
             if ((dir&& (col + word.length() < 7)) ||
                     (!dir && (row + word.length() < 7)) ||
                     (row > 7 && col > 7)) {
-                //System.out.println("isMoveValid err: First move should touch the board center!");
+                p.print("isMoveValid err: First move should touch the board center!");
                 return false;
             }
         }
@@ -339,7 +346,7 @@ public class Board[principal Game, principal allPlayers] {
                 }
             }
             if (!tilesPresent)  {
-                //System.out.println("isMoveValid err: New word has to touch an existing word");
+                p.print("isMoveValid err: New word has to touch an existing word");
                 return false;
             }
         }
@@ -347,7 +354,7 @@ public class Board[principal Game, principal allPlayers] {
         // ARE SECONDARY WORDS VALID IF THEY EXIST
         ArrayList adjList = this.getAdjWords(word, dir, row, col);
         if (!this.validateAdjWords(adjList)) {
-            //System.out.println("isMoveValid err: The other words you tried to create are invalid. Sorry!");
+            p.print("isMoveValid err: The other words you tried to create are invalid. Sorry!");
             return false;
         }
 
@@ -359,6 +366,8 @@ public class Board[principal Game, principal allPlayers] {
     */
     public String{Game<-} getNewEntries{Game<-}(String{Game<-} word, boolean{Game<-} isHorizontal, int{Game<-} row, int{Game<-} col) {
       ArrayList newTiles = new ArrayList(new StringComparator());
+      String{Game<-} result = "";
+      if (row > 14 || col > 14) return result;
       if (isHorizontal){
         for(int i=0; i< word.length(); i++){
           String temp = Character.toString(word.charAt(i));
@@ -388,7 +397,7 @@ public class Board[principal Game, principal allPlayers] {
         }
       }
 
-      String{Game<-} result = "";
+
       for(int i =0; i< newTiles.size();i++){
         result += (String) newTiles.get(i);
       }

@@ -119,6 +119,81 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
      return success;
    }
 
+   /**
+  * helper function for the place move for a player
+  */
+  public boolean{Game<-} place{Game<-}() where authority (Game){
+
+    boolean{Game<-} success = false;
+
+    PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
+    p.print("word formed");
+
+    String{Game<-} word = "";
+
+    try{
+      word = this.scanner.read();
+    } catch (Exception e) {
+      //print
+    }
+
+     p.print("type in the direction: h or v");
+     boolean{Game<-} dir = true;
+     String{Game<-} dirString = "";
+
+     try{
+       dirString = this.scanner.read();
+     } catch (Exception e) {
+       //print
+     }
+     if (dirString.equals("v")){
+       dir = false;
+     }
+
+     String{Game<-} rowString = "";
+     p.print("type in the row number");
+     try{
+      rowString = this.scanner.read();
+     } catch (Exception e) {
+       //print
+     }
+
+     String{Game<-} colString = "";
+     p.print("type in the column number");
+     try{
+      colString = this.scanner.read();
+     } catch (Exception e) {
+       //print
+     }
+
+     int{Game<-} row = Integer.parseInt(rowString);
+     int{Game<-} col = Integer.parseInt(colString);
+
+     // Now try to place it
+     String{Game<-} newEntries = this.board.getNewEntries(word, dir, row, col);
+
+     String{Game<-} rackCopy = endorse (((Player)this.players.get(this.currentPlayer)).getRack(), {} to {Game<-});
+     //String{Game<-} rackCopy = "";
+     String{Game<-} toSwap = this.board.swapTiles(rackCopy, newEntries);
+
+     atomic{
+       if (this.board.isMoveValid(rackCopy, word, newEntries, dir, row, col)){
+         this.board.placeWord(word, dir, row, col);
+         //this.board.incScore((Player)this.players.get(this.currentPlayer), stringToStringArray(toSwap));
+         String{Game<-}[]{Game<-} letters = new String[toSwap.length()];
+         for(int i=0; i < letters.length; i++){
+            letters[i] = Character.toString(word.charAt(i));
+         }
+         ((Player) this.players.get(this.currentPlayer)).rack.swapTiles(letters, this.bag);
+
+         this.board.moveNumber++;
+         success = true;
+       }
+    }
+    return success;
+  }
+
+
   /**
   * Helper function move.
   * calls the relevant functions using moveType
@@ -132,8 +207,8 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
         //return success;
       }
       else if (moveType.equals("place")){
-        //return this.place();
-        return success;
+        return this.place();
+        //return success;
       }
       else if (moveType.equals("pass")){
         success = true;
