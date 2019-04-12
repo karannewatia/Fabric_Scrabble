@@ -1,6 +1,7 @@
 import fabricated.util.ArrayList;
 import fabricated.util.StringComparator;
 import fabric.util.PrintString;
+import fabric.util.ReadInput;
 //import fabfx.application.Application;
 
 /**
@@ -17,6 +18,7 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
   private Bag[Game]{Game<-} bag;
   private int{Game<-} currentPlayer;
   private Board[Game, allPlayers]{Game<-} board;
+  private transient ReadInput[{Game<-}]{Game<-} scanner;
 
   public Scrabble{Game<-}(ArrayList[{Game<-}]{Game<-} playersList,
                        // ArrayList[{Game<-}]{Game<-} playerPrincipalsList,
@@ -29,6 +31,7 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
     //this.playerPrincipals = playerPrincipalsList;
     this.playerScores = playerScoresList;
     this.playerTilesLeft =  playerTilesLeftList;
+    this.scanner = new ReadInput[{Game<-}]();
   }
 
   /**
@@ -101,8 +104,9 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
   * Helper function move.
   * calls the relevant functions using moveType
   */
-  public boolean moveHelper(String moveType){
-    boolean success = false;
+  public boolean{Game<-} moveHelper{Game<-}(String{Game<-} moveType){
+    boolean{Game<-} success = false;
+    PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
     atomic{
       if (moveType.equals("swap")){
         //return this.swap();
@@ -114,33 +118,41 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
       }
       else if (moveType.equals("pass")){
         success = true;
-        //System.out.println("turn passed");
+        p.print("turn passed");
         return success;
       }
     }
-    //System.out.println("try again");
+    p.print("try again");
     return success;
 
   }
 
-  /**
-  * This functions asks the user to enter the type of move he/she wants to play.
-  */
-  public boolean move(){
-    //this.readBoard(this.currentPlayer);
-    //String moveType = this.move_gui();
-    boolean result = false;
-    String moveType = "";
+  public String{Game<-} moveGui{Game<-}(){
+    PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
+    p.print("type in move type");
+    String{Game<-} moveType = "";
 
-    if (moveType==null){
-      return result;
+    try{
+      moveType = this.scanner.read();
+    } catch (Exception e) {
+      //print
+    }
+    //p.print(moveType);
+    return moveType;
+  }
+
+  public boolean{Game<-} move{Game<-}(){
+    //this.readBoard(this.currentPlayer);
+    boolean{Game<-} result = false;
+    String{Game<-} moveType = this.moveGui();
+    PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
+
+    if (moveType==null) return false;
+
+    if (this.moveHelper(moveType)==true){
+       return true;
      }
-    if (moveHelper(moveType)==true){
-       //this.print_helper();
-       result = true;
-       return result;
-     }
-    return result;
+    return false;
   }
 
   /**
@@ -177,6 +189,7 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
       return printBoard;
   }
 
+
   /**
   * Runs the Scrabble game
   * the game ends when the number of moves played is equal to 50
@@ -187,7 +200,7 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
          PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
          p.print(this.readBoard());
 
-         boolean success = false;
+         boolean{Game<-} success = false;
          RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
          RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
          String rack = "Your rack: " + ((Player)this.players.get(this.currentPlayer)).getRack() + "\n";
@@ -199,12 +212,14 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
             int temp = (this.currentPlayer + 1) % this.players.size();
             //this.readBoard_remote@w2(Worker.getWorker().getPrincipal(), temp);
             //success = this.move_remote@w1(Worker.getWorker().getPrincipal());
+            success = this.move();
          }
          if (this.emptyRack()){
             int winner = this.getWinner();
             //System.out.println("The winner is player " + (winner) );
             break;
          }
+         r.print("break 2");
          this.currentPlayer = (this.currentPlayer + 1) % this.players.size();
       }
       int winner = this.getWinner();

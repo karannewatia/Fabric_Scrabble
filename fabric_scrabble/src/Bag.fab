@@ -14,7 +14,7 @@ public class Bag[principal Game] authority(Game) {
 
     private int[]{Game<-} counts;
 
-    private transient RandomGenerator[{Game->; Game<-}]{Game<-}  random;
+    private transient RandomGenerator[{Game->; Game<-}]{Game<-} random;
 
     public int{Game<-} numTiles;
 

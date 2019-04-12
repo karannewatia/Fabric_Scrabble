@@ -6,11 +6,8 @@ public class PrintString {
 
 	protected final Label L;
 
-	//protected final String _impl;
-
 	public PrintString(Label L) {
 		this.L = L;
-		//this._impl = s;
 	}
 
 	public void print(String s) {
