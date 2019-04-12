@@ -17,7 +17,7 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
 
   private Bag[Game]{Game<-} bag;
   private int{Game<-} currentPlayer;
-  private Board[Game, allPlayers]{Game<-} board;
+  private Board[Game]{Game<-} board;
   private transient ReadInput[{Game<-}]{Game<-} scanner;
 
   public Scrabble{Game<-}(ArrayList[{Game<-}]{Game<-} playersList,
@@ -324,7 +324,7 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
   */
   public void gameLoop{Game<-}(){
     atomic{
-      while(this.board.moveNumber < 2){
+      while(this.board.moveNumber < 50){
          PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
          p.print(this.readBoard());
 
@@ -345,7 +345,7 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
          if (this.emptyRack()){
             int winner = this.getWinner();
             String winnerStr = String.valueOf(winner);
-            r.print("The winner is player " + winnerStr );
+            r.print("The winner is player " + winnerStr + "\n");
             break;
          }
          this.currentPlayer = (this.currentPlayer + 1) % this.players.size();
@@ -353,7 +353,7 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
       int winner = this.getWinner();
       String winnerStr = String.valueOf(winner);
       PrintString[{}]{Game<-} r = new PrintString[{}]();
-      r.print("\n" + "The winner is player " + winnerStr );
+      r.print("\n" + "The winner is player " + winnerStr + "\n");
     }
   }
 

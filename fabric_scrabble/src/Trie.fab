@@ -57,25 +57,23 @@ public class Trie[principal Game] {
     }
 
 
-    public  boolean{Game<-} createDict{Game<-}(ArrayList[{Game<-}]{Game<-} wordsToCheck)
-    {
-        Dictionary[{Game<-}]{Game<-} dict = new Dictionary[{Game<-}]();
-        String{Game<-} native[]{Game<-} words = dict.getDict();
+  public void createDict{Game<-}()
+  {
+      Dictionary[{Game<-}]{Game<-} dict = new Dictionary[{Game<-}]();
+      String{Game<-} native[]{Game<-} words = dict.getDict();
 
-        // Construct trie
-        for (int i = 0; i < words.length; i++){
-            String{Game<-} temp = words[i];
-            insert(temp);
-        }
-
-        for (int j = 0; j < wordsToCheck.size(); j++){
-            String temp = (String) wordsToCheck.get(j);
-            if (!search(temp)) return false;
-        }
-
-        return true;
-
+      // Construct trie
+      for (int i = 0; i < words.length; i++){
+          String{Game<-} temp = words[i];
+          insert(temp);
       }
 
+    }
+
+  public boolean{Game<-} validate{Game<-}(String{Game<-} word)
+  {
+      if (!search(word)) return false;
+      return true;
+    }
 
 }

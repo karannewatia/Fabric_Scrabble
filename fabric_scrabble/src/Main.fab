@@ -29,8 +29,12 @@ public class Main {
 
             app.scrabble.gameLoop();
           }
-        }
+          //PrintString[{game<-}]{game<-} p = new PrintString[{game<-}]();
+          //p.print("hmm");
 
+        }
+        //PrintString[{game<-}]{game<-} p = new PrintString[{game<-}]();
+        //p.print("huh");
 
     }
 }

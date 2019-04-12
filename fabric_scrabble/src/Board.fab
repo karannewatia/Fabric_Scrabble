@@ -9,16 +9,22 @@ import fabric.util.PrintString;
  * This class represents a board in the Scrabble game.
  *.
  */
-public class Board[principal Game, principal allPlayers] {
+public class Board[principal Game] {
 
     public ArrayList[{Game<-}]{Game<-}[]{Game<-} gameBoard;
     public int{Game<-} moveNumber;
     public HashMap[{Game<-}]{Game<-} points;
+    public Trie[Game]{Game<-} trie;
 
     public Board{Game<-}() {
 
       this.moveNumber = 0;
       this.gameBoard  = new ArrayList[{Game<-}][15];
+      try{
+      this.trie = new Trie{Game<-}();
+      this.trie.createDict();
+      }
+      catch (Exception exc){}
 
       try{
       this.points = new HashMap{Game<-}(new StringComparator(), new IdComparator());
@@ -92,10 +98,9 @@ public class Board[principal Game, principal allPlayers] {
     * Returns true if word is present in the Scrabble dictionary,
     * and false otherwise
     */
-    private boolean{Game<-} validateWord(ArrayList[{Game<-}]{Game<-} wordList){
-
-      //return Trie.createDict(wordList);
-      return true;
+    private boolean{Game<-} validateWord{Game<-}(String{Game<-} word) {
+      return this.trie.validate(word);
+      //return true;
     }
 
     /**
@@ -205,11 +210,13 @@ public class Board[principal Game, principal allPlayers] {
     * Returns true if all words in list are present in the Scrabble dictionary,
     * and false otherwise
     */
-    private boolean validateAdjWords{Game<-}(ArrayList[{Game<-}]{Game<-} list) {
-      //if (!Trie.createDict(list)) {
-          //System.out.println("invalid secondary word");
-          //return false;
-      //}
+    private boolean{Game<-} validateAdjWords{Game<-}(ArrayList[{Game<-}]{Game<-} words) {
+       for(int i=0; i<words.size();i++){
+         String{Game<-} temp = (String)words.get(i);
+         if (!this.trie.validate(temp)) {
+             return false;
+         }
+      }
       return true;
     }
 
@@ -300,15 +307,11 @@ public class Board[principal Game, principal allPlayers] {
         }
 
         // IS THE WORD VALID USING A DICT
-        try{
-          ArrayList[{Game<-}]{Game<-} wordList = new ArrayList{Game<-}(new StringComparator());
-          wordList.add(word);
-          if (!this.validateWord(wordList)) {
-                p.print("isMoveValid err: This word doesn't exist.");
-              return false;
-           }
-          }
-        catch (IllegalArgumentException exc){}
+
+        if (!this.validateWord(word)) {
+              p.print("isMoveValid err: This word doesn't exist.");
+            return false;
+         }
 
 
         // INTENDED WORD SHOULD BE THE LARGEST CONTIGUOUS STRING IN THAT DIRECTION
@@ -352,7 +355,7 @@ public class Board[principal Game, principal allPlayers] {
         }
 
         // ARE SECONDARY WORDS VALID IF THEY EXIST
-        ArrayList adjList = this.getAdjWords(word, dir, row, col);
+        ArrayList[{Game<-}]{Game<-} adjList = this.getAdjWords(word, dir, row, col);
         if (!this.validateAdjWords(adjList)) {
             p.print("isMoveValid err: The other words you tried to create are invalid. Sorry!");
             return false;
