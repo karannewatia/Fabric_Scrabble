@@ -292,8 +292,9 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
   /**
   * Prints the game board for every turn
   */
+  //public void readBoard{*->_}(){
   public void readBoard{Game<-}(){
-    String{Game<-} printBoard = "";
+    String printBoard = "";
     atomic{
       printBoard += "\n";
       printBoard += "  "; //beginning 2 spaces
@@ -320,7 +321,7 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
         printBoard += "Your score: " + ((Integer)this.playerScores.get(this.currentPlayer)).intValue() + "\n";
 
     }
-      PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
+      PrintString[{}] p = new PrintString[{}]();
       p.print(printBoard);
   }
 
@@ -331,7 +332,7 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
   */
   public void gameLoop{Game<-}(){
     atomic{
-      while(this.board.moveNumber < 50){
+      while(this.board.moveNumber < 0){
          PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
          this.readBoard();
 
