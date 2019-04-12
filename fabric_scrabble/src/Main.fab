@@ -1,11 +1,13 @@
 import fabric.util.PrintString;
+import fabfx.application.Application;
+import fabfx.stage.Stage;
 
 public class Main {
 
     public static void main{game<-}(principal{*<-} game, String[] args) where caller(game) {
         atomic{
         if (game actsFor User) {
-        //new Gui().launchApp();
+        new Gui().launchApp();
         final Store store = FabricWorker.getWorker().getStore("store");
 
           if (store actsfor game) {

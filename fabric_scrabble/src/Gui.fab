@@ -14,13 +14,11 @@ import fabfx.animation.KeyFrame;
 import fabfx.animation.Timeline;
 import javafx.util.Duration;
 import fabric.util.java.Object2DArray;
-import fabricated.util.List;
-import fabricated.util.ArrayList;
 
 public class Gui extends Application {
 
 	public void run{User->;User<-} (Stage{User->;User<-} primaryStage) {
-		atomic {
+		//atomic {
 			final label l = new label {User->;User<-};
 			if (this.store$ actsfor User) {
 
@@ -39,8 +37,8 @@ public class Gui extends Application {
 				  primaryStage.setTitle("board");
 				  primaryStage.show();
 			}
-		}
+		//}
 	}
 
 
-} 
+}
