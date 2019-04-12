@@ -107,7 +107,7 @@ public class Board[principal Game, principal allPlayers] {
       if (row<=0) newRow = 0;
       if (col<=0) newCol = 0;
       if (row>=14) newRow = 14;
-      if (row>=14) newCol = 14;
+      if (col>=14) newCol = 14;
       String{Game<-} tile = (String) (this.gameBoard[newRow]).get(newCol);
       return tile;
     }
@@ -237,7 +237,7 @@ public class Board[principal Game, principal allPlayers] {
     * Returns true if player has the tiles to play word in his/her rack,
     * and false otherwise
     */
-    private boolean{Game<-} hasTilesinRack{Game<-}(String{Game<-} rackCopy, String{Game<-} word) {
+    public boolean{Game<-} hasTilesinRack{Game<-}(String{Game<-} rackCopy, String{Game<-} word) {
 
       if (rackCopy.length() < word.length() ) return false;
       return tileHelper(word, rackCopy);
@@ -425,20 +425,4 @@ public class Board[principal Game, principal allPlayers] {
        }
     }
 
-    /**
-    * Increments the score of player based on tiles
-    */
-    public void incScore{Game<-}(principal playerP,Player[Game, playerP]{Game<-} player, String{Game<-}tiles){
-      atomic{
-        for(int i =0; i< tiles.length(); i++){
-          String{Game<-} tile = Character.toString(tiles.charAt(i));
-          //int temp = Integer.parseInt(this.points.get(tiles[i]).toString());
-          Integer{Game<-} temp = (Integer)this.points.get(tile);
-          player.score = player.score + temp.intValue();
-        }
-        if (tiles.length() == 7){
-          player.score = player.score + 50;
-        }
-      }
-    }
   }
