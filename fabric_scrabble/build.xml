@@ -54,8 +54,8 @@
       <arg value="-cp"         /> <arg value="${scrabble.home}/classes" />
       <arg value="-cp" /> <arg pathref="collections.classpath" />
       <arg value="-addsigcp" /> <arg value="${scrabble.home}/sig-classes" />
-      <!-- <arg value="-cp"         /> <arg pathref="fabfx.classpath"/>
-	    <arg value="-addsigcp"   /> <arg pathref="fabfx.sigcp"/> -->
+      <arg value="-cp"         /> <arg pathref="fabfx.classpath"/>
+	    <arg value="-addsigcp"   /> <arg pathref="fabfx.sigcp"/>
       <arg value="-trusted-providers" />
       <arg value="-explain" />
 

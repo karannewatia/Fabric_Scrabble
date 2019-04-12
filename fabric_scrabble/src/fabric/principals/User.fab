@@ -39,4 +39,8 @@ public class User extends ExternalPrincipal {
 		return getInstance();
 	}
 
+	public boolean{this;p;this<-} delegatesTo{this->}(principal{this->} p) {
+		return p instanceof User || p == FabricWorker.getWorker();
+	}
+
 }

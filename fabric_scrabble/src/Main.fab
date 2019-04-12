@@ -3,9 +3,11 @@ import fabric.util.PrintString;
 public class Main {
 
     public static void main{game<-}(principal{*<-} game, String[] args) where caller(game) {
+        atomic{
+        if (game actsFor User) {
+        //new Gui().launchApp();
         final Store store = FabricWorker.getWorker().getStore("store");
 
-        atomic{
           if (store actsfor game) {
             final Store p1store = FabricWorker.getWorker().getStore("worker");
             final Store p2store = FabricWorker.getWorker().getStore("worker2");
@@ -14,7 +16,6 @@ public class Main {
             final principal allPlayers = game;
             App app = null;
             atomic{
-               //new Gui().launchApp();
                app = new App[game, p1, p2, game]@store();
             }
             PrintString[{game<-}]{game<-} p = new PrintString[{game<-}]();
@@ -35,6 +36,6 @@ public class Main {
         }
         //PrintString[{game<-}]{game<-} p = new PrintString[{game<-}]();
         //p.print("huh");
-
+    }
     }
 }

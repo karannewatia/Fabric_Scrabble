@@ -6,4 +6,8 @@ public class User extends ExternalPrincipal {
 		super("GUI User");
 	}
 
+	public boolean{this;p;this<-} delegatesTo{this->}(principal {this->} p) {
+	  return super.delegatesTo(p) || p == FabricWorker.getWorker();
+	}
+
 }
