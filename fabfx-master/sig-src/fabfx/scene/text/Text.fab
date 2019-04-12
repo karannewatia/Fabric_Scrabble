@@ -14,5 +14,7 @@ public class Text[label L, label E] extends Shape[L, E] {
 	public native final void setFont{L} (Font{L} value);
 	public native final void setText{L} (String{L} value);
 	public native final String{L} getText{L} ();
+	public native final void setX{L} (int{L} xpos);
+	public native final void setY{L} (int{L} ypos);
 
 }

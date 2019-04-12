@@ -1,7 +1,7 @@
 import fabricated.util.ArrayList;
 import fabricated.util.StringComparator;
 import fabric.util.PrintString;
-import fabfx.application.Application;
+//import fabfx.application.Application;
 
 /**
  * The class Scrabble is responsible for coordinating gameplay
@@ -172,7 +172,6 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
         }
         printBoard += "\n" + "\n" + "Player " + this.currentPlayer + "'s turn \n";
         printBoard += "Your score: " + ((Integer)this.playerScores.get(this.currentPlayer)).intValue() + "\n";
-        //printBoard += "Your rack: " + ((Player)this.players.get(this.currentPlayer)).getRack() + "\n";
 
     }
       return printBoard;
@@ -185,13 +184,15 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
   public void gameLoop{Game<-}(){
     atomic{
       while(this.board.moveNumber < 50){
-        PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
-        p.print(this.readBoard());
+         PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
+         p.print(this.readBoard());
 
-         //this.print_helper();
          boolean success = false;
          RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
          RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
+         String rack = "Your rack: " + ((Player)this.players.get(this.currentPlayer)).getRack() + "\n";
+         PrintString[{}]{Game<-} r = new PrintString[{}]();
+         r.print(rack);
 
          while (!success){
            // Remote call

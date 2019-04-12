@@ -31,4 +31,12 @@ public class Text extends Shape {
 	public final String getText() {
 		return _impl().getText();
 	}
+
+	public final void setX(int xpos) {
+		_impl().setX(xpos);
+	}
+
+	public final void setY(int ypos) {
+		_impl().setY(ypos);
+	}
 }

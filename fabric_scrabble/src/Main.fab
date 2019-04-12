@@ -4,8 +4,6 @@ public class Main {
 
     public static void main{game<-}(principal{*<-} game, String[] args) where caller(game) {
         final Store store = FabricWorker.getWorker().getStore("store");
-        //PrintString[{}]p = new PrintString[{}]();
-        //p.print("kkkk");
 
         atomic{
           if (store actsfor game) {
@@ -16,12 +14,18 @@ public class Main {
             final principal allPlayers = game;
             App app = null;
             atomic{
+               //new Gui().launchApp();
                app = new App[game, p1, p2, game]@store();
             }
-            //System.out.println(" ");
-            //System.out.println("Let's play Scrabble!!");
-            //System.out.println("----------------");
-            //System.out.println(" ");
+            PrintString[{game<-}]{game<-} p = new PrintString[{game<-}]();
+            String{game<-} ready = "";
+
+            ready += "\n";
+            ready += "Let's play Scrabble!!";
+            ready += "\n";
+            ready += "----------------";
+            ready += "\n";
+            p.print(ready);
 
             app.scrabble.gameLoop();
           }
