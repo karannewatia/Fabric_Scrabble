@@ -283,10 +283,16 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
     return false;
   }
 
+  public void printRack{Game<-}(int{Game<-} playerNum) {
+    PrintString[{}]{Game<-} r = new PrintString[{}]();
+    String rack = "Your rack: " + ((Player)this.players.get(playerNum)).getRack() + "\n";
+    r.print(rack);
+  }
+
   /**
   * Prints the game board for every turn
   */
-  public String{Game<-} readBoard{Game<-}(){
+  public void readBoard{Game<-}(){
     String{Game<-} printBoard = "";
     atomic{
       printBoard += "\n";
@@ -314,7 +320,8 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
         printBoard += "Your score: " + ((Integer)this.playerScores.get(this.currentPlayer)).intValue() + "\n";
 
     }
-      return printBoard;
+      PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
+      p.print(printBoard);
   }
 
 
@@ -326,20 +333,23 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
     atomic{
       while(this.board.moveNumber < 50){
          PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
-         p.print(this.readBoard());
+         this.readBoard();
 
          boolean{Game<-} success = false;
-         RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
-         RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
-         String rack = "Your rack: " + ((Player)this.players.get(this.currentPlayer)).getRack() + "\n";
+         final RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
+         final RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
+
          PrintString[{}]{Game<-} r = new PrintString[{}]();
-         r.print(rack);
+         //String rack = "Your rack: " + ((Player)this.players.get(this.currentPlayer)).getRack() + "\n";
+         //r.print(rack);
+         this.printRack(this.currentPlayer);
 
          while (!success){
            // Remote call
-            int temp = (this.currentPlayer + 1) % this.players.size();
-            //this.readBoard_remote@w2(Worker.getWorker().getPrincipal(), temp);
-            //success = this.move_remote@w1(Worker.getWorker().getPrincipal());
+            //this.readBoard@w2();
+            //this.readBoard@w1();
+
+            //success = this.move@w1();
             success = this.move();
          }
          if (this.emptyRack()){
