@@ -1,5 +1,6 @@
 import fabricated.util.ArrayList;
 import fabricated.util.StringComparator;
+import fabric.util.PrintString;
 
 /**
  * This class represents a player's rack in the Scrabble game.
@@ -58,17 +59,21 @@ public class Rack[principal Game, principal Player] authority(Game){
               //print
             }
         }
+        else{
+          PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
+          //p.print("some of the letters you wish to swap are not present in your rack");
+        }
       }
     }
 
     /**
     * Replaces all tiles in tileList with random tiles drawn from Bag
     */
-    public void swapTiles{Game<-}(String[]{Game<-; Game->Player} tileList, Bag[Game]{Game<-} bag)
+    public void swapTiles{Game<-}(String[]{Game<-} tileList, Bag[Game]{Game<-} bag)
     // This should only be called by code that has the Game server's authority
     where authority (Game) {
       atomic{
-        for(int i=0; i < 7; i++){
+        for(int i=0; i < tileList.length; i++){
          this.swapTile(tileList[i], bag);
         }
       }

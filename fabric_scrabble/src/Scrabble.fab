@@ -85,20 +85,39 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
   }
 
   /**
+  * GUI for swap
+  */
+  public String{Game<-} swapGui{Game<-} (){
+    String{Game<-} word = "";
+    PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
+    p.print("type in the letters you want to swap");
+
+    try{
+      word = this.scanner.read();
+    } catch (Exception e) {
+      //print
+    }
+    return word;
+  }
+
+  /**
   * helper function for the swap move for a player
   */
-  public boolean swap(principal Player){
-    boolean success = false;
+  public boolean{Game<-} swap{Game<-}(){
+    boolean{Game<-} success = false;
 
-    //String{Game<-} word = this.swap_gui();
-    //String[] letters = this.stringToStringArray(word);
-    String[]{Game<-; Game->Player} letters = new String[1];
-    atomic{
-      //((Player) this.players.get(this.currentPlayer)).rack.swapTiles(letters, this.bag);
-      success = true;
-      return success;
+    String{Game<-} word = this.swapGui();
+    String{Game<-}[]{Game<-} letters = new String[word.length()];
+    for(int i=0; i < letters.length; i++){
+       letters[i] = Character.toString(word.charAt(i));
     }
-  }
+
+    atomic{
+      ((Player) this.players.get(this.currentPlayer)).rack.swapTiles(letters, this.bag);
+      success = true;
+     }
+     return success;
+   }
 
   /**
   * Helper function move.
@@ -109,8 +128,8 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
     PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
     atomic{
       if (moveType.equals("swap")){
-        //return this.swap();
-        return success;
+        return this.swap();
+        //return success;
       }
       else if (moveType.equals("place")){
         //return this.place();
@@ -216,14 +235,16 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
          }
          if (this.emptyRack()){
             int winner = this.getWinner();
-            //System.out.println("The winner is player " + (winner) );
+            String winnerStr = String.valueOf(winner);
+            r.print("The winner is player " + winnerStr );
             break;
          }
-         r.print("break 2");
          this.currentPlayer = (this.currentPlayer + 1) % this.players.size();
       }
-      int winner = this.getWinner();
-      //System.out.println("The winner is player " + (winner) );
+      //int{} winner = this.getWinner();
+      //String{Game<-} winnerStr = String.valueOf(winner);
+      //PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
+      //p.print("The winner is player " + winnerStr );
     }
   }
 
