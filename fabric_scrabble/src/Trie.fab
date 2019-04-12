@@ -4,7 +4,7 @@ import fabric.util.Dictionary;
 // implementation of trie
 public class Trie[principal Game] {
 
-    public static TrieNode[Game]{Game<-} root;
+    public  TrieNode[Game]{Game<-} root;
 
     public Trie{Game<-}(){
       this.root = new TrieNode{Game<-}();
@@ -14,7 +14,7 @@ public class Trie[principal Game] {
     * If the key is prefix of trie node,
     * just marks leaf node
     */
-    public static void insert{Game<-}(String{Game<-} key)
+    public  void insert{Game<-}(String{Game<-} key)
     {
         int level;
         int length = key.length();
@@ -36,7 +36,7 @@ public class Trie[principal Game] {
     }
 
     // Returns true if key presents in trie, else false
-    public static boolean{Game<-} search{Game<-}(String{Game<-} key)
+    public  boolean{Game<-} search{Game<-}(String{Game<-} key)
     {
         int level;
         int length = key.length();
@@ -57,7 +57,7 @@ public class Trie[principal Game] {
     }
 
 
-    public static boolean{Game<-} createDict{Game<-}(ArrayList[{Game<-}]{Game<-} wordsToCheck)
+    public  boolean{Game<-} createDict{Game<-}(ArrayList[{Game<-}]{Game<-} wordsToCheck)
     {
         Dictionary[{Game<-}]{Game<-} dict = new Dictionary[{Game<-}]();
         String{Game<-} native[]{Game<-} words = dict.getDict();
