@@ -1,0 +1,15 @@
+import fabfx.application.Application;
+import fabfx.stage.Stage;
+import fabric.principals.User;
+
+public class MainTest {
+
+	public static void main {User<-}
+			(principal{p<-} p, String[] args):{User<-}
+			throws Exception {
+		atomic {
+			new Test().launchApp();
+		}
+	}
+
+}

@@ -357,9 +357,9 @@ public class Scrabble[principal User] authority(User) {
   */
   public void gameLoop{User<-}() where caller(User){
     atomic{
-      if (User actsFor User) {
+      //if (User actsFor User) {
       while(this.board.moveNumber < 50){
-         //new Gui[User]().launchApp();
+         //new Test().launchApp();
          PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
          this.readBoard();
 
@@ -392,7 +392,7 @@ public class Scrabble[principal User] authority(User) {
       String winnerStr = String.valueOf(winner);
       PrintString[{}]{User<-} r = new PrintString[{}]();
       r.print("\n" + "The winner is player " + winnerStr + "\n");
-    }
+    //}
    }
   }
 

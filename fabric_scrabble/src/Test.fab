@@ -1,0 +1,104 @@
+import fabfx.application.Application;
+import fabfx.stage.Stage;
+import fabfx.scene.*;
+import fabfx.scene.layout.*;
+import fabfx.collections.ObservableList;
+import fabfx.scene.text.Text;
+import fabfx.event.EventHandler;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.animation.KeyValue;
+import fabfx.animation.KeyFrame;
+import fabfx.animation.Timeline;
+import javafx.util.Duration;
+import fabric.util.java.Object2DArray;
+import fabfx.scene.shape.Rectangle;
+
+
+public class Test extends Application {
+
+	static Color{User<-} numColor;
+	static Color{User<-} tileColor;
+	static Color{User<-} sepColor;
+	static Font{User<-} numFont;
+	static Font{User<-} smallNumFont;
+	static double{User<-} tileSize = 120.0;
+	static double{User<-} gutter;
+	static Color{User<-} native []{User<-} colors;
+	static Rectangle[{User<-},{User<-}]{User<-} background;
+
+	//public Scrabble[Game, allPlayers]{User<-} scrabble;
+
+	// The model of the game.
+
+	// The nodes corresponding to each of the tiles of the game
+	private Object2DArray[{User<-}]{User<-} tiles;
+
+	public void run{User<-} (Stage{User<-} primaryStage) {
+		atomic {
+			final label l = new label {User<-};
+			if (this.store$ actsfor User) {
+				try {
+					numColor = new Color(0.4, 0.4, 0.4, 1.0);
+					tileColor = new Color(0.8, 0.8, 0.8, 1.0);
+					sepColor = new Color(0.6, 0.6, 0.6, 1.0);
+					colors = new Color native []{
+						tileColor, new Color(0.8, 0.8, 0.75, 1.0),
+						new Color(0.8, 0.75, 0.75, 1.0), new Color(0.85, 0.75, 0.7, 1.0),
+						new Color(0.8, 0.8, 0.7, 1.0), new Color(0.8, 0.7, 0.7, 1.0),
+						new Color(0.8, 0.7, 0.6, 1.0), new Color(0.8, 0.6, 0.7, 1.0),
+						new Color(0.7, 0.8, 0.7, 1.0), new Color(0.7, 0.8, 0.6, 1.0),
+						new Color(0.6, 0.7, 0.8, 1.0), new Color(0.6, 0.6, 0.8, 1.0),
+						new Color(0.8, 0.8, 0.5, 1.0), new Color(0.8, 0.7, 0.5, 1.0),
+						new Color(0.8, 0.6, 0.5, 1.0), new Color(0.8, 0.5, 0.7, 1.0),
+						new Color(0.8, 0.5, 0.5, 1.0)
+					};
+					numFont = Font.font("Helvetica-Bold", FontWeight.BOLD, 64);
+					smallNumFont = Font.font("Helvetica-Bold", FontWeight.BOLD, 32);
+
+					//final Pane[l,l] content = new Pane[l,l]();
+					final Group[l,l] outer = new Group[l,l]();
+					final Scene[l,l] scene = new Scene[l,l](l, l, outer);
+
+					background = new Rectangle[l,l]();
+
+
+					//outer.getChildren().add(l, l, background);
+					background.setWidth(tileSize);
+					background.setHeight(tileSize);
+					//background.setFill(tileColor);
+					background.setStrokeWidth(0);
+					background.setStroke(tileColor);
+					background.setArcWidth(tileSize * 0.30);
+					background.setArcHeight(tileSize * 0.30);
+
+					Text[{User<-},{User<-}]{User<-} t = new Text[l,l]();
+          //t.setText(this.readBoard());
+          //t.setText("kkkk");
+					t.setText("\n" + "Let's play Scrabble!!" + "\n");
+          //t.setFont(new Font(20));
+					t.setX(50);
+					t.setY(50);
+					t.setFont(numFont);
+					t.setFill(numColor);
+          outer.getChildren().add(l,l, t);
+
+					primaryStage.setScene(l,l,scene);
+					//outer.getChildren().add(l,l,content);
+
+					//content.setStyle("-fx-background-color: #999999");
+
+
+
+
+				} catch (NegativeArraySizeException e) {
+					// Impossible
+				}
+				primaryStage.setTitle("1024");
+				primaryStage.show();
+			}
+		}
+	}
+
+}
