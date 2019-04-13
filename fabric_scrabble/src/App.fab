@@ -5,9 +5,9 @@ import fabricated.util.IdComparator;
 /**
  * The class App is responsible for starting and playing a Scrabble game
  */
-public class App[principal Game, principal p1, principal p2, principal allPlayers] authority(Game) {
+public class App[principal Game, principal p1, principal p2] authority(Game) {
 
-   public Scrabble[Game, allPlayers]{Game<-} scrabble;
+   public Scrabble[Game]{Game<-} scrabble;
    public ArrayList[{Game<-}]{Game<-} players;
    public ArrayList[{Game<-}]{Game<-} tilesLeft;
    public ArrayList[{Game<-}]{Game<-} scores;
@@ -33,7 +33,7 @@ public class App[principal Game, principal p1, principal p2, principal allPlayer
        scores.add(new Integer(0));
 
        final Store store = FabricWorker.getWorker().getStore("store");
-       this.scrabble = new Scrabble[Game, allPlayers]{Game<-}@store(players, scores, tilesLeft);
+       this.scrabble = new Scrabble[Game]{Game<-}@store(players, scores, tilesLeft);
        scrabble.startGame();
 
        } catch (Exception exc) {}

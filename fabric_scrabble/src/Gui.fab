@@ -18,15 +18,15 @@ import fabfx.scene.shape.Rectangle;
 
 public class Gui extends Application {
 
-	static Color{User->;User<-} numColor;
-	static Color{User->;User<-} tileColor;
-	static Color{User->;User<-} sepColor;
-	static Font{User->;User<-} numFont;
-	static Font{User->;User<-} smallNumFont;
-	static double{User->;User<-} tileSize = 120.0;
-	static double{User->;User<-} gutter;
-	static Color{User->;User<-} native []{User->;User<-} colors;
-	static Rectangle[{User->;User<-},{User->;User<-}]{User->;User<-} background;
+	 Color{User->;User<-} numColor;
+	public Color{User->;User<-} tileColor;
+	public Color{User->;User<-} sepColor;
+	public Font{User->;User<-} numFont;
+	public Font{User->;User<-} smallNumFont;
+	public double{User->;User<-} tileSize = 120.0;
+	public double{User->;User<-} gutter;
+	public Color{User->;User<-} native []{User->;User<-} colors;
+	public Rectangle[{User->;User<-},{User->;User<-}]{User->;User<-} background;
 
 	//public Scrabble[Game, allPlayers]{User->;User<-} scrabble;
 
@@ -73,16 +73,18 @@ public class Gui extends Application {
 					background.setArcWidth(tileSize * 0.30);
 					background.setArcHeight(tileSize * 0.30);
 
-					Text[{User->;User<-},{User->;User<-}]{User->;User<-} t = new Text[l,l]();
+					Text[{User->;User<-},{User->;User<-}]{User->;User<-} txt = new Text[l,l]();
           //t.setText(this.readBoard());
-          //t.setText("kkkk");
-					t.setText("\n" + "Let's play Scrabble!!" + "\n");
-          //t.setFont(new Font(20));
-					t.setX(50);
-					t.setY(50);
-					t.setFont(numFont);
-					t.setFill(numColor);
-          outer.getChildren().add(l,l, t);
+
+          txt.setText("\n" + "Let's play Scrabble!!" + "\n");
+
+
+          //txt.setFont(new Font(20));
+					txt.setX(50);
+					txt.setY(50);
+					txt.setFont(numFont);
+					txt.setFill(numColor);
+          outer.getChildren().add(l,l, txt);
 
 					primaryStage.setScene(l,l,scene);
 					//outer.getChildren().add(l,l,content);
@@ -95,7 +97,9 @@ public class Gui extends Application {
 				} catch (NegativeArraySizeException e) {
 					// Impossible
 				}
-				primaryStage.setTitle("1024");
+
+				String title = "Scrabble";
+				primaryStage.setTitle(title);
 				primaryStage.show();
 			}
 		}

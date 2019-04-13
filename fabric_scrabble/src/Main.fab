@@ -7,7 +7,7 @@ public class Main {
     public static void main{game<-}(principal{*<-} game, String[] args) where caller(game) {
         atomic{
         if (game actsFor User) {
-
+           new Gui().launchApp();
         final Store store = FabricWorker.getWorker().getStore("store");
 
           if (store actsfor game) {
@@ -19,7 +19,7 @@ public class Main {
             //new Gui().launchApp();
             App app = null;
             atomic{
-               app = new App[game, p1, p2, game]@store();
+               app = new App[game, p1, p2]@store();
             }
             PrintString[{game<-}]{game<-} p = new PrintString[{game<-}]();
             String{game<-} ready = "";

@@ -8,7 +8,7 @@ import fabric.util.ReadInput;
  * The class Scrabble is responsible for coordinating gameplay
  * between two Players.
  */
-public class Scrabble[principal Game, principal allPlayers] authority(Game) {
+public class Scrabble[principal Game] authority(Game) {
 
   private ArrayList[{Game<-}]{Game<-} players;
   //private ArrayList[{Game<-}]{Game<-} playerPrincipals;
@@ -334,7 +334,7 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
     atomic{
       if (Game actsFor User) {
       while(this.board.moveNumber < 50){
-         new Gui().launchApp();
+         //new Gui[Game]().launchApp();
          PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
          this.readBoard();
 
