@@ -28,6 +28,8 @@ public class Gui extends Application {
 	static Color{User->;User<-} native []{User->;User<-} colors;
 	static Rectangle[{User->;User<-},{User->;User<-}]{User->;User<-} background;
 
+	//public Scrabble[Game, allPlayers]{User->;User<-} scrabble;
+
 	// The model of the game.
 
 	// The nodes corresponding to each of the tiles of the game
@@ -61,14 +63,26 @@ public class Gui extends Application {
 
 					background = new Rectangle[l,l]();
 
+
+					//outer.getChildren().add(l, l, background);
+					background.setWidth(tileSize);
+					background.setHeight(tileSize);
+					//background.setFill(tileColor);
+					background.setStrokeWidth(0);
+					background.setStroke(tileColor);
+					background.setArcWidth(tileSize * 0.30);
+					background.setArcHeight(tileSize * 0.30);
+
 					Text[{User->;User<-},{User->;User<-}]{User->;User<-} t = new Text[l,l]();
           //t.setText(this.readBoard());
-          t.setText("kkkk");
+          //t.setText("kkkk");
+					t.setText("\n" + "Let's play Scrabble!!" + "\n");
           //t.setFont(new Font(20));
 					t.setX(50);
 					t.setY(50);
+					t.setFont(numFont);
+					t.setFill(numColor);
           outer.getChildren().add(l,l, t);
-					outer.getChildren().add(l, l, background);
 
 					primaryStage.setScene(l,l,scene);
 					//outer.getChildren().add(l,l,content);

@@ -7,7 +7,7 @@ public class Main {
     public static void main{game<-}(principal{*<-} game, String[] args) where caller(game) {
         atomic{
         if (game actsFor User) {
-        new Gui().launchApp();
+
         final Store store = FabricWorker.getWorker().getStore("store");
 
           if (store actsfor game) {
@@ -16,6 +16,7 @@ public class Main {
             final principal p1 = p1store.getPrincipal();
             final principal p2 = p2store.getPrincipal();
             final principal allPlayers = game;
+            //new Gui().launchApp();
             App app = null;
             atomic{
                app = new App[game, p1, p2, game]@store();

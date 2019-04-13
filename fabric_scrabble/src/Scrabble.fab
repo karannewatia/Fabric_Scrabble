@@ -330,9 +330,11 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
   * Runs the Scrabble game
   * the game ends when the number of moves played is equal to 50
   */
-  public void gameLoop{Game<-}(){
+  public void gameLoop{Game<-}() where caller(Game){
     atomic{
+      if (Game actsFor User) {
       while(this.board.moveNumber < 50){
+         new Gui().launchApp();
          PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
          this.readBoard();
 
@@ -366,6 +368,7 @@ public class Scrabble[principal Game, principal allPlayers] authority(Game) {
       PrintString[{}]{Game<-} r = new PrintString[{}]();
       r.print("\n" + "The winner is player " + winnerStr + "\n");
     }
+   }
   }
 
 }
