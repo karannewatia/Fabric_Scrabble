@@ -4,30 +4,30 @@ import fabricated.util.ArrayList;
 import fabricated.util.StringComparator;
 
 /**
- * This class represents the bag in the Scrabble game.
+ * This class represents the bag in the Scrabble User.
  */
-// This is a class that can act with the Game server's authority.  Any code
-// constructing a Bag must also be acting with the Game server's authority.
-public class Bag[principal Game] authority(Game) {
+// This is a class that can act with the User server's authority.  Any code
+// constructing a Bag must also be acting with the User server's authority.
+public class Bag[principal User] authority(User) {
 
-    public ArrayList[{Game->; Game<-}]{Game->; Game<-} tiles;
+    public ArrayList[{User->; User<-}]{User->; User<-} tiles;
 
-    private int[]{Game<-} counts;
+    private int[]{User<-} counts;
 
-    private transient RandomGenerator[{Game->; Game<-}]{Game<-} random;
+    private transient RandomGenerator[{User->; User<-}]{User<-} random;
 
-    public int{Game<-} numTiles;
+    public int{User<-} numTiles;
 
-    public Bag{Game<-}(){
+    public Bag{User<-}(){
     try{
-      this.tiles = new ArrayList{Game->; Game<-}(new StringComparator());
+      this.tiles = new ArrayList{User->; User<-}(new StringComparator());
       }
     catch (IllegalArgumentException exc){
 
     }
     this.counts = new int[]{2,9,2,2,4,12,2,3,2,9,1,1,4,2,6,8,2,1,6,4,6,4,2,2,1,2,1};
 
-    this.random = new RandomGenerator[{Game->; Game<-}]();
+    this.random = new RandomGenerator[{User->; User<-}]();
     this.numTiles = 100;
 
     }
@@ -35,9 +35,9 @@ public class Bag[principal Game] authority(Game) {
    /**
     * Initializes the bag with tiles using the counts array
     */
-    public void populateBag{Game<-}(){
+    public void populateBag{User<-}(){
        atomic{
-         String{Game<-; Game->} temp;
+         String{User<-; User->} temp;
          for(int i=0; i < counts.length; i++){
              for(int j=0; j < counts[i]; j++) {
 
@@ -48,25 +48,25 @@ public class Bag[principal Game] authority(Game) {
        }
     }
 
-    public String{Game<-; Game->player} getTilePlayer{Game<-; Game->player}(principal player)
-      // This should only be called by code that has the Game server's authority
-      where authority (Game) {
+    public String{User<-; User->player} getTilePlayer{User<-; User->player}(principal player)
+      // This should only be called by code that has the User server's authority
+      where authority (User) {
       if (this.tiles.isEmpty()){
         throw new Error("bag is empty");
       }
-      String{Game<-; Game->player}  result = null;
+      String{User<-; User->player}  result = null;
 
       atomic{
         //int rand_value = this.tiles.size()-1;
         int rand_value = this.random.nextInt(this.tiles.size());
 
-        String{Game<-; Game->}  tile =  (String) this.tiles.get(rand_value);
+        String{User<-; User->}  tile =  (String) this.tiles.get(rand_value);
         try{
          this.tiles.remove(rand_value);
         } catch (Exception e) {
           //print
         }
-        result = declassify(tile, {Game->; Game<-} to {Game->player; Game<-});
+        result = declassify(tile, {User->; User<-} to {User->player; User<-});
       }
       return result;
     }
@@ -76,11 +76,11 @@ public class Bag[principal Game] authority(Game) {
     * removes this tile from Bag,
     * and adds the input tile to the Bag
     */
-    public String{Game<-; Game->player} swapTile{Game<-; Game->player}(String {Game<-; Game->player} tile, principal player)
-    // This should only be called by code that has the Game server's authority
-    where authority (Game) {
+    public String{User<-; User->player} swapTile{User<-; User->player}(String {User<-; User->player} tile, principal player)
+    // This should only be called by code that has the User server's authority
+    where authority (User) {
       atomic{
-        String{Game<-; Game->player} newTile = getTilePlayer(player);
+        String{User<-; User->player} newTile = getTilePlayer(player);
         try {
           this.tiles.add(tile);
           // Change the below to log an error or something to avoid making a bug

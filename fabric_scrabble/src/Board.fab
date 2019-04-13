@@ -6,35 +6,35 @@ import fabricated.util.HashMap;
 import fabric.util.PrintString;
 
 /**
- * This class represents a board in the Scrabble game.
+ * This class represents a board in the Scrabble User.
  *.
  */
-public class Board[principal Game] {
+public class Board[principal User] {
 
-    public ArrayList[{Game<-}]{Game<-}[]{Game<-} gameBoard;
-    public int{Game<-} moveNumber;
-    public HashMap[{Game<-}]{Game<-} points;
-    public Trie[Game]{Game<-} trie;
+    public ArrayList[{User<-}]{User<-}[]{User<-} UserBoard;
+    public int{User<-} moveNumber;
+    public HashMap[{User<-}]{User<-} points;
+    public Trie[User]{User<-} trie;
 
-    public Board{Game<-}() {
+    public Board{User<-}() {
 
       this.moveNumber = 0;
-      this.gameBoard  = new ArrayList[{Game<-}][15];
+      this.UserBoard  = new ArrayList[{User<-}][15];
       try{
-      this.trie = new Trie{Game<-}();
+      this.trie = new Trie{User<-}();
       this.trie.createDict();
       }
       catch (Exception exc){}
 
       try{
-      this.points = new HashMap{Game<-}(new StringComparator(), new IdComparator());
+      this.points = new HashMap{User<-}(new StringComparator(), new IdComparator());
       this.setPoints();
       }
       catch (Exception exc){}
 
       for (int i=0; i<15; i++) {
           try{
-         	this.gameBoard[i] = new ArrayList{Game<-}(new StringComparator());
+         	this.UserBoard[i] = new ArrayList{User<-}(new StringComparator());
          }
         catch (Exception exc){}
       }
@@ -43,7 +43,7 @@ public class Board[principal Game] {
       for (int i=0; i<15; i++) {
          for (int j=0; j<15; j++) {
          try{
-              (this.gameBoard[i]).add(" ");
+              (this.UserBoard[i]).add(" ");
           }
           catch (Exception exc){}
         }
@@ -54,7 +54,7 @@ public class Board[principal Game] {
     /**
     * Sets up the number of points that each tile corresponds to
     */
-    public void setPoints{Game<-}(){
+    public void setPoints{User<-}(){
       atomic{
         this.points.put("a", new Integer(1));
         this.points.put("e", new Integer(1));
@@ -98,7 +98,7 @@ public class Board[principal Game] {
     * Returns true if word is present in the Scrabble dictionary,
     * and false otherwise
     */
-    private boolean{Game<-} validateWord{Game<-}(String{Game<-} word) {
+    private boolean{User<-} validateWord{User<-}(String{User<-} word) {
       return this.trie.validate(word);
       //return true;
     }
@@ -106,14 +106,14 @@ public class Board[principal Game] {
     /**
     * Returns the tile present in the row, column pair input on the board
     */
-    public String{Game<-} getTileOnBoard{Game<-}(int{Game<-} row, int{Game<-} col) {
+    public String{User<-} getTileOnBoard{User<-}(int{User<-} row, int{User<-} col) {
       int newRow = row;
       int newCol = col;
       if (row<=0) newRow = 0;
       if (col<=0) newCol = 0;
       if (row>=14) newRow = 14;
       if (col>=14) newCol = 14;
-      String{Game<-} tile = (String) (this.gameBoard[newRow]).get(newCol);
+      String{User<-} tile = (String) (this.UserBoard[newRow]).get(newCol);
       return tile;
     }
 
@@ -121,9 +121,9 @@ public class Board[principal Game] {
     * Returns the letters on the board starting from the row, column pair given
     * in the given direction using letter
     */
-    private String{Game<-} constructWord{Game<-}(int{Game<-} row, int{Game<-} col, String{Game<-} letter, boolean{Game<-} direction) {
+    private String{User<-} constructWord{User<-}(int{User<-} row, int{User<-} col, String{User<-} letter, boolean{User<-} direction) {
 
-        String{Game<-} newWord = "";
+        String{User<-} newWord = "";
         int start;
         int end;
         int i = 1;
@@ -175,17 +175,17 @@ public class Board[principal Game] {
     * Returns the adjacent words on the board starting from the
     * given row, column pair in the given direction using word
     */
-    public ArrayList[{Game<-}]{Game<-} getAdjWords{Game<-}(String{Game<-} word, boolean{Game<-} dir, int{Game<-} row, int{Game<-} col) {
-        ArrayList[{Game<-}]{Game<-} adjWords = new ArrayList(new StringComparator());
+    public ArrayList[{User<-}]{User<-} getAdjWords{User<-}(String{User<-} word, boolean{User<-} dir, int{User<-} row, int{User<-} col) {
+        ArrayList[{User<-}]{User<-} adjWords = new ArrayList(new StringComparator());
 
         if (dir) {
             for(int j =0; j<word.length();j++){
               if (!this.getTileOnBoard(row-1,col+j).equals(" ")){
-                String{Game<-} temp1 = this.constructWord(row, col+j , Character.toString(word.charAt(j)), !dir);
+                String{User<-} temp1 = this.constructWord(row, col+j , Character.toString(word.charAt(j)), !dir);
                 adjWords.add(temp1);
               }
               if (!this.getTileOnBoard(row+1,col+j).equals(" ")){
-                String{Game<-} temp2 = this.constructWord(row, col+j ,Character.toString(word.charAt(j)), !dir);
+                String{User<-} temp2 = this.constructWord(row, col+j ,Character.toString(word.charAt(j)), !dir);
                 adjWords.add(temp2);
               }
             }
@@ -193,11 +193,11 @@ public class Board[principal Game] {
         else {
             for(int j =0; j<word.length();j++){
               if (!this.getTileOnBoard(row+j,col-1).equals(" ")){
-                String{Game<-} temp3 = this.constructWord(row+j, col, Character.toString(word.charAt(j)), !dir);
+                String{User<-} temp3 = this.constructWord(row+j, col, Character.toString(word.charAt(j)), !dir);
                 adjWords.add(temp3);
               }
               if (!this.getTileOnBoard(row+j,col+1).equals(" ")){
-                String{Game<-} temp4 = this.constructWord(row+j, col, Character.toString(word.charAt(j)), !dir);
+                String{User<-} temp4 = this.constructWord(row+j, col, Character.toString(word.charAt(j)), !dir);
                 adjWords.add(temp4);
               }
             }
@@ -210,9 +210,9 @@ public class Board[principal Game] {
     * Returns true if all words in list are present in the Scrabble dictionary,
     * and false otherwise
     */
-    private boolean{Game<-} validateAdjWords{Game<-}(ArrayList[{Game<-}]{Game<-} words) {
+    private boolean{User<-} validateAdjWords{User<-}(ArrayList[{User<-}]{User<-} words) {
        for(int i=0; i<words.size();i++){
-         String{Game<-} temp = (String)words.get(i);
+         String{User<-} temp = (String)words.get(i);
          if (!this.trie.validate(temp)) {
              return false;
          }
@@ -223,18 +223,18 @@ public class Board[principal Game] {
     /**
     * Helper function for hasTilesinRack
     */
-    private boolean{Game<-} tileHelper{Game<-}(String{Game<-} word, String{Game<-} rackCopy){
+    private boolean{User<-} tileHelper{User<-}(String{User<-} word, String{User<-} rackCopy){
       if (word.length() == 0 ) return true;
 
       if(rackCopy.indexOf(word.charAt(0)) !=-1){
         int idx = rackCopy.indexOf(word.charAt(0));
-        String{Game<-} newRack = rackCopy.substring(0, idx) + rackCopy.substring(idx + 1);
-        String{Game<-} newWord = word.substring(1);
+        String{User<-} newRack = rackCopy.substring(0, idx) + rackCopy.substring(idx + 1);
+        String{User<-} newWord = word.substring(1);
         return tileHelper(newWord, newRack);
       }
       else if (rackCopy.indexOf("*") !=-1){
-        String{Game<-} newRack = rackCopy.substring(0, rackCopy.indexOf("*")) + rackCopy.substring(rackCopy.indexOf("*") + 1);
-        String{Game<-} newWord = word.substring(1);
+        String{User<-} newRack = rackCopy.substring(0, rackCopy.indexOf("*")) + rackCopy.substring(rackCopy.indexOf("*") + 1);
+        String{User<-} newWord = word.substring(1);
         return tileHelper(newWord, newRack);
       }
       else return false;
@@ -244,7 +244,7 @@ public class Board[principal Game] {
     * Returns true if player has the tiles to play word in his/her rack,
     * and false otherwise
     */
-    public boolean{Game<-} hasTilesinRack{Game<-}(String{Game<-} rackCopy, String{Game<-} word) {
+    public boolean{User<-} hasTilesinRack{User<-}(String{User<-} rackCopy, String{User<-} word) {
 
       if (rackCopy.length() < word.length() ) return false;
       return tileHelper(word, rackCopy);
@@ -253,18 +253,18 @@ public class Board[principal Game] {
     /**
     * Helper function for swapTiles
     */
-    private String{Game<-} swapHelper{Game<-}(String{Game<-} word, String{Game<-} rackCopy){
+    private String{User<-} swapHelper{User<-}(String{User<-} word, String{User<-} rackCopy){
       if (word.length() == 0 ) return "";
 
       if(rackCopy.indexOf(word.charAt(0)) !=-1){
         int idx = rackCopy.indexOf(word.charAt(0));
-        String{Game<-} newRack = rackCopy.substring(0, idx) + rackCopy.substring(idx + 1);
-        String{Game<-} newWord = word.substring(1);
+        String{User<-} newRack = rackCopy.substring(0, idx) + rackCopy.substring(idx + 1);
+        String{User<-} newWord = word.substring(1);
         return (word.charAt(0)) + swapHelper(newWord, newRack);
       }
       else if (rackCopy.indexOf("*") !=-1){
-        String{Game<-} newRack = rackCopy.substring(0, rackCopy.indexOf("*")) + rackCopy.substring(rackCopy.indexOf("*") + 1);
-        String{Game<-} newWord = word.substring(1);
+        String{User<-} newRack = rackCopy.substring(0, rackCopy.indexOf("*")) + rackCopy.substring(rackCopy.indexOf("*") + 1);
+        String{User<-} newWord = word.substring(1);
         return "*" + swapHelper(newWord, newRack);
       }
       else return "";
@@ -273,7 +273,7 @@ public class Board[principal Game] {
     /**
     * Returns the tiles that must be swapped after placing word
     */
-    public String{Game<-} swapTiles{Game<-}(String{Game<-} rackCopy, String{Game<-} word) {
+    public String{User<-} swapTiles{User<-}(String{User<-} rackCopy, String{User<-} word) {
 
       if (rackCopy.length() < word.length() ) return "";
       return swapHelper(word, rackCopy);
@@ -283,10 +283,10 @@ public class Board[principal Game] {
     * Returns true if the given inputs form a valid placeWord move on the board,
     * and false otherwise
     */
-    public boolean{Game<-} isMoveValid{Game<-}(String{Game<-} rackCopy, String{Game<-} word,
-    String{Game<-} newEntries, boolean{Game<-} dir, int{Game<-} row, int{Game<-} col) {
+    public boolean{User<-} isMoveValid{User<-}(String{User<-} rackCopy, String{User<-} word,
+    String{User<-} newEntries, boolean{User<-} dir, int{User<-} row, int{User<-} col) {
 
-        PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
+        PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
         if (!hasTilesinRack(rackCopy, newEntries)){
             p.print("isMoveValid err: : Letters not in rack. Invalid move!");
           return false;
@@ -355,7 +355,7 @@ public class Board[principal Game] {
         }
 
         // ARE SECONDARY WORDS VALID IF THEY EXIST
-        ArrayList[{Game<-}]{Game<-} adjList = this.getAdjWords(word, dir, row, col);
+        ArrayList[{User<-}]{User<-} adjList = this.getAdjWords(word, dir, row, col);
         if (!this.validateAdjWords(adjList)) {
             p.print("isMoveValid err: The other words you tried to create are invalid. Sorry!");
             return false;
@@ -367,9 +367,9 @@ public class Board[principal Game] {
     /**
     * Returns the tiles in word that are not already present on the board
     */
-    public String{Game<-} getNewEntries{Game<-}(String{Game<-} word, boolean{Game<-} isHorizontal, int{Game<-} row, int{Game<-} col) {
+    public String{User<-} getNewEntries{User<-}(String{User<-} word, boolean{User<-} isHorizontal, int{User<-} row, int{User<-} col) {
       ArrayList newTiles = new ArrayList(new StringComparator());
-      String{Game<-} result = "";
+      String{User<-} result = "";
       if (row > 14 || col > 14) return result;
       if (isHorizontal){
         for(int i=0; i< word.length(); i++){
@@ -411,18 +411,18 @@ public class Board[principal Game] {
     /**
     * Places word on the board using the given inputs
     */
-    public void placeWord{Game<-}(String{Game<-} word, boolean{Game<-} isHorizontal, int{Game<-} row, int{Game<-} col){
+    public void placeWord{User<-}(String{User<-} word, boolean{User<-} isHorizontal, int{User<-} row, int{User<-} col){
          atomic{
          if (isHorizontal){
            for (int i =0; i< word.length(); i++){
-             String{Game<-} temp = Character.toString(word.charAt(i));
-             (this.gameBoard[row]).set(col+i, temp);
+             String{User<-} temp = Character.toString(word.charAt(i));
+             (this.UserBoard[row]).set(col+i, temp);
            }
          }
          else{
            for (int j =0; j< word.length(); j++){
-             String{Game<-} temp = Character.toString(word.charAt(j));
-             (this.gameBoard[row + j]).set(col, temp);
+             String{User<-} temp = Character.toString(word.charAt(j));
+             (this.UserBoard[row + j]).set(col, temp);
            }
          }
        }

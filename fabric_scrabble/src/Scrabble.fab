@@ -5,39 +5,39 @@ import fabric.util.ReadInput;
 //import fabfx.application.Application;
 
 /**
- * The class Scrabble is responsible for coordinating gameplay
+ * The class Scrabble is responsible for coordinating Userplay
  * between two Players.
  */
-public class Scrabble[principal Game] authority(Game) {
+public class Scrabble[principal User] authority(User) {
 
-  private ArrayList[{Game<-}]{Game<-} players;
-  //private ArrayList[{Game<-}]{Game<-} playerPrincipals;
-  private ArrayList[{Game<-}]{Game<-} playerScores;
-  private ArrayList[{Game<-}]{Game<-} playerTilesLeft;
+  private ArrayList[{User<-}]{User<-} players;
+  //private ArrayList[{User<-}]{User<-} playerPrincipals;
+  private ArrayList[{User<-}]{User<-} playerScores;
+  private ArrayList[{User<-}]{User<-} playerTilesLeft;
 
-  private Bag[Game]{Game<-} bag;
-  private int{Game<-} currentPlayer;
-  private Board[Game]{Game<-} board;
-  private transient ReadInput[{Game<-}]{Game<-} scanner;
+  private Bag[User]{User<-} bag;
+  private int{User<-} currentPlayer;
+  private Board[User]{User<-} board;
+  private transient ReadInput[{User<-}]{User<-} scanner;
 
-  public Scrabble{Game<-}(ArrayList[{Game<-}]{Game<-} playersList,
-                       // ArrayList[{Game<-}]{Game<-} playerPrincipalsList,
-                        ArrayList[{Game<-}]{Game<-} playerScoresList, ArrayList[{Game<-}]{Game<-} playerTilesLeftList){
+  public Scrabble{User<-}(ArrayList[{User<-}]{User<-} playersList,
+                       // ArrayList[{User<-}]{User<-} playerPrincipalsList,
+                        ArrayList[{User<-}]{User<-} playerScoresList, ArrayList[{User<-}]{User<-} playerTilesLeftList){
 
-    this.bag = new Bag{Game<-}();
-    this.board = new Board{Game<-}();
+    this.bag = new Bag{User<-}();
+    this.board = new Board{User<-}();
     this.currentPlayer = 0;
     this.players = playersList;
     //this.playerPrincipals = playerPrincipalsList;
     this.playerScores = playerScoresList;
     this.playerTilesLeft =  playerTilesLeftList;
-    this.scanner = new ReadInput[{Game<-}]();
+    this.scanner = new ReadInput[{User<-}]();
   }
 
   /**
-  * Initializes the Bag, and the racks of all players in this Scrabble game
+  * Initializes the Bag, and the racks of all players in this Scrabble User
   */
-  public void startGame{Game<-}(){
+  public void startUser{User<-}(){
     atomic{
       this.bag.populateBag();
       for(int i=0; i<this.players.size();i++){
@@ -50,8 +50,8 @@ public class Scrabble[principal Game] authority(Game) {
   * Returns true if the current player has an empty rack,
   * and false otherwise
   */
-  public boolean{Game<-} emptyRack{Game<-}() {
-     boolean{Game<-} result = false;
+  public boolean{User<-} emptyRack{User<-}() {
+     boolean{User<-} result = false;
      Integer tilesLeft = (Integer)this.playerTilesLeft.get(this.currentPlayer);
 
       if (tilesLeft.intValue() == 0){
@@ -64,11 +64,11 @@ public class Scrabble[principal Game] authority(Game) {
   /**
   * Increments the score of player based on tiles
   */
-  public void incScore{Game<-}(String{Game<-}tiles){
+  public void incScore{User<-}(String{User<-}tiles){
     atomic{
       for(int i =0; i< tiles.length(); i++){
-        String{Game<-} tile = Character.toString(tiles.charAt(i));
-        Integer{Game<-} temp = (Integer)this.board.points.get(tile);
+        String{User<-} tile = Character.toString(tiles.charAt(i));
+        Integer{User<-} temp = (Integer)this.board.points.get(tile);
         this.playerScores.set(this.currentPlayer, new Integer(((Integer)this.playerScores.get(this.currentPlayer)).intValue() + temp.intValue()));
       }
       if (tiles.length() == 7){
@@ -80,7 +80,7 @@ public class Scrabble[principal Game] authority(Game) {
   /**
   * Returns the player who has the highest score,
   */
-  public int{} getWinner{Game<-}() {
+  public int{} getWinner{User<-}() {
      int winner = 0;
      int highScore = 0;
      Integer score0 = (Integer)this.playerScores.get(0);
@@ -88,7 +88,7 @@ public class Scrabble[principal Game] authority(Game) {
 
      for (int i=1; i<this.playerScores.size(); i++){
         //final principal pr =  (Principal)this.playerPrincipals.get(i);
-        //Player{Game<-} p = (Player[Game, pr])this.players.get(i);
+        //Player{User<-} p = (Player[User, pr])this.players.get(i);
 
         Integer temp = (Integer)this.playerScores.get(i);
         int score = temp.intValue();
@@ -103,9 +103,9 @@ public class Scrabble[principal Game] authority(Game) {
   /**
   * GUI for swap
   */
-  public String{Game<-} swapGui{Game<-} (){
-    String{Game<-} word = "";
-    PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
+  public String{User<-} swapGui{User<-} (){
+    String{User<-} word = "";
+    PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
     p.print("type in the letters you want to swap");
 
     try{
@@ -120,23 +120,23 @@ public class Scrabble[principal Game] authority(Game) {
   /**
   * helper function for the swap move for a player
   */
-  public boolean{Game<-} swap{Game<-}(){
-    boolean{Game<-} success = false;
+  public boolean{User<-} swap{User<-}(){
+    boolean{User<-} success = false;
 
-    String{Game<-} word = this.swapGui();
-    String{Game<-}[]{Game<-} letters = new String[word.length()];
+    String{User<-} word = this.swapGui();
+    String{User<-}[]{User<-} letters = new String[word.length()];
     for(int i=0; i < letters.length; i++){
        letters[i] = Character.toString(word.charAt(i));
     }
 
 
 
-    //String{Game<-} rackCopy = endorse (((Player)this.players.get(this.currentPlayer)).getRack(), {} to {Game<-});
+    //String{User<-} rackCopy = endorse (((Player)this.players.get(this.currentPlayer)).getRack(), {} to {User<-});
     //if (this.board.hasTilesinRack(rackCopy, word)){
     //  p.print("some of the letters which you want to swap are not in your rack");
     //}
 
-    PrintString[{Game->; Game<-}]{Game->; Game<-} p = new PrintString[{Game->; Game<-}]();
+    PrintString[{User->; User<-}]{User->; User<-} p = new PrintString[{User->; User<-}]();
     if (this.bag.tiles.size() < letters.length){
        p.print("The bag does not have enough tiles left");
     }
@@ -151,14 +151,14 @@ public class Scrabble[principal Game] authority(Game) {
    /**
   * helper function for the place move for a player
   */
-  public boolean{Game<-} place{Game<-}() where authority (Game){
+  public boolean{User<-} place{User<-}() where authority (User){
 
-    boolean{Game<-} success = false;
+    boolean{User<-} success = false;
 
-    PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
+    PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
     p.print("word formed");
 
-    String{Game<-} word = "";
+    String{User<-} word = "";
 
     try{
       word = this.scanner.read();
@@ -168,8 +168,8 @@ public class Scrabble[principal Game] authority(Game) {
     }
 
      p.print("type in the direction: h or v");
-     boolean{Game<-} dir = true;
-     String{Game<-} dirString = "";
+     boolean{User<-} dir = true;
+     String{User<-} dirString = "";
 
      try{
        dirString = this.scanner.read();
@@ -181,7 +181,7 @@ public class Scrabble[principal Game] authority(Game) {
        dir = false;
      }
 
-     String{Game<-} rowString = "";
+     String{User<-} rowString = "";
      p.print("type in the row number");
      try{
       rowString = this.scanner.read();
@@ -190,7 +190,7 @@ public class Scrabble[principal Game] authority(Game) {
        //print
      }
 
-     String{Game<-} colString = "";
+     String{User<-} colString = "";
      p.print("type in the column number");
      try{
       colString = this.scanner.read();
@@ -199,20 +199,20 @@ public class Scrabble[principal Game] authority(Game) {
        //print
      }
 
-     int{Game<-} row = Integer.parseInt(rowString);
-     int{Game<-} col = Integer.parseInt(colString);
+     int{User<-} row = Integer.parseInt(rowString);
+     int{User<-} col = Integer.parseInt(colString);
 
      // Now try to place it
-     String{Game<-} newEntries = this.board.getNewEntries(word, dir, row, col);
+     String{User<-} newEntries = this.board.getNewEntries(word, dir, row, col);
 
-     String{Game<-} rackCopy = endorse (((Player)this.players.get(this.currentPlayer)).getRack(), {} to {Game<-});
-     //String{Game<-} rackCopy = "";
-     String{Game<-} toSwap = this.board.swapTiles(rackCopy, newEntries);
+     String{User<-} rackCopy = endorse (((Player)this.players.get(this.currentPlayer)).getRack(), {} to {User<-});
+     //String{User<-} rackCopy = "";
+     String{User<-} toSwap = this.board.swapTiles(rackCopy, newEntries);
 
      atomic{
        if (this.board.isMoveValid(rackCopy, word, newEntries, dir, row, col)){
          this.board.placeWord(word, dir, row, col);
-         String{Game<-}[]{Game<-} letters = new String[toSwap.length()];
+         String{User<-}[]{User<-} letters = new String[toSwap.length()];
          for(int i=0; i < letters.length; i++){
             letters[i] = Character.toString(word.charAt(i));
          }
@@ -231,9 +231,9 @@ public class Scrabble[principal Game] authority(Game) {
   * Helper function move.
   * calls the relevant functions using moveType
   */
-  public boolean{Game<-} moveHelper{Game<-}(String{Game<-} moveType){
-    boolean{Game<-} success = false;
-    PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
+  public boolean{User<-} moveHelper{User<-}(String{User<-} moveType){
+    boolean{User<-} success = false;
+    PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
     atomic{
       if (moveType.equals("swap")){
         return this.swap();
@@ -254,10 +254,10 @@ public class Scrabble[principal Game] authority(Game) {
 
   }
 
-  public String{Game<-} moveGui{Game<-}(){
-    PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
+  public String{User<-} moveGui{User<-}(){
+    PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
     p.print("type in move type");
-    String{Game<-} moveType = "";
+    String{User<-} moveType = "";
 
     try{
       moveType = this.scanner.read();
@@ -269,11 +269,11 @@ public class Scrabble[principal Game] authority(Game) {
     return moveType;
   }
 
-  public boolean{Game<-} move{Game<-}(){
+  public boolean{User<-} move{User<-}(){
     //this.readBoard(this.currentPlayer);
-    boolean{Game<-} result = false;
-    String{Game<-} moveType = this.moveGui();
-    PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
+    boolean{User<-} result = false;
+    String{User<-} moveType = this.moveGui();
+    PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
 
     if (moveType==null) return false;
 
@@ -283,28 +283,28 @@ public class Scrabble[principal Game] authority(Game) {
     return false;
   }
 
-  public void printRack{Game<-}(int{Game<-} playerNum) {
-    PrintString[{}]{Game<-} r = new PrintString[{}]();
+  public void printRack{User<-}(int{User<-} playerNum) {
+    PrintString[{}]{User<-} r = new PrintString[{}]();
     String rack = "Your rack: " + ((Player)this.players.get(playerNum)).getRack() + "\n";
     r.print(rack);
   }
 
   /**
-  * Prints the game board for every turn
+  * Prints the User board for every turn
   */
   //public void readBoard{*->_}(){
-  public void readBoard{Game<-}(){
+  public void readBoard{User<-}(){
     String printBoard = "";
     atomic{
       printBoard += "\n";
       printBoard += "  "; //beginning 2 spaces
-      for(int i = 0; i < this.board.gameBoard.length; ++i){
+      for(int i = 0; i < this.board.UserBoard.length; ++i){
         if(i>9) printBoard += " " + (i) + " "; //print letters separately.
         else printBoard += " " + (i) +"  "; //print letters separately.
       }
-      for(int i = 0; i < this.board.gameBoard.length; i++){
+      for(int i = 0; i < this.board.UserBoard.length; i++){
         printBoard += "\n";
-        for(int j = 0; j < this.board.gameBoard.length; j++){
+        for(int j = 0; j < this.board.UserBoard.length; j++){
             if(j == 0){
                 if(i>9) {
                   printBoard += i;
@@ -314,7 +314,7 @@ public class Scrabble[principal Game] authority(Game) {
                   printBoard += "| ";
                 }
             }
-            printBoard += (String)(this.board.gameBoard[i].get(j)) + " | ";
+            printBoard += (String)(this.board.UserBoard[i].get(j)) + " | ";
           }
         }
         printBoard += "\n" + "\n" + "Player " + this.currentPlayer + "'s turn \n";
@@ -327,22 +327,22 @@ public class Scrabble[principal Game] authority(Game) {
 
 
   /**
-  * Runs the Scrabble game
-  * the game ends when the number of moves played is equal to 50
+  * Runs the Scrabble User
+  * the User ends when the number of moves played is equal to 50
   */
-  public void gameLoop{Game<-}() where caller(Game){
+  public void gameLoop{User<-}() where caller(User){
     atomic{
-      if (Game actsFor User) {
+      if (User actsFor User) {
       while(this.board.moveNumber < 50){
-         //new Gui[Game]().launchApp();
-         PrintString[{Game<-}]{Game<-} p = new PrintString[{Game<-}]();
+         //new Gui[User]().launchApp();
+         PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
          this.readBoard();
 
-         boolean{Game<-} success = false;
+         boolean{User<-} success = false;
          final RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
          final RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
 
-         PrintString[{}]{Game<-} r = new PrintString[{}]();
+         PrintString[{}]{User<-} r = new PrintString[{}]();
          //String rack = "Your rack: " + ((Player)this.players.get(this.currentPlayer)).getRack() + "\n";
          //r.print(rack);
          this.printRack(this.currentPlayer);
@@ -365,7 +365,7 @@ public class Scrabble[principal Game] authority(Game) {
       }
       int winner = this.getWinner();
       String winnerStr = String.valueOf(winner);
-      PrintString[{}]{Game<-} r = new PrintString[{}]();
+      PrintString[{}]{User<-} r = new PrintString[{}]();
       r.print("\n" + "The winner is player " + winnerStr + "\n");
     }
    }

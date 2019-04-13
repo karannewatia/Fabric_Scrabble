@@ -1,21 +1,21 @@
 import fabricated.util.ArrayList;
 
 /**
- * This class represents a player in the Scrabble game.
+ * This class represents a player in the Scrabble User.
  */
-public class Player[principal Game, principal Player] {
+public class Player[principal User, principal Player] {
     /**
      * This rack represents P's rack.
      * It's fine to make the reference to the rack public, as all the
      * information contained in the board is readable only by P
      */
-    public Rack[Game, Player]{Game<-} rack;
+    public Rack[User, Player]{User<-} rack;
     public RemoteWorker w;
-    public int{Game<-} score;
+    public int{User<-} score;
 
-    public Player{Game<-}(RemoteWorker{} worker){ //RemoteWorker w
+    public Player{User<-}(RemoteWorker{} worker){ //RemoteWorker w
       this.w = worker;
-      this.rack = new Rack{Game<-}();
+      this.rack = new Rack{User<-}();
       this.score = 0;
     }
 
@@ -23,12 +23,12 @@ public class Player[principal Game, principal Player] {
      * Returns this player's rack as a string (useful for printing)
      */
 
-     public String{Game->Player; Game<-} getRack{Game<-}() {
-       String{Game->Player; Game<-} rack = "";
+     public String{User->Player; User<-} getRack{User<-}() {
+       String{User->Player; User<-} rack = "";
        atomic{
-        String{Game->Player; Game<-}[]{Game<-} tiles = this.rack.tiles;
+        String{User->Player; User<-}[]{User<-} tiles = this.rack.tiles;
         for(int i=0; i<tiles.length; i++){
-           String{Game->Player; Game<-} tile = (String)tiles[i];
+           String{User->Player; User<-} tile = (String)tiles[i];
              rack += tile;
          }
 

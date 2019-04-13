@@ -15,14 +15,14 @@ public class Main {
             final Store p2store = FabricWorker.getWorker().getStore("worker2");
             final principal p1 = p1store.getPrincipal();
             final principal p2 = p2store.getPrincipal();
-            final principal allPlayers = game;
+            final principal allPlayers = User;
             //new Gui().launchApp();
             App app = null;
             atomic{
-               app = new App[game, p1, p2]@store();
+               app = new App[User, p1, p2]@store();
             }
-            PrintString[{game<-}]{game<-} p = new PrintString[{game<-}]();
-            String{game<-} ready = "";
+            PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
+            String{User<-} ready = "";
 
             ready += "\n";
             ready += "Let's play Scrabble!!";
@@ -33,11 +33,11 @@ public class Main {
 
             app.scrabble.gameLoop();
           }
-          //PrintString[{game<-}]{game<-} p = new PrintString[{game<-}]();
+          //PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
           //p.print("hmm");
 
         }
-        //PrintString[{game<-}]{game<-} p = new PrintString[{game<-}]();
+        //PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
         //p.print("huh");
     }
     }
