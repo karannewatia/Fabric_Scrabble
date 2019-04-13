@@ -14,31 +14,50 @@ import fabfx.animation.Timeline;
 import javafx.util.Duration;
 import fabric.util.java.Object2DArray;
 import fabfx.scene.shape.Rectangle;
+import fabric.util.PrintString;
+import fabricated.util.ArrayList;
+import fabricated.util.StringComparator;
+import fabricated.util.IdComparator;
 
 
-public class Gui extends Application {
+public class Gui extends Application authority(User){
 
-	 Color{User->;User<-} numColor;
-	public Color{User->;User<-} tileColor;
-	public Color{User->;User<-} sepColor;
-	public Font{User->;User<-} numFont;
-	public Font{User->;User<-} smallNumFont;
-	public double{User->;User<-} tileSize = 120.0;
-	public double{User->;User<-} gutter;
-	public Color{User->;User<-} native []{User->;User<-} colors;
-	public Rectangle[{User->;User<-},{User->;User<-}]{User->;User<-} background;
+	public Color{User<-} numColor;
+	public Color{User<-} tileColor;
+	public Color{User<-} sepColor;
+	public Font{User<-} numFont;
+	public Font{User<-} smallNumFont;
+	public double{User<-} tileSize = 120.0;
+	public double{User<-} gutter;
+	public Color{User<-} native []{User<-} colors;
+	public Rectangle[{User<-},{User<-}]{User<-} background;
 
-	//public Scrabble[Game, allPlayers]{User->;User<-} scrabble;
-
-	// The model of the game.
+	//public Scrabble[User] scrabble;
 
 	// The nodes corresponding to each of the tiles of the game
-	private Object2DArray[{User->;User<-}]{User->;User<-} tiles;
+	//private Object2DArray[{User<-}]{User<-} tiles;
 
-	public void run{User->;User<-} (Stage{User->;User<-} primaryStage) {
+	public void run{User<-} (Stage{User<-} primaryStage) where caller(User) {
 		atomic {
-			final label l = new label {User->;User<-};
-			if (this.store$ actsfor User) {
+    try{
+			final Store store = FabricWorker.getWorker().getStore("store");
+			if (store actsfor User) {
+			  Scrabble scrabble = null;
+				scrabble = new Scrabble[User]@store();
+
+	      //this.scrabble = new Scrabble[User]@store();
+	      scrabble.startUser();
+				PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
+				String{User<-} ready = "";
+
+				ready += "\n";
+				ready += "Let's play Scrabble!!";
+				ready += "\n";
+				ready += "----------------";
+				ready += "\n";
+				//p.print(ready);
+				final label l = new label {User<-};
+
 				try {
 					numColor = new Color(0.4, 0.4, 0.4, 1.0);
 					tileColor = new Color(0.8, 0.8, 0.8, 1.0);
@@ -73,7 +92,7 @@ public class Gui extends Application {
 					background.setArcWidth(tileSize * 0.30);
 					background.setArcHeight(tileSize * 0.30);
 
-					Text[{User->;User<-},{User->;User<-}]{User->;User<-} txt = new Text[l,l]();
+					Text[{User<-},{User<-}]{User<-} txt = new Text[l,l]();
           //t.setText(this.readBoard());
 
           txt.setText("\n" + "Let's play Scrabble!!" + "\n");
@@ -91,9 +110,6 @@ public class Gui extends Application {
 
 					//content.setStyle("-fx-background-color: #999999");
 
-
-
-
 				} catch (NegativeArraySizeException e) {
 					// Impossible
 				}
@@ -101,7 +117,11 @@ public class Gui extends Application {
 				String title = "Scrabble";
 				primaryStage.setTitle(title);
 				primaryStage.show();
-			}
+
+				scrabble.gameLoop();
+
+			 }
+			} catch (Exception exc) {}
 		}
 	}
 

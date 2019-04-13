@@ -6,9 +6,9 @@ abstract public class Application extends java.lang.Object {
     private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
     private static int __JIF_PARAMS_RUNTIME_REPRESENTED$20051007 = 0;
 
-	abstract public void run{User->;User<-} (Stage{User->;User<-} primaryStage);
+	abstract public void run{User<-} (Stage{User<-} primaryStage) where caller(User);
 
-	native public void launchApp{User->;User<-} ();
+	native public void launchApp{User<-} ();
 
 }
 

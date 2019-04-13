@@ -5,16 +5,16 @@ import fabfx.scene.Scene;
 public class Stage {
 	private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
     private static int __JIF_PARAMS_RUNTIME_REPRESENTED$20051007 = 0;
-	
-	private int{User->;User<-}@{User->} __dumb;
+
+	private int{User<-}@{User->} __dumb;
 
 	native public void Stage ();
 
-	native public void show{User->;User<-} ();
+	native public void show{User<-} ();
 
-	native public void setScene (label sL, label sM, Scene[sL,sM] {User->;User<-} scene);
-	
-	native public void setTitle{User->;User<-} (String{User->;User<-} title);
+	native public void setScene (label sL, label sM, Scene[sL,sM] {User<-} scene);
+
+	native public void setTitle{User<-} (String{User<-} title);
 
 }
 
@@ -22,7 +22,7 @@ public class Stage {
  ***This is the parameterized version
 
 public class Stage[principal P] {
-	
+
 	private int{P->;P<-}@{P->} __dumb;
 
 	native public void Stage ();
@@ -30,7 +30,7 @@ public class Stage[principal P] {
 	native public void show{P->;P<-} ();
 
 	native public void setScene (label sL, label sM, Scene[sL,sM] {P->;P<-} scene);
-	
+
 	native public void setTitle (String title);
 
 }

@@ -1,44 +1,15 @@
-import fabric.util.PrintString;
 import fabfx.application.Application;
 import fabfx.stage.Stage;
+import fabric.principals.User;
 
 public class Main {
 
-    public static void main{game<-}(principal{*<-} game, String[] args) where caller(game) {
-        atomic{
-        if (game actsFor User) {
-           new Gui().launchApp();
-        final Store store = FabricWorker.getWorker().getStore("store");
+	public static void main {User<-}
+			(principal{p<-} p, String[] args):{User<-}
+			throws Exception {
+		atomic {
+			new Gui().launchApp();
+		}
+	}
 
-          if (store actsfor game) {
-            final Store p1store = FabricWorker.getWorker().getStore("worker");
-            final Store p2store = FabricWorker.getWorker().getStore("worker2");
-            final principal p1 = p1store.getPrincipal();
-            final principal p2 = p2store.getPrincipal();
-            final principal allPlayers = User;
-            //new Gui().launchApp();
-            App app = null;
-            atomic{
-               app = new App[User, p1, p2]@store();
-            }
-            PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
-            String{User<-} ready = "";
-
-            ready += "\n";
-            ready += "Let's play Scrabble!!";
-            ready += "\n";
-            ready += "----------------";
-            ready += "\n";
-            p.print(ready);
-
-            app.scrabble.gameLoop();
-          }
-          //PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
-          //p.print("hmm");
-
-        }
-        //PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
-        //p.print("huh");
-    }
-    }
 }
