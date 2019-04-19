@@ -11,53 +11,29 @@ import fabric.util.ReadInput;
  */
 public class Scrabble[principal User] authority(User) {
 
-  private ArrayList[{User<-}]{User<-} players;
-  //private ArrayList[{User<-}]{User<-} playerPrincipals;
-  private ArrayList[{User<-}]{User<-} playerScores;
-  private ArrayList[{User<-}]{User<-} playerTilesLeft;
+  public ArrayList[{User<-}]{User<-} players;
+  //public ArrayList[{User<-}]{User<-} playerPrincipals;
+  public ArrayList[{User<-}]{User<-} playerScores;
+  public ArrayList[{User<-}]{User<-} playerTilesLeft;
 
-  private Bag[User]{User<-} bag;
-  private int{User<-} currentPlayer;
-  private Board[User]{User<-} board;
-  private transient ReadInput[{User<-}]{User<-} scanner;
+  public Bag[User]{User<-} bag;
+  public int{User<-} currentPlayer;
+  public Board[User]{User<-} board;
+  public transient ReadInput[{User<-}]{User<-} scanner;
 
-  public Scrabble{User<-}(){
+  public Scrabble{User<-}(ArrayList[{User<-}]{User<-} playersList,
+                      // ArrayList[{User<-}]{User<-} playerPrincipalsList,
+                       ArrayList[{User<-}]{User<-} playerScoresList, ArrayList[{User<-}]{User<-} playerTilesLeftList){
 
-    try{
-
-    this.bag = new Bag{User<-}();
-    this.board = new Board{User<-}();
-    this.currentPlayer = 0;
-    this.scanner = new ReadInput[{User<-}]();
-
-    final Store store = FabricWorker.getWorker().getStore("store");
-
-		if (store actsfor User) {
-			final Store p1store = FabricWorker.getWorker().getStore("worker");
-			final Store p2store = FabricWorker.getWorker().getStore("worker2");
-			final principal p1 = p1store.getPrincipal();
-			final principal p2 = p2store.getPrincipal();
-
-      RemoteWorker w1 = FabricWorker.getWorker().getWorker("worker");
-      RemoteWorker w2 = FabricWorker.getWorker().getWorker("worker2");
-      Player[User, p1]{User<-} alice = new Player{User<-}(w1);
-      Player[User, p2]{User<-} bob = new Player{User<-}(w2);
-
-      this.players = new ArrayList[{User<-}]{User<-}(new StringComparator{User<-}());
-      this.players.add(alice);
-      this.players.add(bob);
-
-    }
-
-    this.playerTilesLeft = new ArrayList[{User<-}]{User<-}(new IdComparator{User<-}());
-    this.playerTilesLeft.add(new Integer(7));
-    this.playerTilesLeft.add(new Integer(7));
-
-    this.playerScores = new ArrayList[{User<-}]{User<-}(new IdComparator{User<-}());
-    this.playerScores.add(new Integer(0));
-    this.playerScores.add(new Integer(0));
-    } catch (Exception exc) {}
-  }
+   this.bag = new Bag{User<-}();
+   this.board = new Board{User<-}();
+   this.currentPlayer = 0;
+   this.players = playersList;
+   //this.playerPrincipals = playerPrincipalsList;
+   this.playerScores = playerScoresList;
+   this.playerTilesLeft =  playerTilesLeftList;
+   this.scanner = new ReadInput[{User<-}]();
+ }
 
   /**
   * Initializes the Bag, and the racks of all players in this Scrabble User

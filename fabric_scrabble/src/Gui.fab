@@ -32,6 +32,11 @@ public class Gui extends Application authority(User){
 	public Color{User<-} native []{User<-} colors;
 	public Rectangle[{User<-},{User<-}]{User<-} background;
 
+	public Scrabble[User]{User<-} scrabble;
+	public ArrayList[{User<-}]{User<-} players;
+	public ArrayList[{User<-}]{User<-} tilesLeft;
+	public ArrayList[{User<-}]{User<-} scores;
+
 	//public Scrabble[User] scrabble;
 
 	// The nodes corresponding to each of the tiles of the game
@@ -44,6 +49,28 @@ public class Gui extends Application authority(User){
 				final label l = new label {User<-};
 				if (this.store$ actsfor User) {
 					try {
+            //this.board = new Board{User<-}@store$();
+
+						final Store p1store = FabricWorker.getWorker().getStore("worker");
+						final Store p2store = FabricWorker.getWorker().getStore("worker2");
+						final principal p1 = p1store.getPrincipal();
+						final principal p2 = p2store.getPrincipal();
+
+			      RemoteWorker w1 = FabricWorker.getWorker().getWorker("worker");
+			      RemoteWorker w2 = FabricWorker.getWorker().getWorker("worker2");
+			      Player[User, p1]{User<-} alice = new Player{User<-}@store$(w1);
+			      Player[User, p2]{User<-} bob = new Player{User<-}@store$(w2);
+						this.players = new ArrayList{User<-}@store$(new StringComparator@store$());
+			      this.players.add(alice);
+			      this.players.add(bob);
+			      this.tilesLeft = new ArrayList{User<-}@store$(new IdComparator@store$());
+			      this.tilesLeft.add(new Integer(7));
+			      this.tilesLeft.add(new Integer(7));
+			      this.scores = new ArrayList{User<-}@store$(new IdComparator@store$());
+			      this.scores.add(new Integer(0));
+			      this.scores.add(new Integer(0));
+
+
 						numColor = new Color(0.4, 0.4, 0.4, 1.0);
 						tileColor = new Color(0.8, 0.8, 0.8, 1.0);
 						sepColor = new Color(0.6, 0.6, 0.6, 1.0);
@@ -79,7 +106,6 @@ public class Gui extends Application authority(User){
 
 						Text[{User<-},{User<-}]{User<-} t = new Text[l,l]();
 	          //t.setText(this.readBoard());
-	          //t.setText("kkkk");
 						t.setText("\n" + "Let's play Scrabble!!" + "\n");
 	          //t.setFont(new Font(20));
 						t.setX(50);
@@ -98,36 +124,80 @@ public class Gui extends Application authority(User){
 					}
 					primaryStage.setTitle("1024");
 					primaryStage.show();
+					//final Store store = FabricWorker.getWorker().getStore("store");
 
-					final Store store = FabricWorker.getWorker().getStore("store");
-
-					if (store actsfor User) {
-					  String{User<-} ready = "";
-						PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
+				  String{User<-} ready = "";
+					PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
 
 
-						ready += "\n";
-						ready += "Let's play Scrabble!!";
-						ready += "\n";
-						ready += "----------------";
-						ready += "\n";
+					ready += "\n";
+					ready += "Let's play Scrabble!!";
+					ready += "\n";
+					ready += "----------------";
+					ready += "\n";
 
-					  Scrabble scrabble = null;
-            	/**
-						scrabble = new Scrabble[User]@store();
-		
-			      scrabble.startUser();
-						scrabble.gameLoop();
-						*/
-						//primaryStage.show();
+					//Scrabble scrabble = null;
+					this.scrabble = new Scrabble[User]@store$(players, scores, tilesLeft);
 
-						}
-				}
+					//scrabble = new Scrabble[User]@store$(players, scores, tilesLeft);
+		      scrabble.startUser();
+					//scrabble.gameLoop();
+					this.playLoop();
+
+
+					//primaryStage.setTitle("1024");
+					//primaryStage.show();
+
+			}
 
 
 
 			} catch (Exception exc) {}
 		}
 	}
+
+	/**
+  * Runs the Scrabble User
+  * the User ends when the number of moves played is equal to 50
+  */
+
+  public void playLoop{User<-}() where caller(User){
+    atomic{
+      while(this.scrabble.board.moveNumber < 0){
+         PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
+         this.scrabble.readBoard();
+
+         boolean{User<-} success = false;
+         //final RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
+         //final RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
+
+         PrintString[{}]{User<-} r = new PrintString[{}]();
+         //String rack = "Your rack: " + ((Player)this.players.get(this.currentPlayer)).getRack() + "\n";
+         //r.print(rack);
+         this.scrabble.printRack(this.scrabble.currentPlayer);
+
+         while (!success){
+           // Remote call
+            //this.readBoard@w2();
+            //this.readBoard@w1();
+
+            //success = this.move@w1();
+            success = this.scrabble.move();
+         }
+         if (this.scrabble.emptyRack()){
+            int winner = this.scrabble.getWinner();
+            String winnerStr = String.valueOf(winner);
+            r.print("The winner is player " + winnerStr + "\n");
+            break;
+         }
+         this.scrabble.currentPlayer = (this.scrabble.currentPlayer + 1) % this.scrabble.players.size();
+      }
+      int winner = this.scrabble.getWinner();
+      String winnerStr = String.valueOf(winner);
+      PrintString[{}]{User<-} r = new PrintString[{}]();
+      r.print("\n" + "The winner is player " + winnerStr + "\n");
+    }
+  }
+
 
 }
