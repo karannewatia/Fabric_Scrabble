@@ -22,14 +22,15 @@ import fabricated.util.IdComparator;
 
 public class Gui extends Application authority(User){
 
-	public Color{User<-} numColor;
-	public Color{User<-} tileColor;
-	public Color{User<-} sepColor;
-	public Font{User<-} numFont;
-	public Font{User<-} smallNumFont;
-	public double{User<-} tileSize = 120.0;
-	public double{User<-} gutter;
-	public Color{User<-} native []{User<-} colors;
+	static Color{User<-} numColor;
+	static Color{User<-} tileColor;
+	static Color{User<-} sepColor;
+	static Font{User<-} numFont;
+	static Font{User<-} smallNumFont;
+	static double{User<-} tileSize = 120.0;
+	static double{User<-} gutter;
+	static Color{User<-} native []{User<-} colors;
+
 	public Rectangle[{User<-},{User<-}]{User<-} background;
 
 	public Scrabble[User]{User<-} scrabble;
@@ -37,10 +38,8 @@ public class Gui extends Application authority(User){
 	public ArrayList[{User<-}]{User<-} tilesLeft;
 	public ArrayList[{User<-}]{User<-} scores;
 
-	//public Scrabble[User] scrabble;
-
-	// The nodes corresponding to each of the tiles of the game
-	//private Object2DArray[{User<-}]{User<-} tiles;
+	private GameModel[{User<-}]{User<-} model;
+	private Object2DArray[{User<-}]{User<-} tiles;
 
 	public void run{User<-} (Stage{User<-} primaryStage) where caller(User) {
 		atomic {
@@ -70,12 +69,15 @@ public class Gui extends Application authority(User){
 			      this.scores.add(new Integer(0));
 			      this.scores.add(new Integer(0));
 
-
+						model = new GameModel[l]@store$(4);
+						model.addNewTile();
+						gutter = tileSize / 10;
+						int s = model.size();
 						numColor = new Color(0.4, 0.4, 0.4, 1.0);
 						tileColor = new Color(0.8, 0.8, 0.8, 1.0);
 						sepColor = new Color(0.6, 0.6, 0.6, 1.0);
 						colors = new Color native []{
-							tileColor, new Color(0.8, 0.8, 0.75, 1.0),
+						tileColor, new Color(0.8, 0.8, 0.75, 1.0),
 							new Color(0.8, 0.75, 0.75, 1.0), new Color(0.85, 0.75, 0.7, 1.0),
 							new Color(0.8, 0.8, 0.7, 1.0), new Color(0.8, 0.7, 0.7, 1.0),
 							new Color(0.8, 0.7, 0.6, 1.0), new Color(0.8, 0.6, 0.7, 1.0),
@@ -88,13 +90,13 @@ public class Gui extends Application authority(User){
 						numFont = Font.font("Helvetica-Bold", FontWeight.BOLD, 64);
 						smallNumFont = Font.font("Helvetica-Bold", FontWeight.BOLD, 32);
 
-						//final Pane[l,l] content = new Pane[l,l]();
+						final Pane[l,l] content = new Pane[l,l]();
+
 						final Group[l,l] outer = new Group[l,l]();
 						final Scene[l,l] scene = new Scene[l,l](l, l, outer);
 
+						/**
 						background = new Rectangle[l,l]();
-
-
 						//outer.getChildren().add(l, l, background);
 						background.setWidth(tileSize);
 						background.setHeight(tileSize);
@@ -113,10 +115,32 @@ public class Gui extends Application authority(User){
 						t.setFont(numFont);
 						t.setFill(numColor);
 	          outer.getChildren().add(l,l, t);
+						*/
 
 						primaryStage.setScene(l,l,scene);
-						//outer.getChildren().add(l,l,content);
+						outer.getChildren().add(l,l,content);
+						content.setPrefHeight(s * tileSize + (s + 1) * gutter);
+						content.setPrefWidth(s * tileSize + (s + 1) * gutter);
+						content.setStyle("-fx-background-color: #999999");
 
+						tiles = new Object2DArray[l](model.size(), model.size());
+						for (int i = 0; i < model.size(); i++) {
+							for (int j = 0; j < model.size(); j++) {
+								Tile tile = new Tile(i,j); // extra blank tile
+								content.getChildren().add(l, l, (Tile) tile);
+								tile.setPosn();
+								tile.toBack();
+
+								tiles.set(i, j, new Tile(i, j));
+								content.getChildren().add(l, l,
+										(Tile) tiles.get(i, j)); // j,i
+							}
+						}
+						resetTilePosns();
+						setLabelsFromState();
+
+
+						//outer.getChildren().add(l,l,content);
 						//content.setStyle("-fx-background-color: #999999");
 
 					} catch (NegativeArraySizeException e) {
@@ -124,35 +148,53 @@ public class Gui extends Application authority(User){
 					}
 					primaryStage.setTitle("1024");
 					primaryStage.show();
+
 					//final Store store = FabricWorker.getWorker().getStore("store");
 
-				  String{User<-} ready = "";
 					PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
 
-
-					ready += "\n";
-					ready += "Let's play Scrabble!!";
-					ready += "\n";
-					ready += "----------------";
-					ready += "\n";
-
-					//Scrabble scrabble = null;
 					this.scrabble = new Scrabble[User]@store$(players, scores, tilesLeft);
-
-					//scrabble = new Scrabble[User]@store$(players, scores, tilesLeft);
 		      scrabble.startUser();
 					//scrabble.gameLoop();
-					this.playLoop();
-
+					//this.playLoop();
 
 					//primaryStage.setTitle("1024");
 					//primaryStage.show();
 
 			}
 
-
-
 			} catch (Exception exc) {}
+		}
+	}
+
+	protected void resetTilePosns{User<-}() {
+		for (int i = 0; i < model.size(); i++) {
+			for (int j = 0; j < model.size(); j++) {
+				((Tile) tiles.get(i,j)).setPosn();
+			}
+		}
+	}
+
+	protected void setLabelsFromState{User<-}() {
+		for (int r = 0; r < model.size(); r++) {
+			for (int c = 0; c < model.size(); c++) {
+				int v = model.tile(r, c);
+				Text[{User<-},{User<-}] t = ((Tile) tiles.get(r, c)).text;
+				if (v == 0) {
+					t.setText("");
+				} else {
+					t.setText(String.valueOf(v));
+					t.setFont(v >= 100 ? smallNumFont : numFont);
+				}
+				int j = 0;
+				while (v != 0) {
+					v = v / 2;
+					j++;
+				}
+				if (j >= colors.length)
+					j = colors.length - 1;
+				((Tile) tiles.get(r, c)).background.setFill(colors[j]);
+			}
 		}
 	}
 
@@ -161,9 +203,41 @@ public class Gui extends Application authority(User){
   * the User ends when the number of moves played is equal to 50
   */
 
+	/**
   public void playLoop{User<-}() where caller(User){
     atomic{
-      while(this.scrabble.board.moveNumber < 0){
+      while(this.scrabble.board.moveNumber < 50){
+
+			final Group[l,l] outer = new Group[l,l]();
+			final Scene[l,l] scene = new Scene[l,l](l, l, outer);
+
+			background = new Rectangle[l,l]();
+
+
+			//outer.getChildren().add(l, l, background);
+			background.setWidth(tileSize);
+			background.setHeight(tileSize);
+			//background.setFill(tileColor);
+			background.setStrokeWidth(0);
+			background.setStroke(tileColor);
+			background.setArcWidth(tileSize * 0.30);
+			background.setArcHeight(tileSize * 0.30);
+
+			Text[{User<-},{User<-}]{User<-} t = new Text[l,l]();
+			//t.setText(this.readBoard());
+			t.setText("\n" + "Let's play Scrabble!!" + "\n");
+			//t.setFont(new Font(20));
+			t.setX(50);
+			t.setY(50);
+			t.setFont(numFont);
+			t.setFill(numColor);
+			outer.getChildren().add(l,l, t);
+
+			primaryStage.setScene(l,l,scene);
+
+			primaryStage.setTitle("1024");
+			primaryStage.show();
+
          PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
          this.scrabble.readBoard();
 
@@ -197,7 +271,7 @@ public class Gui extends Application authority(User){
       PrintString[{}]{User<-} r = new PrintString[{}]();
       r.print("\n" + "The winner is player " + winnerStr + "\n");
     }
-  }
+  } */
 
 
 }
