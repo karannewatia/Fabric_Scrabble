@@ -113,12 +113,13 @@ public class Gui extends Application authority(User){
 						ready += "\n";
 
 					  Scrabble scrabble = null;
-            /**
+            	/**
 						scrabble = new Scrabble[User]@store();
-
+		
 			      scrabble.startUser();
 						scrabble.gameLoop();
 						*/
+						//primaryStage.show();
 
 						}
 				}
