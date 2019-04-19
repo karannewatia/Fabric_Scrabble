@@ -27,7 +27,7 @@ public class Gui extends Application authority(User){
 	static Color{User<-} sepColor;
 	static Font{User<-} numFont;
 	static Font{User<-} smallNumFont;
-	static double{User<-} tileSize = 120.0;
+	static double{User<-} tileSize = 45.0;//120.0;
 	static double{User<-} gutter;
 	static Color{User<-} native []{User<-} colors;
 
@@ -69,7 +69,7 @@ public class Gui extends Application authority(User){
 			      this.scores.add(new Integer(0));
 			      this.scores.add(new Integer(0));
 
-						model = new GameModel[l]@store$(4);
+						model = new GameModel[l]@store$(15);
 						model.addNewTile();
 						gutter = tileSize / 10;
 						int s = model.size();
@@ -87,8 +87,8 @@ public class Gui extends Application authority(User){
 							new Color(0.8, 0.6, 0.5, 1.0), new Color(0.8, 0.5, 0.7, 1.0),
 							new Color(0.8, 0.5, 0.5, 1.0)
 						};
-						numFont = Font.font("Helvetica-Bold", FontWeight.BOLD, 64);
-						smallNumFont = Font.font("Helvetica-Bold", FontWeight.BOLD, 32);
+						numFont = Font.font("Helvetica-Bold", FontWeight.BOLD, 32);
+						smallNumFont = Font.font("Helvetica-Bold", FontWeight.BOLD, 16);
 
 						final Pane[l,l] content = new Pane[l,l]();
 
@@ -146,7 +146,7 @@ public class Gui extends Application authority(User){
 					} catch (NegativeArraySizeException e) {
 						// Impossible
 					}
-					primaryStage.setTitle("1024");
+					primaryStage.setTitle("Scrabble");
 					primaryStage.show();
 
 					//final Store store = FabricWorker.getWorker().getStore("store");
@@ -183,7 +183,8 @@ public class Gui extends Application authority(User){
 				if (v == 0) {
 					t.setText("");
 				} else {
-					t.setText(String.valueOf(v));
+					//t.setText(String.valueOf(v));
+					t.setText("a");
 					t.setFont(v >= 100 ? smallNumFont : numFont);
 				}
 				int j = 0;
