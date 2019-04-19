@@ -136,30 +136,61 @@ public class Gui extends Application authority(User){
 										(Tile) tiles.get(i, j)); // j,i
 							}
 						}
+						this.scrabble = new Scrabble[User]@store$(players, scores, tilesLeft);
+			      scrabble.startUser();
 						resetTilePosns();
 						setLabelsFromState();
 
+						outer.requestFocus();
+						outer.setOnKeyPressed(new ArrowHandler(this));
 
-						//outer.getChildren().add(l,l,content);
-						//content.setStyle("-fx-background-color: #999999");
+						while(this.scrabble.board.moveNumber < 0){
+						   setLabelsFromState();
+			         PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
+			         //this.scrabble.readBoard();
+
+			         boolean{User<-} success = false;
+			         //final RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
+			         //final RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
+
+			         PrintString[{}]{User<-} r = new PrintString[{}]();
+			         //String rack = "Your rack: " + ((Player)this.players.get(this.currentPlayer)).getRack() + "\n";
+			         //r.print(rack);
+
+			         //this.scrabble.printRack(this.scrabble.currentPlayer);
+
+			         while (!success){
+			           // Remote call
+			            //this.readBoard@w2();
+			            //this.readBoard@w1();
+
+			            //success = this.move@w1();
+			            //success = this.scrabble.move();
+			         }
+			         if (this.scrabble.emptyRack()){
+			            int winner = this.scrabble.getWinner();
+			            String winnerStr = String.valueOf(winner);
+			            r.print("The winner is player " + winnerStr + "\n");
+			            break;
+			         }
+			         this.scrabble.currentPlayer = (this.scrabble.currentPlayer + 1) % this.scrabble.players.size();
+			      }
+			      int winner = this.scrabble.getWinner();
+			      String winnerStr = String.valueOf(winner);
+			      PrintString[{}]{User<-} r = new PrintString[{}]();
+			      r.print("\n" + "The winner is player " + winnerStr + "\n");
+						//setLabelsFromState();
 
 					} catch (NegativeArraySizeException e) {
 						// Impossible
 					}
+
 					primaryStage.setTitle("Scrabble");
 					primaryStage.show();
 
-					//final Store store = FabricWorker.getWorker().getStore("store");
-
-					PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
-
-					this.scrabble = new Scrabble[User]@store$(players, scores, tilesLeft);
-		      scrabble.startUser();
-					//scrabble.gameLoop();
 					//this.playLoop();
 
-					//primaryStage.setTitle("1024");
-					//primaryStage.show();
+					//PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
 
 			}
 
@@ -180,21 +211,29 @@ public class Gui extends Application authority(User){
 			for (int c = 0; c < model.size(); c++) {
 				int v = model.tile(r, c);
 				Text[{User<-},{User<-}] t = ((Tile) tiles.get(r, c)).text;
+				t.setText((String) ((this.scrabble.board.UserBoard[r]).get(c)));
+
+				//if (!(t.getText().equals(""))){
+				 // ((Tile) tiles.get(r, c)).background.setFill(colors[2]);
+				//}
+
+
+				/**
 				if (v == 0) {
 					t.setText("");
 				} else {
 					//t.setText(String.valueOf(v));
 					t.setText("a");
 					t.setFont(v >= 100 ? smallNumFont : numFont);
-				}
+				} */
 				int j = 0;
 				while (v != 0) {
 					v = v / 2;
 					j++;
 				}
-				if (j >= colors.length)
-					j = colors.length - 1;
-				((Tile) tiles.get(r, c)).background.setFill(colors[j]);
+				//if (j >= colors.length)
+				//	j = colors.length - 1;
+				//((Tile) tiles.get(r, c)).background.setFill(colors[j]);
 			}
 		}
 	}
@@ -204,40 +243,12 @@ public class Gui extends Application authority(User){
   * the User ends when the number of moves played is equal to 50
   */
 
-	/**
+
   public void playLoop{User<-}() where caller(User){
     atomic{
-      while(this.scrabble.board.moveNumber < 50){
+      while(this.scrabble.board.moveNumber < 0){
+			  setLabelsFromState();
 
-			final Group[l,l] outer = new Group[l,l]();
-			final Scene[l,l] scene = new Scene[l,l](l, l, outer);
-
-			background = new Rectangle[l,l]();
-
-
-			//outer.getChildren().add(l, l, background);
-			background.setWidth(tileSize);
-			background.setHeight(tileSize);
-			//background.setFill(tileColor);
-			background.setStrokeWidth(0);
-			background.setStroke(tileColor);
-			background.setArcWidth(tileSize * 0.30);
-			background.setArcHeight(tileSize * 0.30);
-
-			Text[{User<-},{User<-}]{User<-} t = new Text[l,l]();
-			//t.setText(this.readBoard());
-			t.setText("\n" + "Let's play Scrabble!!" + "\n");
-			//t.setFont(new Font(20));
-			t.setX(50);
-			t.setY(50);
-			t.setFont(numFont);
-			t.setFill(numColor);
-			outer.getChildren().add(l,l, t);
-
-			primaryStage.setScene(l,l,scene);
-
-			primaryStage.setTitle("1024");
-			primaryStage.show();
 
          PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
          this.scrabble.readBoard();
@@ -271,8 +282,9 @@ public class Gui extends Application authority(User){
       String winnerStr = String.valueOf(winner);
       PrintString[{}]{User<-} r = new PrintString[{}]();
       r.print("\n" + "The winner is player " + winnerStr + "\n");
+			//setLabelsFromState();
     }
-  } */
+  }
 
 
 }

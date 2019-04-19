@@ -1,0 +1,43 @@
+
+import fabfx.event.Event;
+import fabfx.event.EventHandler;
+import fabfx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
+import fabric.util.PrintString;
+
+public class ArrowHandler extends EventHandler[{User<-}] {
+
+	protected Gui{User<-} game;
+
+	public ArrowHandler{User<-} (Gui{User<-} g) {
+		this.game = g;
+	}
+
+	public void handle{User<-} (Event[{User<-}]{User<-} ev_) {
+		atomic {
+		  PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
+			if (ev_ instanceof KeyEvent[{User<-}]) {
+				KeyEvent[{User<-}] ev = (KeyEvent[{User<-}]) ev_;
+				if (ev.getEventType() == KeyEvent.KEY_PRESSED) {
+					KeyCode key = ev.getCode();
+					if (key == KeyCode.LEFT) {
+						//game.doMove(-1, 0);
+						  p.print("okokokok");
+							game.scrabble.readBoard();
+					} else if (key == KeyCode.UP) {
+						//game.doMove(0, -1);
+						p.print("okokok");
+					} else if (key == KeyCode.RIGHT) {
+						//game.doMove(1, 0);
+						p.print("okok");
+					} else {
+						//game.doMove(0, 1);
+						p.print("ok");
+					}
+				}
+				ev_.consume();
+			}
+		}
+	}
+
+}
