@@ -23,7 +23,7 @@ public class ArrowHandler extends EventHandler[{User<-}] {
 					if (key == KeyCode.LEFT) {
 						//game.doMove(-1, 0);
 						  p.print("okokokok");
-							game.scrabble.readBoard();
+							game.scrabble.move();
 					} else if (key == KeyCode.UP) {
 						//game.doMove(0, -1);
 						p.print("okokok");
