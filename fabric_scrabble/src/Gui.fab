@@ -28,7 +28,7 @@ public class Gui extends Application authority(User){
 	static Color{User<-} sepColor;
 	static Font{User<-} numFont;
 	static Font{User<-} smallNumFont;
-	static double{User<-} tileSize = 45.0;//120.0;
+	static double{User<-} tileSize = 43.0;//120.0;
 	static double{User<-} gutter;
 	static Color{User<-} native []{User<-} colors;
 
@@ -104,19 +104,8 @@ public class Gui extends Application authority(User){
 
 						tiles = new Object2DArray[l](model.size()+1, model.size());
 						for (int i = 0; i < model.size() + 1; i++) {
-						  if (i == model.size() ){
-							for (int j = 0; j < 7; j++) {
-								Tile tile = new Tile(i,j, 1); // extra blank tile
-								content.getChildren().add(l, l, (Tile) tile);
-								tile.setPosn();
-								tile.toBack();
 
-								tiles.set(i, j, new Tile(i, j, 1));
-								content.getChildren().add(l, l,
-										(Tile) tiles.get(i, j)); // j,i
-							 }
-							}
-							else{
+							//else{
 							for (int j = 0; j < model.size(); j++) {
 								Tile tile = new Tile(i,j, 0); // extra blank tile
 								content.getChildren().add(l, l, (Tile) tile);
@@ -127,7 +116,7 @@ public class Gui extends Application authority(User){
 								content.getChildren().add(l, l,
 										(Tile) tiles.get(i, j)); // j,i
 							 }
-							}
+							//}
 						}
 						this.scrabble = new Scrabble[User]@store$(players, scores, tilesLeft);
 			      scrabble.startUser();
@@ -151,70 +140,35 @@ public class Gui extends Application authority(User){
 	}
 
 	protected void resetTilePosns{User<-}() {
-		for (int i = 0; i < model.size(); i++) {
+		for (int i = 0; i < model.size() + 1; i++) {
 			for (int j = 0; j < model.size(); j++) {
 				((Tile) tiles.get(i,j)).setPosn();
 			}
 		}
 	}
 
-	protected void setLabelsFromState{User<-}() {
-		for (int r = 0; r < model.size(); r++) {
-		   if (r == model.size()){
-			 for (int c = 0; c < 7; c++) {
-				 int v = model.tile(r, c);
-				 Text[{User<-},{User<-}] t = ((Tile) tiles.get(r, c)).text;
-				 t.setText((String) ((this.scrabble.board.UserBoard[r]).get(c)));
-				 ((Tile) tiles.get(r, c)).background.setFill(colors[4]);
+	protected void setLabelsFromState{User<-}() where authority (User){
+	  atomic{
+			for (int r = 0; r < model.size() + 1; r++) {
+				 if (r == model.size()){
+					 String{User<-} rack = endorse (((Player)this.players.get(this.scrabble.currentPlayer)).getRack(), {} to {User<-});
+					 for (int c = 0; c < 7; c++) {
 
-				 /**
-				 if (v == 0) {
-					 t.setText("");
-				 } else {
-					 //t.setText(String.valueOf(v));
-					 t.setText("a");
-					 t.setFont(v >= 100 ? smallNumFont : numFont);
-				 } */
-				 int j = 0;
-				 while (v != 0) {
-					 v = v / 2;
-					 j++;
+						 Text[{User<-},{User<-}] t = ((Tile) tiles.get(r, c)).text;
+							String{User<-} temp =  endorse (Character.toString(rack.charAt(c)), {} to {User<-});
+							t.setText(temp);
+						 ((Tile) tiles.get(r, c)).background.setFill(colors[4]);
+
+					 }
 				 }
-				 //if (j >= colors.length)
-				 //	j = colors.length - 1;
-				 //((Tile) tiles.get(r, c)).background.setFill(colors[j]);
-			 }
-			 }
-			else{
-			for (int c = 0; c < model.size(); c++) {
-			 int v = model.tile(r, c);
-			 Text[{User<-},{User<-}] t = ((Tile) tiles.get(r, c)).text;
-			 t.setText((String) ((this.scrabble.board.UserBoard[r]).get(c)));
+				else{
+					for (int c = 0; c < model.size(); c++) {
+					 Text[{User<-},{User<-}] t = ((Tile) tiles.get(r, c)).text;
+					 t.setText((String) ((this.scrabble.board.UserBoard[r]).get(c)));
 
-			 //if (!(t.getText().equals(""))){
-				// ((Tile) tiles.get(r, c)).background.setFill(colors[2]);
-			 //}
-
-
-			 /**
-			 if (v == 0) {
-				 t.setText("");
-			 } else {
-				 //t.setText(String.valueOf(v));
-				 t.setText("a");
-				 t.setFont(v >= 100 ? smallNumFont : numFont);
-			 } */
-			 int j = 0;
-			 while (v != 0) {
-				 v = v / 2;
-				 j++;
-			 }
-			 //if (j >= colors.length)
-			 //	j = colors.length - 1;
-			 //((Tile) tiles.get(r, c)).background.setFill(colors[j]);
-		 }
+				 }
+				}
 			}
-
 		}
 	}
 
@@ -227,10 +181,7 @@ public class Gui extends Application authority(User){
   public void playLoop{User<-}(Stage{User<-} primaryStage) where caller(User){
 
 		atomic{
-
       /*while(this.scrabble.board.moveNumber < 1){
-			  	setLabelsFromState();
-
          //PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
          //this.scrabble.readBoard();
 
@@ -266,14 +217,36 @@ public class Gui extends Application authority(User){
       String winnerStr = String.valueOf(winner);
       PrintString[{}]{User<-} r = new PrintString[{}]();
       r.print("\n" + "The winner is player " + winnerStr + "\n");
-			setLabelsFromState();
     }
 
   }
 
 	protected void doMove{User<-} () {
-		//String{User<-} temp = "H";
-		//(this.scrabble.board.UserBoard[3]).set(4, temp);
+		if (this.scrabble.board.moveNumber < 50){
+			 PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
+			 //this.scrabble.readBoard();
+			 boolean{User<-} success = false;
+			 //final RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
+			 //final RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
+
+			 while (!success){
+				 // Remote call
+					//this.readBoard@w2();
+					//this.readBoard@w1();
+					//success = this.move@w1();
+
+					success = this.scrabble.move();
+			 }
+			 //if (this.scrabble.emptyRack()){
+					//int winner = this.scrabble.getWinner();
+					//String winnerStr = String.valueOf(winner);
+					//r.print("The winner is player " + winnerStr + "\n");
+					//break;
+			 //}
+			 this.scrabble.currentPlayer = (this.scrabble.currentPlayer + 1) % this.scrabble.players.size();
+
+		}
+
 		final label l = new label {User<-};
 
 		java.util.List[l] move_anims = new java.util.ArrayList[l]();

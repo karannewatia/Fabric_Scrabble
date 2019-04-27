@@ -26,9 +26,7 @@ public class Tile extends StackPane[{User<-}, {User<-}] {
 				getChildren().add(l, l, background);
 				getChildren().add(l, l, text);
 				background.setWidth(Gui.tileSize);
-        if (flag == 1){
-          background.setWidth(Gui.tileSize * 1.1);
-        }
+
 				background.setHeight(Gui.tileSize);
 				background.setFill(Gui.tileColor);
 
