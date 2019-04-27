@@ -44,8 +44,6 @@ public class Gui extends Application authority(User){
 
 	public void run{User<-} (Stage{User<-} primaryStage) where caller(User) {
 		atomic {
-    try{
-
 				final label l = new label {User<-};
 				if (this.store$ actsfor User) {
 					try {
@@ -98,28 +96,6 @@ public class Gui extends Application authority(User){
 
 						//Button[l,l] button = new Button[l,l]("move type");
 
-						/**
-						background = new Rectangle[l,l]();
-						//outer.getChildren().add(l, l, background);
-						background.setWidth(tileSize);
-						background.setHeight(tileSize + 2);
-						//background.setFill(tileColor);
-						background.setStrokeWidth(0);
-						background.setStroke(tileColor);
-						background.setArcWidth(tileSize * 0.30);
-						background.setArcHeight((tileSize * 0.30) + 1);
-
-						Text[{User<-},{User<-}]{User<-} t = new Text[l,l]();
-	          //t.setText(this.readBoard());
-						t.setText("\n" + "Let's play Scrabble!!" + "\n");
-	          //t.setFont(new Font(20));
-						t.setX(50);
-						t.setY(50);
-						t.setFont(numFont);
-						t.setFill(numColor);
-	          outer.getChildren().add(l,l, t);
-						*/
-
 						primaryStage.setScene(l,l,scene);
 						outer.getChildren().add(l,l,content);
 						content.setPrefHeight(s * (tileSize + 2) + (s + 1) * gutter);
@@ -165,19 +141,13 @@ public class Gui extends Application authority(User){
 						// Impossible
 					}
 
-
-
-
-
-
-					//PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
-
 			}
 
-			} catch (Exception exc) {}
+			primaryStage.setTitle("Scrabble");
+			primaryStage.show();
+			//this.playLoop(primaryStage);
 		}
 
-							this.playLoop(primaryStage);
 	}
 
 	protected void resetTilePosns{User<-}() {
@@ -196,11 +166,6 @@ public class Gui extends Application authority(User){
 				 Text[{User<-},{User<-}] t = ((Tile) tiles.get(r, c)).text;
 				 t.setText((String) ((this.scrabble.board.UserBoard[r]).get(c)));
 				 ((Tile) tiles.get(r, c)).background.setFill(colors[4]);
-
-				 //if (!(t.getText().equals(""))){
-					//
-				 //}
-
 
 				 /**
 				 if (v == 0) {
@@ -261,10 +226,7 @@ public class Gui extends Application authority(User){
 
   public void playLoop{User<-}(Stage{User<-} primaryStage) where caller(User){
 
-							 							 										primaryStage.setTitle("Scrabble");
-							 							 										primaryStage.show();
 		atomic{
-
 
       /*while(this.scrabble.board.moveNumber < 1){
 			  	setLabelsFromState();
@@ -306,8 +268,23 @@ public class Gui extends Application authority(User){
       r.print("\n" + "The winner is player " + winnerStr + "\n");
 			setLabelsFromState();
     }
-		while (true) ;
+
   }
+
+	protected void doMove{User<-} () {
+		//String{User<-} temp = "H";
+		//(this.scrabble.board.UserBoard[3]).set(4, temp);
+		final label l = new label {User<-};
+
+		java.util.List[l] move_anims = new java.util.ArrayList[l]();
+		java.util.List[l] flash_anims = new java.util.ArrayList[l]();
+
+		Timeline timeline = new Timeline(60);
+		EventHandler[{User<-}] h2 = new EndMoveHandler(this);
+		timeline.getKeyFrames().add(l,l,
+			new KeyFrame(Duration.seconds(0.3), "end", h2, flash_anims));
+		timeline.play();
+	}
 
 
 }

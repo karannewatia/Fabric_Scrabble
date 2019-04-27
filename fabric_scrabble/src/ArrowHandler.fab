@@ -21,9 +21,8 @@ public class ArrowHandler extends EventHandler[{User<-}] {
 				if (ev.getEventType() == KeyEvent.KEY_PRESSED) {
 					KeyCode key = ev.getCode();
 					if (key == KeyCode.LEFT) {
-						//game.doMove(-1, 0);
-						  p.print("okokokok");
-							game.scrabble.move();
+						game.doMove();
+						//  p.print("okokokok");
 					} else if (key == KeyCode.UP) {
 						//game.doMove(0, -1);
 						p.print("okokok");
