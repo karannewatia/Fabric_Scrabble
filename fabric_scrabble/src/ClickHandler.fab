@@ -24,8 +24,8 @@ public class ClickHandler extends EventHandler[{User<-}] {
 						//game.doMove();
 						double x = ev.getSceneX();
 						double y = ev.getSceneY();
-						p.print(Double.toString(x));
-						p.print(Double.toString(y));
+						//p.print(Double.toString(x));
+						//p.print(Double.toString(y));
 
 
 						if (y >= 747.0 && x <= 346.5){
@@ -115,11 +115,13 @@ public class ClickHandler extends EventHandler[{User<-}] {
 								  if ((((Tile) game.tiles.get(15, c)).highlight)) {
 									   Text[{User<-},{User<-}] t = ((Tile) game.tiles.get(15, c)).text;
 									   word += t.getText();
+										 ((Tile) game.tiles.get(15, c)).highlight = false;
 									}
 								}
+			          p.print(word);
 								game.scrabble.swapClick(word);
-								game.setLabelsFromState();
-								game.resetTilePosns();
+								word = "";
+								game.doSwap();
 						}
 
 				ev_.consume();

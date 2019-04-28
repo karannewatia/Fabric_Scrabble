@@ -176,54 +176,33 @@ public class Gui extends Application authority(User){
 		}
 	}
 
-	/**
-  * Runs the Scrabble User
-  * the User ends when the number of moves played is equal to 50
-  */
+	protected void doSwap{User<-} () {
+		if (this.scrabble.board.moveNumber < 50){
+			 PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
 
+			 //final RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
+			 //final RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
 
-  public void playLoop{User<-}(Stage{User<-} primaryStage) where caller(User){
+			 //if (this.scrabble.emptyRack()){
+					//int winner = this.scrabble.getWinner();
+					//String winnerStr = String.valueOf(winner);
+					//r.print("The winner is player " + winnerStr + "\n");
+					//break;
+			 //}
+			 this.scrabble.currentPlayer = (this.scrabble.currentPlayer + 1) % this.scrabble.players.size();
 
-		atomic{
-      /*while(this.scrabble.board.moveNumber < 1){
-         //PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
-         //this.scrabble.readBoard();
+		}
 
-         boolean{User<-} success = false;
-         //final RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
-         //final RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
+		final label l = new label {User<-};
+		java.util.List[l] move_anims = new java.util.ArrayList[l]();
+		java.util.List[l] flash_anims = new java.util.ArrayList[l]();
+		Timeline timeline = new Timeline(60);
+		EventHandler[{User<-}] h2 = new EndMoveHandler(this);
+		timeline.getKeyFrames().add(l,l,
+			new KeyFrame(Duration.seconds(0.3), "end", h2, flash_anims));
+		timeline.play();
+	}
 
-         //PrintString[{}]{User<-} r = new PrintString[{}]();
-         //String rack = "Your rack: " + ((Player)this.players.get(this.currentPlayer)).getRack() + "\n";
-         //r.print(rack);
-         //this.scrabble.printRack(this.scrabble.currentPlayer);
-
-         while (!success){
-           // Remote call
-            //this.readBoard@w2();
-            //this.readBoard@w1();
-
-            //success = this.move@w1();
-            //success = this.scrabble.move();
-         }
-         //if (this.scrabble.emptyRack()){
-            //int winner = this.scrabble.getWinner();
-            //String winnerStr = String.valueOf(winner);
-            //r.print("The winner is player " + winnerStr + "\n");
-            //break;
-         //}
-         //this.scrabble.currentPlayer = (this.scrabble.currentPlayer + 1) % this.scrabble.players.size();
-
-
-      }*/
-
-      int winner = this.scrabble.getWinner();
-      String winnerStr = String.valueOf(winner);
-      PrintString[{}]{User<-} r = new PrintString[{}]();
-      r.print("\n" + "The winner is player " + winnerStr + "\n");
-    }
-
-  }
 
 	protected void doMove{User<-} () {
 		if (this.scrabble.board.moveNumber < 50){
