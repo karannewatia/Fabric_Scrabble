@@ -156,12 +156,56 @@ public class Gui extends Application authority(User){
 				 if (r == model.size()){
 					 String{User<-} rack = endorse (((Player)this.players.get(this.scrabble.currentPlayer)).getRack(), {} to {User<-});
 					 for (int c = 0; c < 7; c++) {
-
 						 Text[{User<-},{User<-}] t = ((Tile) tiles.get(r, c)).text;
 							String{User<-} temp =  endorse (Character.toString(rack.charAt(c)), {} to {User<-});
 							t.setText(temp);
 
 							((Tile) tiles.get(r, c)).background.setFill(colors[4]);
+					 }
+					 for (int d = 7; d < 15; d++) {
+					   Text[{User<-},{User<-}] t = ((Tile) tiles.get(r, d)).text;
+						 if (d == 7){
+							 t.setText("Score:");
+							 t.setFont(Font.font("Helvetica-Bold", FontWeight.BOLD, 14));
+							((Tile) tiles.get(r, d)).background.setFill(colors[8]);
+						 }
+
+						 if (d == 8){
+							 t.setText(Integer.toString(((Integer)this.scrabble.playerScores.get(this.scrabble.currentPlayer)).intValue()));
+							 t.setFont(this.smallNumFont);
+							((Tile) tiles.get(r, d)).background.setFill(colors[8]);
+						 }
+
+						 if (d == 10){
+							 t.setText("P " + Integer.toString(this.scrabble.currentPlayer) + "'s");
+							 t.setFont(this.smallNumFont);
+							((Tile) tiles.get(r, d)).background.setFill(colors[10]);
+						 }
+
+						 if (d == 11){
+							 t.setText("turn");
+							 t.setFont(this.smallNumFont);
+							((Tile) tiles.get(r, d)).background.setFill(colors[10]);
+						 }
+
+
+					   if (d == 12){
+							 t.setText("Place");
+							 t.setFont(this.smallNumFont);
+							((Tile) tiles.get(r, d)).background.setFill(colors[5]);
+						 }
+
+						 if (d == 13){
+							 t.setText("Swap");
+							 t.setFont(this.smallNumFont);
+							((Tile) tiles.get(r, d)).background.setFill(colors[5]);
+						 }
+
+						 if (d == 14){
+							 t.setText("Pass");
+							 t.setFont(this.smallNumFont);
+							((Tile) tiles.get(r, d)).background.setFill(colors[5]);
+						 }
 
 					 }
 				 }
@@ -178,19 +222,7 @@ public class Gui extends Application authority(User){
 
 	protected void doSwap{User<-} () {
 		if (this.scrabble.board.moveNumber < 50){
-			 PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
-
-			 //final RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
-			 //final RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
-
-			 //if (this.scrabble.emptyRack()){
-					//int winner = this.scrabble.getWinner();
-					//String winnerStr = String.valueOf(winner);
-					//r.print("The winner is player " + winnerStr + "\n");
-					//break;
-			 //}
 			 this.scrabble.currentPlayer = (this.scrabble.currentPlayer + 1) % this.scrabble.players.size();
-
 		}
 
 		final label l = new label {User<-};
@@ -207,7 +239,6 @@ public class Gui extends Application authority(User){
 	protected void doMove{User<-} () {
 		if (this.scrabble.board.moveNumber < 50){
 			 PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
-			 //this.scrabble.readBoard();
 			 boolean{User<-} success = false;
 			 //final RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
 			 //final RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;

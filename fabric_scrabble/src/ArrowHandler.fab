@@ -24,13 +24,10 @@ public class ArrowHandler extends EventHandler[{User<-}] {
 						game.doMove();
 						//  p.print("okokokok");
 					} else if (key == KeyCode.UP) {
-						//game.doMove(0, -1);
 						p.print("okokok");
 					} else if (key == KeyCode.RIGHT) {
-						//game.doMove(1, 0);
 						p.print("okok");
 					} else {
-						//game.doMove(0, 1);
 						p.print("ok");
 					}
 				}

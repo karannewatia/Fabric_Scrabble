@@ -57,7 +57,6 @@ public class Bag[principal User] authority(User) {
       String{User<-; User->player}  result = null;
 
       atomic{
-        //int rand_value = this.tiles.size()-1;
         int rand_value = this.random.nextInt(this.tiles.size());
 
         String{User<-; User->}  tile =  (String) this.tiles.get(rand_value);
