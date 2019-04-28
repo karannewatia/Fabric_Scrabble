@@ -21,8 +21,10 @@ public abstract class Node [label L, label M] extends java.lang.Object {
 	public final native double{L} getLayoutY ();
 	public final native DoubleProperty[L,M]{L} layoutXProperty ();
 	public final native DoubleProperty[L,M]{L} layoutYProperty ();
- 	
+
 	public native void requestFocus{L} ();
 
 	public final native void setOnKeyPressed{L} (EventHandler[M]{L} value);
+
+	public final native void setOnMouseClicked{L} (EventHandler[M]{L} value);
 }

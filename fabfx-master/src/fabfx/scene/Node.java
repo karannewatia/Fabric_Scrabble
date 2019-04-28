@@ -84,4 +84,9 @@ public abstract class Node implements Wrapper {
 		this._impl().setOnKeyPressed(handler._impl());
 	}
 
+	public void setOnMouseClicked(EventHandler handler) {
+		this._impl().setOnMouseClicked(handler._impl());
+	}
+
+
 }

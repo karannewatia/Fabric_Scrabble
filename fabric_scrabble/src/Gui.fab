@@ -124,7 +124,8 @@ public class Gui extends Application authority(User){
 						setLabelsFromState();
 
 						outer.requestFocus();
-						outer.setOnKeyPressed(new ArrowHandler(this));
+						//outer.setOnKeyPressed(new ArrowHandler(this));
+						outer.setOnMouseClicked(new ClickHandler(this));
 
 					} catch (NegativeArraySizeException e) {
 						// Impossible
