@@ -28,7 +28,7 @@ public class Gui extends Application authority(User){
 	static Color{User<-} sepColor;
 	static Font{User<-} numFont;
 	static Font{User<-} smallNumFont;
-	static double{User<-} tileSize = 43.0;//120.0;
+	static double{User<-} tileSize = 45.0;//120.0;
 	static double{User<-} gutter;
 	static Color{User<-} native []{User<-} colors;
 
