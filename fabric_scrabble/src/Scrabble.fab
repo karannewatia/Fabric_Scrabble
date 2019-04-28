@@ -130,13 +130,6 @@ public class Scrabble[principal User] authority(User) {
        letters[i] = Character.toString(word.charAt(i));
     }
 
-
-
-    //String{User<-} rackCopy = endorse (((Player)this.players.get(this.currentPlayer)).getRack(), {} to {User<-});
-    //if (this.board.hasTilesinRack(rackCopy, word)){
-    //  p.print("some of the letters which you want to swap are not in your rack");
-    //}
-
     PrintString[{User->; User<-}]{User->; User<-} p = new PrintString[{User->; User<-}]();
     if (this.bag.tiles.size() < letters.length){
        p.print("The bag does not have enough tiles left");
@@ -148,6 +141,23 @@ public class Scrabble[principal User] authority(User) {
      }
      return success;
    }
+
+   public void swapClick{User<-}(String{User<-} word){
+
+     String{User<-}[]{User<-} letters = new String[word.length()];
+     for(int i=0; i < letters.length; i++){
+        letters[i] = Character.toString(word.charAt(i));
+     }
+
+     PrintString[{User->; User<-}]{User->; User<-} p = new PrintString[{User->; User<-}]();
+     if (this.bag.tiles.size() < letters.length){
+        p.print("The bag does not have enough tiles left");
+     }
+
+     atomic{
+       ((Player) this.players.get(this.currentPlayer)).rack.swapTiles(letters, this.bag);
+      }
+    }
 
    /**
   * helper function for the place move for a player

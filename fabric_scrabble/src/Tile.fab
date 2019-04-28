@@ -12,6 +12,7 @@ public class Tile extends StackPane[{User<-}, {User<-}] {
 	public Text[{User<-},{User<-}]{User<-} text;
 	public Rectangle[{User<-},{User<-}]{User<-} background;
 	public int{User<-} row, column;
+  public boolean{User<-} highlight;
 
 	public Tile{User<-} (int{User<-} row, int{User<-} column, int{User<-} flag) {
 		super();
@@ -22,6 +23,7 @@ public class Tile extends StackPane[{User<-}, {User<-}] {
 				this.background = new Rectangle[l,l]();
 				this.row = row;
 				this.column = column;
+        this.highlight = false;
 
 				getChildren().add(l, l, background);
 				getChildren().add(l, l, text);

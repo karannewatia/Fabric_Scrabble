@@ -40,7 +40,7 @@ public class Gui extends Application authority(User){
 	public ArrayList[{User<-}]{User<-} scores;
 
 	private GameModel[{User<-}]{User<-} model;
-	private Object2DArray[{User<-}]{User<-} tiles;
+	public Object2DArray[{User<-}]{User<-} tiles;
 
 	public void run{User<-} (Stage{User<-} primaryStage) where caller(User) {
 		atomic {
@@ -121,6 +121,7 @@ public class Gui extends Application authority(User){
 						this.scrabble = new Scrabble[User]@store$(players, scores, tilesLeft);
 			      scrabble.startUser();
 						resetTilePosns();
+
 						setLabelsFromState();
 
 						outer.requestFocus();
@@ -150,6 +151,7 @@ public class Gui extends Application authority(User){
 
 	protected void setLabelsFromState{User<-}() where authority (User){
 	  atomic{
+		  //boolean[] array = new boolean[size];
 			for (int r = 0; r < model.size() + 1; r++) {
 				 if (r == model.size()){
 					 String{User<-} rack = endorse (((Player)this.players.get(this.scrabble.currentPlayer)).getRack(), {} to {User<-});
@@ -158,7 +160,8 @@ public class Gui extends Application authority(User){
 						 Text[{User<-},{User<-}] t = ((Tile) tiles.get(r, c)).text;
 							String{User<-} temp =  endorse (Character.toString(rack.charAt(c)), {} to {User<-});
 							t.setText(temp);
-						 ((Tile) tiles.get(r, c)).background.setFill(colors[4]);
+
+							((Tile) tiles.get(r, c)).background.setFill(colors[4]);
 
 					 }
 				 }

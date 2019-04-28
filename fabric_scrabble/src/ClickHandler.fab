@@ -4,6 +4,7 @@ import fabfx.event.EventHandler;
 import fabfx.scene.input.KeyEvent;
 import fabfx.scene.input.MouseEvent;
 import fabric.util.PrintString;
+import fabfx.scene.text.Text;
 
 public class ClickHandler extends EventHandler[{User<-}] {
 
@@ -21,20 +22,104 @@ public class ClickHandler extends EventHandler[{User<-}] {
 				if (ev.getEventType() == MouseEvent.MOUSE_CLICKED) {
 
 						//game.doMove();
-						p.print("wow");
 						double x = ev.getSceneX();
 						double y = ev.getSceneY();
-						//p.print(Double.toString(x));
-						//p.print(Double.toString(y));
+						p.print(Double.toString(x));
+						p.print(Double.toString(y));
+
 
 						if (y >= 747.0 && x <= 346.5){
-						   if (x >= 4.5 && x <= 49.5) p.print("tile 1");
-							 if (x >= 54.0 && x <= 99.0) p.print("tile 2");
-							 if (x >= 103.5 && x <= 148.5) p.print("tile 3");
-							 if (x >= 153.0 && x <= 198.0) p.print("tile 4");
-							 if (x >= 202.5 && x <= 247.5) p.print("tile 5");
-							 if (x >= 252.0 && x <= 297.0) p.print("tile 6");
-							 if (x >= 301.5 && x <= 346.5) p.print("tile 7");
+						   if (x >= 4.5 && x <= 49.5){
+							     p.print("tile 1");
+									 if (!(((Tile) game.tiles.get(15, 0)).highlight)) {
+										 ((Tile) game.tiles.get(15, 0)).background.setFill(game.colors[6]);
+										 ((Tile) game.tiles.get(15, 0)).highlight = true;
+									 }
+									 else{
+										 ((Tile) game.tiles.get(15, 0)).background.setFill(game.colors[4]);
+										 ((Tile) game.tiles.get(15, 0)).highlight = false;
+									 }
+							 }
+							 if (x >= 54.0 && x <= 99.0){
+							    p.print("tile 2");
+									if (!(((Tile) game.tiles.get(15, 1)).highlight)) {
+										((Tile) game.tiles.get(15, 1)).background.setFill(game.colors[6]);
+										((Tile) game.tiles.get(15, 1)).highlight = true;
+									}
+									else{
+										((Tile) game.tiles.get(15, 1)).background.setFill(game.colors[4]);
+										((Tile) game.tiles.get(15, 1)).highlight = false;
+									}
+
+							 }
+							 if (x >= 103.5 && x <= 148.5){
+							     p.print("tile 3");
+									 if (!(((Tile) game.tiles.get(15, 2)).highlight)) {
+										 ((Tile) game.tiles.get(15, 2)).background.setFill(game.colors[6]);
+										 ((Tile) game.tiles.get(15, 2)).highlight = true;
+									 }
+									 else{
+										 ((Tile) game.tiles.get(15, 2)).background.setFill(game.colors[4]);
+										 ((Tile) game.tiles.get(15, 2)).highlight = false;
+									 }
+							 }
+							 if (x >= 153.0 && x <= 198.0){
+							     p.print("tile 4");
+									 if (!(((Tile) game.tiles.get(15, 3)).highlight)) {
+										 ((Tile) game.tiles.get(15, 3)).background.setFill(game.colors[6]);
+										 ((Tile) game.tiles.get(15, 3)).highlight = true;
+									 }
+									 else{
+										 ((Tile) game.tiles.get(15, 3)).background.setFill(game.colors[4]);
+										 ((Tile) game.tiles.get(15, 3)).highlight = false;
+									 }
+							 }
+							 if (x >= 202.5 && x <= 247.5){
+							     p.print("tile 5");
+									 if (!(((Tile) game.tiles.get(15, 4)).highlight)) {
+										 ((Tile) game.tiles.get(15, 4)).background.setFill(game.colors[6]);
+										 ((Tile) game.tiles.get(15, 4)).highlight = true;
+									 }
+									 else{
+										 ((Tile) game.tiles.get(15, 4)).background.setFill(game.colors[4]);
+										 ((Tile) game.tiles.get(15, 4)).highlight = false;
+									 }
+							 }
+							 if (x >= 252.0 && x <= 297.0){
+							    p.print("tile 6");
+									if (!(((Tile) game.tiles.get(15, 5)).highlight)) {
+										((Tile) game.tiles.get(15, 5)).background.setFill(game.colors[6]);
+										((Tile) game.tiles.get(15, 5)).highlight = true;
+									}
+									else{
+										((Tile) game.tiles.get(15, 5)).background.setFill(game.colors[4]);
+										((Tile) game.tiles.get(15, 5)).highlight = false;
+									}
+							 }
+							 if (x >= 301.5 && x <= 346.5){
+							    p.print("tile 7");
+									if (!(((Tile) game.tiles.get(15, 6)).highlight)) {
+										((Tile) game.tiles.get(15, 6)).background.setFill(game.colors[6]);
+										((Tile) game.tiles.get(15, 6)).highlight = true;
+									}
+									else{
+										((Tile) game.tiles.get(15, 6)).background.setFill(game.colors[4]);
+										((Tile) game.tiles.get(15, 6)).highlight = false;
+									}
+							 }
+						}
+
+						if (x < 30.0 && y < 30.0) {
+						    String{User<-} word = "";
+							  for (int c = 0; c < 7; c++) {
+								  if ((((Tile) game.tiles.get(15, c)).highlight)) {
+									   Text[{User<-},{User<-}] t = ((Tile) game.tiles.get(15, c)).text;
+									   word += t.getText();
+									}
+								}
+								game.scrabble.swapClick(word);
+								game.setLabelsFromState();
+								game.resetTilePosns();
 						}
 
 				ev_.consume();

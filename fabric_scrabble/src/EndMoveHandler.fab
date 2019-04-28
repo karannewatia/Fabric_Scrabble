@@ -10,6 +10,7 @@ public class EndMoveHandler extends EventHandler[{User<-}] {
 	}
 
 	public void handle{User<-} (Event[{User<-}]{User<-} e) {
+	  
 		game.setLabelsFromState();
 		game.resetTilePosns();
 	}
