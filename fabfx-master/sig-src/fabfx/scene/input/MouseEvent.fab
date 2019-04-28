@@ -1,0 +1,15 @@
+package fabfx.scene.input;
+
+import javafx.event.EventType;
+
+public class MouseEvent[label M] extends InputEvent[M] {
+	private static int __JIF_SIG_OF_JAVA_CLASS$20030619 = 0;
+	private static int __JIF_PARAMS_RUNTIME_REPRESENTED$20051007 = 0;
+
+	public static final EventType MOUSE_CLICKED;
+
+	public final native double{M} getSceneX();
+
+	public final native double{M} getSceneY();
+
+}
