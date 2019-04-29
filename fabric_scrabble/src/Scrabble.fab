@@ -159,6 +159,36 @@ public class Scrabble[principal User] authority(User) {
       }
     }
 
+    public boolean{User<-} placeClick{User<-}(String{User<-} word, int{User<-} row, int{User<-} col, boolean{User<-} dir) where authority (User){
+
+      boolean{User<-} success = false;
+
+      PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
+
+       // Now try to place it
+       String{User<-} newEntries = this.board.getNewEntries(word, dir, row, col);
+
+       String{User<-} rackCopy = endorse (((Player)this.players.get(this.currentPlayer)).getRack(), {} to {User<-});
+       //String{User<-} rackCopy = "";
+       String{User<-} toSwap = this.board.swapTiles(rackCopy, newEntries);
+
+       atomic{
+         if (this.board.isMoveValid(rackCopy, word, newEntries, dir, row, col)){
+           this.board.placeWord(word, dir, row, col);
+           String{User<-}[]{User<-} letters = new String[toSwap.length()];
+           for(int i=0; i < letters.length; i++){
+              letters[i] = Character.toString(word.charAt(i));
+           }
+           this.incScore(toSwap);
+           ((Player) this.players.get(this.currentPlayer)).rack.swapTiles(letters, this.bag);
+
+           this.board.moveNumber++;
+           success = true;
+         }
+      }
+      return success;
+    }
+
    /**
   * helper function for the place move for a player
   */

@@ -13,10 +13,13 @@ public class ClickHandler extends EventHandler[{User<-}] {
 	protected double{User<-} lastX;
 	protected double{User<-} lastY;
 
+	protected String{User<-} letters;
+
 	public ClickHandler{User<-} (Gui{User<-} g) {
 		this.game = g;
 		this.lastX = 0.0;
 		this.lastY = 0.0;
+		this.letters = "";
 	}
 
 	public void handle{User<-} (Event[{User<-}]{User<-} ev_) {
@@ -48,6 +51,8 @@ public class ClickHandler extends EventHandler[{User<-}] {
 
 								Text[{User<-},{User<-}] t1 = ((Tile) game.tiles.get(row, col)).text;
 								t2.setText(t1.getText());
+								letters += t1.getText();
+								((Tile) game.tiles.get(row1, col1)).background.setFill(game.colors[1]);
 
 							}
 						}
@@ -62,7 +67,7 @@ public class ClickHandler extends EventHandler[{User<-}] {
 								 ((Tile) game.tiles.get(15, 12)).highlight = true;
 							 }
 							 else{
-	 							((Tile) game.tiles.get(15, 12)).background.setFill(game.colors[3]);
+	 							((Tile) game.tiles.get(15, 12)).background.setFill(game.colors[5]);
 	 							((Tile) game.tiles.get(15, 12)).highlight = false;
 	 							String{User<-} word = "";
 	 							for (int c = 0; c < 7; c++) {
@@ -78,8 +83,16 @@ public class ClickHandler extends EventHandler[{User<-}] {
 
 								//p.print(Integer.toString(row));
 								//p.print(Integer.toString(col));
-	 							word = "";
-	 							game.doPass();
+
+								if (this.letters.equals("")){
+								   game.doPass();
+								}
+
+								else{
+									game.doMove(this.letters, 7, 7, true);
+								  this.letters = "";
+								  word = "";
+								}
 	 						}
 						}
 

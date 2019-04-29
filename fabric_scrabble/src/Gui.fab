@@ -213,6 +213,7 @@ public class Gui extends Application authority(User){
 					for (int c = 0; c < model.size(); c++) {
 					 Text[{User<-},{User<-}] t = ((Tile) tiles.get(r, c)).text;
 					 t.setText((String) ((this.scrabble.board.UserBoard[r]).get(c)));
+					 ((Tile) tiles.get(r, c)).background.setFill(colors[0]);
 
 				 }
 				}
@@ -250,42 +251,35 @@ public class Gui extends Application authority(User){
 
 
 
-	protected void doMove{User<-} () {
+	protected void doMove{User<-} (String{User<-} word, int{User<-} row, int{User<-} col, boolean{User<-} dir) {
 		if (this.scrabble.board.moveNumber < 50){
 			 PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
 			 boolean{User<-} success = false;
 			 //final RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
 			 //final RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
 
-			 while (!success){
-				 // Remote call
-					//this.readBoard@w2();
-					//this.readBoard@w1();
-					//success = this.move@w1();
+			 success = this.scrabble.placeClick(word, row, col, dir);
 
-					success = this.scrabble.move();
-			 }
-			 //if (this.scrabble.emptyRack()){
-					//int winner = this.scrabble.getWinner();
-					//String winnerStr = String.valueOf(winner);
-					//r.print("The winner is player " + winnerStr + "\n");
-					//break;
-			 //}
+			 if (success){
+
 			 this.scrabble.currentPlayer = (this.scrabble.currentPlayer + 1) % this.scrabble.players.size();
+			 final label l = new label {User<-};
+
+	 		java.util.List[l] move_anims = new java.util.ArrayList[l]();
+	 		java.util.List[l] flash_anims = new java.util.ArrayList[l]();
+
+	 		Timeline timeline = new Timeline(60);
+	 		EventHandler[{User<-}] h2 = new EndMoveHandler(this);
+	 		timeline.getKeyFrames().add(l,l,
+	 			new KeyFrame(Duration.seconds(0.3), "end", h2, flash_anims));
+	 		timeline.play();
+
+			}
+			else{
+			    this.setLabelsFromState();
+			}
 
 		}
-
-		final label l = new label {User<-};
-
-		java.util.List[l] move_anims = new java.util.ArrayList[l]();
-		java.util.List[l] flash_anims = new java.util.ArrayList[l]();
-
-		Timeline timeline = new Timeline(60);
-		EventHandler[{User<-}] h2 = new EndMoveHandler(this);
-		timeline.getKeyFrames().add(l,l,
-			new KeyFrame(Duration.seconds(0.3), "end", h2, flash_anims));
-		timeline.play();
 	}
-
 
 }
