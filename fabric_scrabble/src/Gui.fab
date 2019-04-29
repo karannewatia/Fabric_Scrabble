@@ -220,7 +220,7 @@ public class Gui extends Application authority(User){
 		}
 	}
 
-	protected void doSwap{User<-} () {
+	protected void doPass{User<-} () {
 		if (this.scrabble.board.moveNumber < 50){
 			 this.scrabble.currentPlayer = (this.scrabble.currentPlayer + 1) % this.scrabble.players.size();
 		}
