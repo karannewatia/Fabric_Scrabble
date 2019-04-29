@@ -29,8 +29,13 @@ public class ClickHandler extends EventHandler[{User<-}] {
 
         if (y >= 747.0){
 
+						if (x >= 598.5 && x <= 643.5){
+							 p.print("tile place");
+							 game.doSwap();
+						}
+
 						if (x >= 697.5 && x <= 742.5){
-							 p.print("tile pass");
+							 //p.print("tile pass");
 							 game.doSwap();
 						}
 
@@ -51,7 +56,7 @@ public class ClickHandler extends EventHandler[{User<-}] {
 	 									 ((Tile) game.tiles.get(15, c)).highlight = false;
 	 								}
 	 							}
-	 							p.print(word);
+	 							//p.print(word);
 	 							game.scrabble.swapClick(word);
 	 							word = "";
 	 							game.doSwap();
