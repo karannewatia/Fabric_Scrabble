@@ -220,20 +220,34 @@ public class Gui extends Application authority(User){
 		}
 	}
 
+	protected boolean{User<-} otherTilesHighlighted{User<-} () {
+	  boolean{User<-} result = false;
+    atomic{
+			for (int c = 0; c < 7; c++) {
+				if ((((Tile) this.tiles.get(15, c)).highlight)) {
+					 result = true;
+				}
+			}
+		}
+		return result;
+	}
+
 	protected void doPass{User<-} () {
-		if (this.scrabble.board.moveNumber < 50){
-			 this.scrabble.currentPlayer = (this.scrabble.currentPlayer + 1) % this.scrabble.players.size();
+	  atomic{
+				if (this.scrabble.board.moveNumber < 50){
+					 this.scrabble.currentPlayer = (this.scrabble.currentPlayer + 1) % this.scrabble.players.size();
+				}
+				final label l = new label {User<-};
+				java.util.List[l] move_anims = new java.util.ArrayList[l]();
+				java.util.List[l] flash_anims = new java.util.ArrayList[l]();
+				Timeline timeline = new Timeline(60);
+				EventHandler[{User<-}] h2 = new EndMoveHandler(this);
+				timeline.getKeyFrames().add(l,l,
+					new KeyFrame(Duration.seconds(0.3), "end", h2, flash_anims));
+				timeline.play();
+			}
 		}
 
-		final label l = new label {User<-};
-		java.util.List[l] move_anims = new java.util.ArrayList[l]();
-		java.util.List[l] flash_anims = new java.util.ArrayList[l]();
-		Timeline timeline = new Timeline(60);
-		EventHandler[{User<-}] h2 = new EndMoveHandler(this);
-		timeline.getKeyFrames().add(l,l,
-			new KeyFrame(Duration.seconds(0.3), "end", h2, flash_anims));
-		timeline.play();
-	}
 
 
 	protected void doMove{User<-} () {

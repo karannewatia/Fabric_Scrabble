@@ -10,8 +10,13 @@ public class ClickHandler extends EventHandler[{User<-}] {
 
 	protected Gui{User<-} game;
 
+	protected double{User<-} lastX;
+	protected double{User<-} lastY;
+
 	public ClickHandler{User<-} (Gui{User<-} g) {
 		this.game = g;
+		this.lastX = 0.0;
+		this.lastY = 0.0;
 	}
 
 	public void handle{User<-} (Event[{User<-}]{User<-} ev_) {
@@ -27,11 +32,55 @@ public class ClickHandler extends EventHandler[{User<-}] {
 						//p.print(Double.toString(x));
 						//p.print(Double.toString(y));
 
+			  if (y < 747.0){
+				    if ((((Tile) game.tiles.get(15, 12)).highlight)) {
+							int{User<-} col = (int)(lastX/49.5);
+							int{User<-} row = (int)(lastY/49.5);
+
+							int{User<-} col1 = (int)(x/49.5);
+							int{User<-} row1 = (int)(y/49.5);
+
+							Text[{User<-},{User<-}] t2 = ((Tile) game.tiles.get(row1, col1)).text;
+
+							if ((t2.getText()).equals(" ")){
+								((Tile) game.tiles.get(15, col)).background.setFill(game.colors[4]);
+								((Tile) game.tiles.get(15, col)).highlight = false;
+
+								Text[{User<-},{User<-}] t1 = ((Tile) game.tiles.get(row, col)).text;
+								t2.setText(t1.getText());
+
+							}
+						}
+				}
+
         if (y >= 747.0){
 
 						if (x >= 598.5 && x <= 643.5){
-							 p.print("tile place");
-							 game.doPass();
+							 //p.print("tile place");
+							 if (!(((Tile) game.tiles.get(15, 12)).highlight)) {
+								 ((Tile) game.tiles.get(15, 12)).background.setFill(game.colors[6]);
+								 ((Tile) game.tiles.get(15, 12)).highlight = true;
+							 }
+							 else{
+	 							((Tile) game.tiles.get(15, 12)).background.setFill(game.colors[3]);
+	 							((Tile) game.tiles.get(15, 12)).highlight = false;
+	 							String{User<-} word = "";
+	 							for (int c = 0; c < 7; c++) {
+	 								if ((((Tile) game.tiles.get(15, c)).highlight)) {
+	 									 Text[{User<-},{User<-}] t = ((Tile) game.tiles.get(15, c)).text;
+	 									 word += t.getText();
+	 									 ((Tile) game.tiles.get(15, c)).highlight = false;
+	 								}
+	 							}
+	 							//p.print(word);
+	 							//game.scrabble.swapClick(word);
+
+
+								//p.print(Integer.toString(row));
+								//p.print(Integer.toString(col));
+	 							word = "";
+	 							game.doPass();
+	 						}
 						}
 
 						if (x >= 697.5 && x <= 742.5){
@@ -75,6 +124,19 @@ public class ClickHandler extends EventHandler[{User<-}] {
 									 ((Tile) game.tiles.get(15, 0)).highlight = false;
 								 }
 							 }
+							 if ((((Tile) game.tiles.get(15, 12)).highlight) && !(this.game.otherTilesHighlighted())) {
+								//p.print("tile 1");
+								if (!(((Tile) game.tiles.get(15, 0)).highlight)) {
+									((Tile) game.tiles.get(15, 0)).background.setFill(game.colors[6]);
+									((Tile) game.tiles.get(15, 0)).highlight = true;
+									this.lastX = x;
+									this.lastY = y;
+								}
+								else{
+									((Tile) game.tiles.get(15, 0)).background.setFill(game.colors[4]);
+									((Tile) game.tiles.get(15, 0)).highlight = false;
+								}
+							}
 						 }
 						 if (x >= 54.0 && x <= 99.0){
 						    if ((((Tile) game.tiles.get(15, 13)).highlight)) {
@@ -88,6 +150,19 @@ public class ClickHandler extends EventHandler[{User<-}] {
 									((Tile) game.tiles.get(15, 1)).highlight = false;
 								}
 							}
+							if ((((Tile) game.tiles.get(15, 12)).highlight) && !(this.game.otherTilesHighlighted())) {
+							 //p.print("tile 2");
+							 if (!(((Tile) game.tiles.get(15, 1)).highlight)) {
+								 ((Tile) game.tiles.get(15, 1)).background.setFill(game.colors[6]);
+								 ((Tile) game.tiles.get(15, 1)).highlight = true;
+								 this.lastX = x;
+								 this.lastY = y;
+							 }
+							 else{
+								 ((Tile) game.tiles.get(15, 1)).background.setFill(game.colors[4]);
+								 ((Tile) game.tiles.get(15, 1)).highlight = false;
+							 }
+						 }
 
 						 }
 						 if (x >= 103.5 && x <= 148.5){
@@ -102,6 +177,19 @@ public class ClickHandler extends EventHandler[{User<-}] {
 									 ((Tile) game.tiles.get(15, 2)).highlight = false;
 								 }
 								}
+								if ((((Tile) game.tiles.get(15, 12)).highlight) && !(this.game.otherTilesHighlighted())) {
+ 								//p.print("tile 3");
+ 								if (!(((Tile) game.tiles.get(15, 2)).highlight)) {
+ 									((Tile) game.tiles.get(15, 2)).background.setFill(game.colors[6]);
+ 									((Tile) game.tiles.get(15, 2)).highlight = true;
+									this.lastX = x;
+									this.lastY = y;
+ 								}
+ 								else{
+ 									((Tile) game.tiles.get(15, 2)).background.setFill(game.colors[4]);
+ 									((Tile) game.tiles.get(15, 2)).highlight = false;
+ 								}
+ 							}
 						 }
 						 if (x >= 153.0 && x <= 198.0){
 						     if ((((Tile) game.tiles.get(15, 13)).highlight)) {
@@ -115,6 +203,19 @@ public class ClickHandler extends EventHandler[{User<-}] {
 									 ((Tile) game.tiles.get(15, 3)).highlight = false;
 								 }
 								}
+								if ((((Tile) game.tiles.get(15, 12)).highlight) && !(this.game.otherTilesHighlighted())) {
+ 								//p.print("tile 4");
+ 								if (!(((Tile) game.tiles.get(15, 3)).highlight)) {
+ 									((Tile) game.tiles.get(15, 3)).background.setFill(game.colors[6]);
+ 									((Tile) game.tiles.get(15, 3)).highlight = true;
+									this.lastX = x;
+									this.lastY = y;
+ 								}
+ 								else{
+ 									((Tile) game.tiles.get(15, 3)).background.setFill(game.colors[4]);
+ 									((Tile) game.tiles.get(15, 3)).highlight = false;
+ 								}
+ 							}
 						 }
 						 if (x >= 202.5 && x <= 247.5){
 						     if ((((Tile) game.tiles.get(15, 13)).highlight)) {
@@ -128,6 +229,19 @@ public class ClickHandler extends EventHandler[{User<-}] {
 									 ((Tile) game.tiles.get(15, 4)).highlight = false;
 								 }
 								}
+								if ((((Tile) game.tiles.get(15, 12)).highlight) && !(this.game.otherTilesHighlighted())) {
+ 								//p.print("tile 5");
+ 								if (!(((Tile) game.tiles.get(15, 4)).highlight)) {
+ 									((Tile) game.tiles.get(15, 4)).background.setFill(game.colors[6]);
+ 									((Tile) game.tiles.get(15, 4)).highlight = true;
+									this.lastX = x;
+									this.lastY = y;
+ 								}
+ 								else{
+ 									((Tile) game.tiles.get(15, 4)).background.setFill(game.colors[4]);
+ 									((Tile) game.tiles.get(15, 4)).highlight = false;
+ 								}
+ 							}
 						 }
 						 if (x >= 252.0 && x <= 297.0){
 						    if ((((Tile) game.tiles.get(15, 13)).highlight)) {
@@ -141,6 +255,19 @@ public class ClickHandler extends EventHandler[{User<-}] {
 									((Tile) game.tiles.get(15, 5)).highlight = false;
 								}
 							}
+							if ((((Tile) game.tiles.get(15, 12)).highlight) && !(this.game.otherTilesHighlighted())) {
+							 //p.print("tile 6");
+							 if (!(((Tile) game.tiles.get(15, 5)).highlight)) {
+								 ((Tile) game.tiles.get(15, 5)).background.setFill(game.colors[6]);
+								 ((Tile) game.tiles.get(15, 5)).highlight = true;
+								 this.lastX = x;
+								 this.lastY = y;
+							 }
+							 else{
+								 ((Tile) game.tiles.get(15, 5)).background.setFill(game.colors[4]);
+								 ((Tile) game.tiles.get(15, 5)).highlight = false;
+							 }
+						 }
 						 }
 						 if (x >= 301.5 && x <= 346.5){
 						    if ((((Tile) game.tiles.get(15, 13)).highlight)) {
@@ -154,6 +281,19 @@ public class ClickHandler extends EventHandler[{User<-}] {
 									((Tile) game.tiles.get(15, 6)).highlight = false;
 							  }
 							}
+							if ((((Tile) game.tiles.get(15, 12)).highlight) && !(this.game.otherTilesHighlighted())) {
+							 //p.print("tile 7");
+							 if (!(((Tile) game.tiles.get(15, 6)).highlight)) {
+								 ((Tile) game.tiles.get(15, 6)).background.setFill(game.colors[6]);
+								 ((Tile) game.tiles.get(15, 6)).highlight = true;
+								 this.lastX = x;
+								 this.lastY = y;
+							 }
+							 else{
+								 ((Tile) game.tiles.get(15, 6)).background.setFill(game.colors[4]);
+								 ((Tile) game.tiles.get(15, 6)).highlight = false;
+							 }
+						 }
 					   }
 					 }
 
@@ -163,5 +303,12 @@ public class ClickHandler extends EventHandler[{User<-}] {
 			}
 		}
 	}
+
+	protected int getRow{User<-} (double x) {
+	  int result = 0;
+    result = (int)(49.5/x);
+		return result;
+	}
+
 
 }
