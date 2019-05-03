@@ -309,10 +309,9 @@ public class Gui extends Application authority(User){
 		if (this.scrabble.board.moveNumber < 50){
 			 PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
 			 PrintString[{}]{User<-} r = new PrintString[{}]();
-			 //p.print(word);
 			 boolean{User<-} success = false;
-			 //final RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
-			 //final RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
+			 final RemoteWorker w1  = ((Player)this.scrabble.players.get(this.scrabble.currentPlayer)).w;
+			 final RemoteWorker w2  = ((Player)this.scrabble.players.get((this.scrabble.currentPlayer + 1) % this.scrabble.players.size())).w;
 
 			 success = this.scrabble.placeClick(word, row, col, dir);
 
