@@ -87,7 +87,12 @@ public class ClickHandler extends EventHandler[{User<-}] {
 	 								}
 	 							}
 
-								if (this.letters.equals("")){
+								if (game.tilesAddedRow.size() < 1){
+									this.letters = "";
+									word = "";
+									game.tilesAddedRow.clear();
+									game.tilesAddedCol.clear();
+									game.tilesAddedLetter.clear();
 								   game.doPass();
 								}
 
@@ -109,15 +114,18 @@ public class ClickHandler extends EventHandler[{User<-}] {
 										boolean{User<-} colDir = true;
 									  int{User<-} colID = Integer.parseInt((String) game.tilesAddedCol.get(0));
 										int{User<-} lowestCol = Integer.parseInt((String) game.tilesAddedCol.get(0));
-										for (int i=1; i < game.tilesAddedRow.size(); i++){
-                        if (colID != Integer.parseInt((String) game.tilesAddedCol.get(i))){
+										for (int j=1; j < game.tilesAddedRow.size(); j++){
+                        if (colID != Integer.parseInt((String) game.tilesAddedCol.get(j))){
+
 												   colDir = false;
 											}
-											if (Integer.parseInt((String) game.tilesAddedCol.get(i)) < lowestCol){
-												 lowestCol = Integer.parseInt((String) game.tilesAddedCol.get(i));
+											if (Integer.parseInt((String) game.tilesAddedCol.get(j)) < lowestCol){
+												 lowestCol = Integer.parseInt((String) game.tilesAddedCol.get(j));
 											}
 										}
+
 										if (colDir || rowDir){
+
 
 												if (rowDir){
 												   int{User<-} start = lowestCol;
@@ -133,6 +141,12 @@ public class ClickHandler extends EventHandler[{User<-}] {
 													 p.print(wordsPlaced);
 													 p.print(Integer.toString(rowID));
 													 p.print(Integer.toString(start));
+
+													 this.letters = "";
+				 								   word = "";
+				 									 game.tilesAddedRow.clear();
+				 									 game.tilesAddedCol.clear();
+				 									 game.tilesAddedLetter.clear();
 
                            game.doMove(wordsPlaced, rowID, start, true);
 												}
@@ -165,11 +179,11 @@ public class ClickHandler extends EventHandler[{User<-}] {
 
 										}
 										else{
-											 this.letters = "";
-											 word = "";
-											 game.tilesAddedRow.clear();
-											 game.tilesAddedCol.clear();
-											 game.tilesAddedLetter.clear();
+											this.letters = "";
+											word = "";
+											game.tilesAddedRow.clear();
+											game.tilesAddedCol.clear();
+											game.tilesAddedLetter.clear();
 										   game.doPass();
 										}
 									}

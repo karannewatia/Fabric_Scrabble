@@ -124,6 +124,7 @@ public class Board[principal User] {
     private String{User<-} constructWord{User<-}(int{User<-} row, int{User<-} col, String{User<-} letter, boolean{User<-} direction) {
 
         String{User<-} newWord = "";
+        PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
         int start;
         int end;
         int i = 1;
@@ -141,9 +142,10 @@ public class Board[principal User] {
                 j++;
             }
             end = col+j-1;
-
+            p.print("ok");
             for (int newCol=start; newCol<=end;  newCol++) {
-                if (newCol == col) { newWord += newWord + letter; }
+
+                if (newCol == col) { newWord += letter; }
                 else {  newWord += (this.getTileOnBoard(row, newCol));  }
             }
 
@@ -163,11 +165,11 @@ public class Board[principal User] {
             end = row+i-1;
 
             for (int newRow = start; newRow <= end; newRow++) {
-                if (newRow == row) {  newWord += newWord + letter;}
+                if (newRow == row) {  newWord += letter;}
                 else {   newWord += (this.getTileOnBoard(newRow, col));}
             }
 
-            return newWord;
+            return newWord.toString().trim();
         }
     }
 
@@ -177,6 +179,7 @@ public class Board[principal User] {
     */
     public ArrayList[{User<-}]{User<-} getAdjWords{User<-}(String{User<-} word, boolean{User<-} dir, int{User<-} row, int{User<-} col) {
         ArrayList[{User<-}]{User<-} adjWords = new ArrayList(new StringComparator());
+        PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
 
         if (dir) {
             for(int j =0; j<word.length();j++){
@@ -194,10 +197,12 @@ public class Board[principal User] {
             for(int j =0; j<word.length();j++){
               if (!this.getTileOnBoard(row+j,col-1).equals(" ")){
                 String{User<-} temp3 = this.constructWord(row+j, col, Character.toString(word.charAt(j)), !dir);
+                p.print(temp3);
                 adjWords.add(temp3);
               }
               if (!this.getTileOnBoard(row+j,col+1).equals(" ")){
                 String{User<-} temp4 = this.constructWord(row+j, col, Character.toString(word.charAt(j)), !dir);
+                p.print(temp4);
                 adjWords.add(temp4);
               }
             }
