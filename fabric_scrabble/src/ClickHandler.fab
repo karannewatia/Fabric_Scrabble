@@ -5,6 +5,8 @@ import fabfx.scene.input.KeyEvent;
 import fabfx.scene.input.MouseEvent;
 import fabric.util.PrintString;
 import fabfx.scene.text.Text;
+import fabricated.util.ArrayList;
+import fabricated.util.StringComparator;
 
 public class ClickHandler extends EventHandler[{User<-}] {
 
@@ -15,11 +17,14 @@ public class ClickHandler extends EventHandler[{User<-}] {
 
 	protected String{User<-} letters;
 
+
+
 	public ClickHandler{User<-} (Gui{User<-} g) {
 		this.game = g;
 		this.lastX = 0.0;
 		this.lastY = 0.0;
 		this.letters = "";
+
 	}
 
 	public void handle{User<-} (Event[{User<-}]{User<-} ev_) {
@@ -53,6 +58,7 @@ public class ClickHandler extends EventHandler[{User<-}] {
 								t2.setText(t1.getText());
 								letters += t1.getText();
 								((Tile) game.tiles.get(row1, col1)).background.setFill(game.colors[1]);
+								game.tilesAdded.add(Integer.toString(row1) + " " + Integer.toString(col1) + " " + t1.getText() +", ");
 
 							}
 						}
@@ -90,8 +96,13 @@ public class ClickHandler extends EventHandler[{User<-}] {
 
 								else{
 									game.doMove(this.letters, 7, 7, true);
-								  this.letters = "";
+									this.letters = "";
 								  word = "";
+									for (int i=0; i < game.tilesAdded.size(); i++){
+									    word+= (String) game.tilesAdded.get(i);
+									}
+									p.print(word);
+									game.tilesAdded.clear();
 								}
 	 						}
 						}
