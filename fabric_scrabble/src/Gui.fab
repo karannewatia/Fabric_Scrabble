@@ -184,16 +184,22 @@ public class Gui extends Application authority(User){
 							((Tile) tiles.get(r, d)).background.setFill(colors[8]);
 						 }
 
-						 if (d == 10){
-							 t.setText("P " + Integer.toString(this.scrabble.currentPlayer) + "'s");
+						 if (d == 9){
+							 t.setText("P " + Integer.toString(this.scrabble.currentPlayer));
 							 t.setFont(this.smallNumFont);
 							((Tile) tiles.get(r, d)).background.setFill(colors[10]);
 						 }
 
 						 if (d == 11){
-							 t.setText("turn");
-							 t.setFont(this.smallNumFont);
-							((Tile) tiles.get(r, d)).background.setFill(colors[10]);
+							 t.setText("Confirm");
+							 t.setFont(Font.font("Helvetica-Bold", FontWeight.BOLD, 10));
+							((Tile) tiles.get(r, d)).background.setFill(colors[3]);
+						 }
+
+						 if (d == 10){
+							 t.setText("Cancel");
+							 t.setFont(Font.font("Helvetica-Bold", FontWeight.BOLD, 10));
+							((Tile) tiles.get(r, d)).background.setFill(colors[3]);
 						 }
 
 
