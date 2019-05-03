@@ -16,7 +16,7 @@ public class ClickHandler extends EventHandler[{User<-}] {
 	protected double{User<-} lastY;
 
 	protected String{User<-} letters;
-
+	protected boolean{User<-} validPlace;
 
 
 	public ClickHandler{User<-} (Gui{User<-} g) {
@@ -24,6 +24,7 @@ public class ClickHandler extends EventHandler[{User<-}] {
 		this.lastX = 0.0;
 		this.lastY = 0.0;
 		this.letters = "";
+		this.validPlace = true;
 
 	}
 
@@ -58,7 +59,9 @@ public class ClickHandler extends EventHandler[{User<-}] {
 								t2.setText(t1.getText());
 								letters += t1.getText();
 								((Tile) game.tiles.get(row1, col1)).background.setFill(game.colors[1]);
-								game.tilesAdded.add(Integer.toString(row1) + " " + Integer.toString(col1) + " " + t1.getText() +", ");
+								game.tilesAddedRow.add(Integer.toString(row1));
+								game.tilesAddedCol.add(Integer.toString(col1));
+								game.tilesAddedLetter.add(t1.getText());
 
 							}
 						}
@@ -95,14 +98,45 @@ public class ClickHandler extends EventHandler[{User<-}] {
 								}
 
 								else{
+								  if (game.tilesAddedRow.size() > 1){
+									  boolean{User<-} rowDir = true;
+									  int{User<-} rowID = Integer.parseInt((String) game.tilesAddedRow.get(0));
+										for (int i=1; i < game.tilesAddedRow.size(); i++){
+                        if (rowID != Integer.parseInt((String) game.tilesAddedRow.get(i))){
+												   rowDir = false;
+												}
+										}
+										boolean{User<-} colDir = true;
+									  int{User<-} colID = Integer.parseInt((String) game.tilesAddedCol.get(0));
+										for (int i=1; i < game.tilesAddedRow.size(); i++){
+                        if (rowID != Integer.parseInt((String) game.tilesAddedCol.get(i))){
+												   colDir = false;
+											}
+										}
+										if (colDir || rowDir){
+										   	p.print("good");
+												
+										}
+										else{
+										    p.print("bad");
+										}
+									}
+
 									game.doMove(this.letters, 7, 7, true);
 									this.letters = "";
 								  word = "";
-									for (int i=0; i < game.tilesAdded.size(); i++){
-									    word+= (String) game.tilesAdded.get(i);
+									for (int i=0; i < game.tilesAddedRow.size(); i++){
+									    word+= (String) game.tilesAddedRow.get(i);
+											word += " ";
+											word+=  (String) game.tilesAddedCol.get(i);
+											word += " ";
+											word+= (String) game.tilesAddedLetter.get(i);
+											word += " ";
 									}
 									p.print(word);
-									game.tilesAdded.clear();
+									game.tilesAddedRow.clear();
+									game.tilesAddedCol.clear();
+									game.tilesAddedLetter.clear();
 								}
 	 						}
 						}

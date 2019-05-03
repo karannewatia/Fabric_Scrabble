@@ -39,7 +39,9 @@ public class Gui extends Application authority(User){
 	public ArrayList[{User<-}]{User<-} tilesLeft;
 	public ArrayList[{User<-}]{User<-} scores;
 
-	public ArrayList[{User<-}]{User<-} tilesAdded;
+	public ArrayList[{User<-}]{User<-} tilesAddedRow;
+	public ArrayList[{User<-}]{User<-} tilesAddedCol;
+	public ArrayList[{User<-}]{User<-} tilesAddedLetter;
 
 	private GameModel[{User<-}]{User<-} model;
 	public Object2DArray[{User<-}]{User<-} tiles;
@@ -70,7 +72,9 @@ public class Gui extends Application authority(User){
 			      this.scores.add(new Integer(0));
 			      this.scores.add(new Integer(0));
 
-						this.tilesAdded = new ArrayList{User<-}@store$(new StringComparator@store$());
+						this.tilesAddedRow = new ArrayList{User<-}@store$(new StringComparator@store$());
+						this.tilesAddedCol = new ArrayList{User<-}@store$(new StringComparator@store$());
+						this.tilesAddedLetter = new ArrayList{User<-}@store$(new StringComparator@store$());
 
 						model = new GameModel[l]@store$(15);
 						model.addNewTile();
