@@ -87,13 +87,62 @@ public class ClickHandler extends EventHandler[{User<-}] {
 	 								}
 	 							}
 
-								if (game.tilesAddedRow.size() < 1){
-									this.letters = "";
-									word = "";
-									game.tilesAddedRow.clear();
-									game.tilesAddedCol.clear();
-									game.tilesAddedLetter.clear();
-								   game.doPass();
+								if (game.tilesAddedRow.size() <= 1){
+								   if (game.tilesAddedRow.size() < 1){
+										 this.letters = "";
+	 									word = "";
+	 									game.tilesAddedRow.clear();
+	 									game.tilesAddedCol.clear();
+	 									game.tilesAddedLetter.clear();
+	 								   game.doPass();
+									 }
+									 else{
+										 int{User<-} rowID = Integer.parseInt((String) game.tilesAddedRow.get(0));
+										 int{User<-} colID = Integer.parseInt((String) game.tilesAddedCol.get(0));
+
+										 int{User<-} start = colID;
+										 while (start > 0 && !((((Tile) game.tiles.get(rowID, start - 1)).text.getText().equals(" ")))){
+													 start = start - 1;
+										 }
+										 int{User<-} end = start;
+										 String{User<-} wordsPlaced = ((Tile) game.tiles.get(rowID, start)).text.getText();
+										 while (end < 14 && !((((Tile) game.tiles.get(rowID, end + 1)).text.getText().equals(" ")))){
+													 end = end + 1;
+													 wordsPlaced += ((Tile) game.tiles.get(rowID, end)).text.getText();
+										 }
+                     if (start != end){
+
+											this.letters = "";
+											word = "";
+											game.tilesAddedRow.clear();
+											game.tilesAddedCol.clear();
+											game.tilesAddedLetter.clear();
+
+											game.doMove(wordsPlaced, rowID, start, true);
+										 }
+										 else{
+												int{User<-} startNew = rowID;
+												while (startNew > 0 && !((((Tile) game.tiles.get(startNew - 1, colID)).text.getText().equals(" ")))){
+															startNew = startNew - 1;
+												}
+												int{User<-} endNew = startNew;
+												String{User<-} wordsPlacedNew = ((Tile) game.tiles.get(startNew, colID)).text.getText();
+												while (endNew < 14 && !((((Tile) game.tiles.get(endNew + 1, colID)).text.getText().equals(" ")))){
+															endNew = endNew + 1;
+															wordsPlacedNew += ((Tile) game.tiles.get(endNew, colID)).text.getText();
+												}
+
+												this.letters = "";
+												word = "";
+												game.tilesAddedRow.clear();
+												game.tilesAddedCol.clear();
+												game.tilesAddedLetter.clear();
+
+												game.doMove(wordsPlacedNew, startNew, colID, false);
+										 }
+
+									 }
+
 								}
 
 								else{
@@ -125,8 +174,6 @@ public class ClickHandler extends EventHandler[{User<-}] {
 										}
 
 										if (colDir || rowDir){
-
-
 												if (rowDir){
 												   int{User<-} start = lowestCol;
 													 while (start > 0 && !((((Tile) game.tiles.get(rowID, start - 1)).text.getText().equals(" ")))){
@@ -138,9 +185,6 @@ public class ClickHandler extends EventHandler[{User<-}] {
 													       end = end + 1;
 																 wordsPlaced += ((Tile) game.tiles.get(rowID, end)).text.getText();
 													 }
-													 p.print(wordsPlaced);
-													 p.print(Integer.toString(rowID));
-													 p.print(Integer.toString(start));
 
 													 this.letters = "";
 				 								   word = "";
@@ -165,9 +209,6 @@ public class ClickHandler extends EventHandler[{User<-}] {
 																 wordsPlaced += ((Tile) game.tiles.get(end, colID)).text.getText();
 													 }
 
-													 p.print(wordsPlaced);
-													 p.print(Integer.toString(start));
-													 p.print(Integer.toString(colID));
 													 this.letters = "";
 				 								   word = "";
 				 									 game.tilesAddedRow.clear();
