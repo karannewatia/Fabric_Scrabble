@@ -262,6 +262,7 @@ public class Gui extends Application authority(User){
 	protected void doMove{User<-} (String{User<-} word, int{User<-} row, int{User<-} col, boolean{User<-} dir) {
 		if (this.scrabble.board.moveNumber < 50){
 			 PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
+			 p.print(word);
 			 boolean{User<-} success = false;
 			 //final RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
 			 //final RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;

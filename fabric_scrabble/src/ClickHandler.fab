@@ -86,12 +86,6 @@ public class ClickHandler extends EventHandler[{User<-}] {
 	 									 ((Tile) game.tiles.get(15, c)).highlight = false;
 	 								}
 	 							}
-	 							//p.print(word);
-	 							//game.scrabble.swapClick(word);
-
-
-								//p.print(Integer.toString(row));
-								//p.print(Integer.toString(col));
 
 								if (this.letters.equals("")){
 								   game.doPass();
@@ -99,44 +93,88 @@ public class ClickHandler extends EventHandler[{User<-}] {
 
 								else{
 								  if (game.tilesAddedRow.size() > 1){
+
 									  boolean{User<-} rowDir = true;
 									  int{User<-} rowID = Integer.parseInt((String) game.tilesAddedRow.get(0));
+										int{User<-} lowestRow = Integer.parseInt((String) game.tilesAddedRow.get(0));
 										for (int i=1; i < game.tilesAddedRow.size(); i++){
+
                         if (rowID != Integer.parseInt((String) game.tilesAddedRow.get(i))){
 												   rowDir = false;
+												}
+												if (Integer.parseInt((String) game.tilesAddedRow.get(i)) < lowestRow){
+												   lowestRow = Integer.parseInt((String) game.tilesAddedRow.get(i));
 												}
 										}
 										boolean{User<-} colDir = true;
 									  int{User<-} colID = Integer.parseInt((String) game.tilesAddedCol.get(0));
+										int{User<-} lowestCol = Integer.parseInt((String) game.tilesAddedCol.get(0));
 										for (int i=1; i < game.tilesAddedRow.size(); i++){
-                        if (rowID != Integer.parseInt((String) game.tilesAddedCol.get(i))){
+                        if (colID != Integer.parseInt((String) game.tilesAddedCol.get(i))){
 												   colDir = false;
+											}
+											if (Integer.parseInt((String) game.tilesAddedCol.get(i)) < lowestCol){
+												 lowestCol = Integer.parseInt((String) game.tilesAddedCol.get(i));
 											}
 										}
 										if (colDir || rowDir){
-										   	p.print("good");
-												
+
+												if (rowDir){
+												   int{User<-} start = lowestCol;
+													 while (start > 0 && !((((Tile) game.tiles.get(rowID, start - 1)).text.getText().equals(" ")))){
+													       start = start - 1;
+													 }
+													 int{User<-} end = start;
+													 String{User<-} wordsPlaced = ((Tile) game.tiles.get(rowID, start)).text.getText();
+													 while (end < 14 && !((((Tile) game.tiles.get(rowID, end + 1)).text.getText().equals(" ")))){
+													       end = end + 1;
+																 wordsPlaced += ((Tile) game.tiles.get(rowID, end)).text.getText();
+													 }
+													 p.print(wordsPlaced);
+													 p.print(Integer.toString(rowID));
+													 p.print(Integer.toString(start));
+
+                           game.doMove(wordsPlaced, rowID, start, true);
+												}
+												else{
+
+												   int{User<-} start = lowestRow;
+													 while (start > 0 && !((((Tile) game.tiles.get(start - 1, colID)).text.getText().equals(" ")))) {
+													       start = start - 1;
+													 }
+
+													 int{User<-} end = start;
+													 String{User<-} wordsPlaced = ((Tile) game.tiles.get(start, colID)).text.getText();
+
+													 while (end < 14 && !((((Tile) game.tiles.get(end + 1, colID)).text.getText().equals(" ")))) {
+													       end = end + 1;
+																 wordsPlaced += ((Tile) game.tiles.get(end, colID)).text.getText();
+													 }
+
+													 p.print(wordsPlaced);
+													 p.print(Integer.toString(start));
+													 p.print(Integer.toString(colID));
+													 this.letters = "";
+				 								   word = "";
+				 									 game.tilesAddedRow.clear();
+				 									 game.tilesAddedCol.clear();
+				 									 game.tilesAddedLetter.clear();
+                           game.doMove(wordsPlaced, start, colID, false);
+
+												}
+
 										}
 										else{
-										    p.print("bad");
+											 this.letters = "";
+											 word = "";
+											 game.tilesAddedRow.clear();
+											 game.tilesAddedCol.clear();
+											 game.tilesAddedLetter.clear();
+										   game.doPass();
 										}
 									}
 
-									game.doMove(this.letters, 7, 7, true);
-									this.letters = "";
-								  word = "";
-									for (int i=0; i < game.tilesAddedRow.size(); i++){
-									    word+= (String) game.tilesAddedRow.get(i);
-											word += " ";
-											word+=  (String) game.tilesAddedCol.get(i);
-											word += " ";
-											word+= (String) game.tilesAddedLetter.get(i);
-											word += " ";
-									}
-									p.print(word);
-									game.tilesAddedRow.clear();
-									game.tilesAddedCol.clear();
-									game.tilesAddedLetter.clear();
+
 								}
 	 						}
 						}
