@@ -53,7 +53,6 @@ public class Gui extends Application authority(User){
 				final label l = new label {User<-};
 				if (this.store$ actsfor User) {
 					try {
-            //this.board = new Board{User<-}@store$();
 
 						final Store p1store = FabricWorker.getWorker().getStore("worker");
 						final Store p2store = FabricWorker.getWorker().getStore("worker2");
@@ -62,8 +61,10 @@ public class Gui extends Application authority(User){
 
 						this.gameOver = false;
 
-			      RemoteWorker w1 = FabricWorker.getWorker().getWorker("worker");
+			      //RemoteWorker w = FabricWorker.getWorker().getLocalWorker();
+						RemoteWorker w1 = FabricWorker.getWorker().getWorker("worker");
 			      RemoteWorker w2 = FabricWorker.getWorker().getWorker("worker2");
+
 			      Player[User, p1]{User<-} alice = new Player{User<-}@store$(w1);
 			      Player[User, p2]{User<-} bob = new Player{User<-}@store$(w2);
 						this.players = new ArrayList{User<-}@store$(new StringComparator@store$());
@@ -132,6 +133,10 @@ public class Gui extends Application authority(User){
 						}
 						this.scrabble = new Scrabble[User]@store$(players, scores, tilesLeft);
 			      scrabble.startUser();
+
+						final RemoteWorker w = FabricWorker.getWorker().getLocalWorker();
+		 			  //this.scrabble.remotePrint@w();
+
 						resetTilePosns();
 
 						setLabelsFromState();
@@ -302,7 +307,6 @@ public class Gui extends Application authority(User){
 				timeline.play();
 			}
 		}
-
 
 
 	protected void doMove{User<-} (String{User<-} word, int{User<-} row, int{User<-} col, boolean{User<-} dir) {

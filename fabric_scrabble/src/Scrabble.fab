@@ -366,6 +366,15 @@ public class Scrabble[principal User] authority(User) {
       p.print(printBoard);
   }
 
+  public void remotePrint{User<-} () {
+    atomic{
+          String word = "hi";
+          PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
+          p.print(word);
+
+      }
+    }
+
 
   /**
   * Runs the Scrabble User
