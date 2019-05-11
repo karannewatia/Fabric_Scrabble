@@ -142,7 +142,6 @@ public class Board[principal User] {
                 j++;
             }
             end = col+j-1;
-            p.print("ok");
             for (int newCol=start; newCol<=end;  newCol++) {
 
                 if (newCol == col) { newWord += letter; }
@@ -197,12 +196,10 @@ public class Board[principal User] {
             for(int j =0; j<word.length();j++){
               if (!this.getTileOnBoard(row+j,col-1).equals(" ")){
                 String{User<-} temp3 = this.constructWord(row+j, col, Character.toString(word.charAt(j)), !dir);
-                p.print(temp3);
                 adjWords.add(temp3);
               }
               if (!this.getTileOnBoard(row+j,col+1).equals(" ")){
                 String{User<-} temp4 = this.constructWord(row+j, col, Character.toString(word.charAt(j)), !dir);
-                p.print(temp4);
                 adjWords.add(temp4);
               }
             }
