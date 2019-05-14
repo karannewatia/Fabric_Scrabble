@@ -13,7 +13,7 @@ public class Board[principal User] {
 
     public ArrayList[{User<-}]{User<-}[]{User<-} UserBoard;
     public int{User<-} moveNumber;
-    public HashMap[{User<-}]{User<-} points;
+    //public HashMap[{User<-}]{User<-} points;
     public Trie[User]{User<-} trie;
 
     public Board{User<-}() {
@@ -26,11 +26,11 @@ public class Board[principal User] {
       }
       catch (Exception exc){}
 
-      try{
-      this.points = new HashMap{User<-}(new StringComparator(), new IdComparator());
-      this.setPoints();
-      }
-      catch (Exception exc){}
+      //try{
+      //this.points = new HashMap{User<-}(new StringComparator(), new IdComparator());
+      //this.setPoints();
+      //}
+      //catch (Exception exc){}
 
       for (int i=0; i<15; i++) {
           try{
@@ -54,6 +54,7 @@ public class Board[principal User] {
     /**
     * Sets up the number of points that each tile corresponds to
     */
+    /*
     public void setPoints{User<-}(){
       atomic{
         this.points.put("a", new Integer(1));
@@ -92,7 +93,7 @@ public class Board[principal User] {
         this.points.put("*", new Integer(0));
       }
 
-    }
+    }*/
 
     /**
     * Returns true if word is present in the Scrabble dictionary,

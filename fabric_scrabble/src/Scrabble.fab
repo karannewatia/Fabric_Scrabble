@@ -69,7 +69,7 @@ public class Scrabble[principal User] authority(User) {
     atomic{
       for(int i =0; i< tiles.length(); i++){
         String{User<-} tile = Character.toString(tiles.charAt(i));
-        Integer{User<-} temp = (Integer)this.board.points.get(tile);
+        Integer{User<-} temp = new Integer(1); //(Integer)this.board.points.get(tile);
         this.playerScores.set(this.currentPlayer, new Integer(((Integer)this.playerScores.get(this.currentPlayer)).intValue() + temp.intValue()));
       }
       if (tiles.length() == 7){
@@ -366,12 +366,12 @@ public class Scrabble[principal User] authority(User) {
       p.print(printBoard);
   }
 
-  public void remotePrint{User<-} () {
+  public int{*<-_} remotePrint{User<-} () {
     atomic{
           String word = "hi";
           PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
           p.print(word);
-
+          return 0;
       }
     }
 

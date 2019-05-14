@@ -52,6 +52,8 @@ public class Gui extends Application authority(User){
 		atomic {
 				final label l = new label {User<-};
 				if (this.store$ actsfor User) {
+					final Store gameStore = FabricWorker.getWorker().getStore("store");
+					if (gameStore actsfor User) {
 					try {
 
 						final Store p1store = FabricWorker.getWorker().getStore("worker");
@@ -62,24 +64,24 @@ public class Gui extends Application authority(User){
 						this.gameOver = false;
 
 			      //RemoteWorker w = FabricWorker.getWorker().getLocalWorker();
-						RemoteWorker w1 = FabricWorker.getWorker().getWorker("worker");
-			      RemoteWorker w2 = FabricWorker.getWorker().getWorker("worker2");
+						final RemoteWorker w1 = FabricWorker.getWorker().getWorker("worker");
+			      final RemoteWorker w2 = FabricWorker.getWorker().getWorker("worker2");
 
-			      Player[User, p1]{User<-} alice = new Player{User<-}@store$(w1);
-			      Player[User, p2]{User<-} bob = new Player{User<-}@store$(w2);
-						this.players = new ArrayList{User<-}@store$(new StringComparator@store$());
+			      Player[User, p1]{User<-} alice = new Player{User<-}@gameStore(w1);
+			      Player[User, p2]{User<-} bob = new Player{User<-}@gameStore(w2);
+						this.players = new ArrayList{User<-}@gameStore(new StringComparator@gameStore());
 			      this.players.add(alice);
 			      this.players.add(bob);
-			      this.tilesLeft = new ArrayList{User<-}@store$(new IdComparator@store$());
+			      this.tilesLeft = new ArrayList{User<-}@gameStore(new IdComparator@gameStore());
 			      this.tilesLeft.add(new Integer(7));
 			      this.tilesLeft.add(new Integer(7));
-			      this.scores = new ArrayList{User<-}@store$(new IdComparator@store$());
+			      this.scores = new ArrayList{User<-}@gameStore(new IdComparator@gameStore());
 			      this.scores.add(new Integer(0));
 			      this.scores.add(new Integer(0));
 
-						this.tilesAddedRow = new ArrayList{User<-}@store$(new StringComparator@store$());
-						this.tilesAddedCol = new ArrayList{User<-}@store$(new StringComparator@store$());
-						this.tilesAddedLetter = new ArrayList{User<-}@store$(new StringComparator@store$());
+						this.tilesAddedRow = new ArrayList{User<-}@gameStore(new StringComparator@gameStore());
+						this.tilesAddedCol = new ArrayList{User<-}@gameStore(new StringComparator@gameStore());
+						this.tilesAddedLetter = new ArrayList{User<-}@gameStore(new StringComparator@gameStore());
 
 						model = new GameModel[l]@store$(15);
 						model.addNewTile();
@@ -131,11 +133,12 @@ public class Gui extends Application authority(User){
 							 }
 							//}
 						}
-						this.scrabble = new Scrabble[User]@store$(players, scores, tilesLeft);
+						this.scrabble = new Scrabble[User]@gameStore(players, scores, tilesLeft);
 			      scrabble.startUser();
 
 						final RemoteWorker w = FabricWorker.getWorker().getLocalWorker();
-		 			  //this.scrabble.remotePrint@w();
+		 			  this.scrabble.remotePrint@w1();
+						//this.scrabble.remotePrint@w();
 
 						resetTilePosns();
 
@@ -147,6 +150,7 @@ public class Gui extends Application authority(User){
 
 					} catch (NegativeArraySizeException e) {
 						// Impossible
+					}
 					}
 
 			}
