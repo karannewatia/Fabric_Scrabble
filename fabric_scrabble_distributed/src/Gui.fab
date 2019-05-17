@@ -1,0 +1,369 @@
+import fabfx.application.Application;
+import fabfx.stage.Stage;
+import fabfx.scene.*;
+import fabfx.scene.layout.*;
+import fabfx.collections.ObservableList;
+import fabfx.scene.text.Text;
+import fabfx.event.EventHandler;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.animation.KeyValue;
+import fabfx.animation.KeyFrame;
+import fabfx.animation.Timeline;
+import javafx.util.Duration;
+import fabric.util.java.Object2DArray;
+import fabfx.scene.shape.Rectangle;
+import fabric.util.PrintString;
+import fabricated.util.ArrayList;
+import fabricated.util.StringComparator;
+import fabricated.util.IdComparator;
+
+public class Gui extends Application authority(User){
+
+	static Color{User<-} numColor;
+	static Color{User<-} tileColor;
+	static Color{User<-} sepColor;
+	static Font{User<-} numFont;
+	static Font{User<-} smallNumFont;
+	static double{User<-} tileSize = 45.0;//120.0;
+	static double{User<-} gutter;
+	static Color{User<-} native []{User<-} colors;
+
+	public Rectangle[{User<-},{User<-}]{User<-} background;
+
+	public Scrabble[User]{User<-} scrabble;
+	public ArrayList[{User<-}]{User<-} players;
+	public ArrayList[{User<-}]{User<-} tilesLeft;
+	public ArrayList[{User<-}]{User<-} scores;
+
+	public ArrayList[{User<-}]{User<-} tilesAddedRow;
+	public ArrayList[{User<-}]{User<-} tilesAddedCol;
+	public ArrayList[{User<-}]{User<-} tilesAddedLetter;
+
+	public boolean{User<-} gameOver;
+
+	private GameModel[{User<-}]{User<-} model;
+	public Object2DArray[{User<-}]{User<-} tiles;
+
+	/**
+	 * Runs/updates the GUI
+	 */
+	public void run{User<-} (Stage{User<-} primaryStage) where caller(User) {
+		atomic {
+				final label l = new label {User<-};
+				if (this.store$ actsfor User) {
+					final Store gameStore = FabricWorker.getWorker().getStore("store");
+					if (gameStore actsfor User) {
+					try {
+
+						final Store p1store = FabricWorker.getWorker().getStore("worker");
+						final Store p2store = FabricWorker.getWorker().getStore("worker2");
+						final principal p1 = p1store.getPrincipal();
+						final principal p2 = p2store.getPrincipal();
+
+						this.gameOver = false;
+
+			      //RemoteWorker w = FabricWorker.getWorker().getLocalWorker();
+						final RemoteWorker w1 = FabricWorker.getWorker().getWorker("worker");
+			      final RemoteWorker w2 = FabricWorker.getWorker().getWorker("worker2");
+
+			      Player[User, p1]{User<-} alice = new Player{User<-}@gameStore(w1);
+			      Player[User, p2]{User<-} bob = new Player{User<-}@gameStore(w2);
+						this.players = new ArrayList{User<-}@gameStore(new StringComparator@gameStore());
+			      this.players.add(alice);
+			      this.players.add(bob);
+			      this.tilesLeft = new ArrayList{User<-}@gameStore(new IdComparator@gameStore());
+			      this.tilesLeft.add(new Integer(7));
+			      this.tilesLeft.add(new Integer(7));
+			      this.scores = new ArrayList{User<-}@gameStore(new IdComparator@gameStore());
+			      this.scores.add(new Integer(0));
+			      this.scores.add(new Integer(0));
+
+						this.tilesAddedRow = new ArrayList{User<-}@gameStore(new StringComparator@gameStore());
+						this.tilesAddedCol = new ArrayList{User<-}@gameStore(new StringComparator@gameStore());
+						this.tilesAddedLetter = new ArrayList{User<-}@gameStore(new StringComparator@gameStore());
+
+						model = new GameModel[l]@store$(15);
+						model.addNewTile();
+						gutter = tileSize / 10;
+						int s = model.size();
+						numColor = new Color(0.4, 0.4, 0.4, 1.0);
+						tileColor = new Color(0.8, 0.8, 0.8, 1.0);
+						sepColor = new Color(0.6, 0.6, 0.6, 1.0);
+						colors = new Color native []{
+						tileColor, new Color(0.8, 0.8, 0.75, 1.0),
+							new Color(0.8, 0.75, 0.75, 1.0), new Color(0.85, 0.75, 0.7, 1.0),
+							new Color(0.8, 0.8, 0.7, 1.0), new Color(0.8, 0.7, 0.7, 1.0),
+							new Color(0.8, 0.7, 0.6, 1.0), new Color(0.8, 0.6, 0.7, 1.0),
+							new Color(0.7, 0.8, 0.7, 1.0), new Color(0.7, 0.8, 0.6, 1.0),
+							new Color(0.6, 0.7, 0.8, 1.0), new Color(0.6, 0.6, 0.8, 1.0),
+							new Color(0.8, 0.8, 0.5, 1.0), new Color(0.8, 0.7, 0.5, 1.0),
+							new Color(0.8, 0.6, 0.5, 1.0), new Color(0.8, 0.5, 0.7, 1.0),
+							new Color(0.8, 0.5, 0.5, 1.0)
+						};
+						numFont = Font.font("Helvetica-Bold", FontWeight.BOLD, 32);
+						smallNumFont = Font.font("Helvetica-Bold", FontWeight.BOLD, 16);
+
+						final Pane[l,l] content = new Pane[l,l]();
+
+						final Group[l,l] outer = new Group[l,l]();
+						final Scene[l,l] scene = new Scene[l,l](l, l, outer);
+
+						primaryStage.setScene(l,l,scene);
+						outer.getChildren().add(l,l,content);
+						content.setPrefHeight(s * (tileSize + 2) + (s + 1) * gutter);
+						content.setPrefWidth(s * (tileSize) + (s + 1) * gutter);
+						content.setStyle("-fx-background-color: #999999");
+
+						tiles = new Object2DArray[l](model.size()+1, model.size());
+						for (int i = 0; i < model.size() + 1; i++) {
+
+							for (int j = 0; j < model.size(); j++) {
+								Tile tile = new Tile(i,j, 0); // extra blank tile
+								content.getChildren().add(l, l, (Tile) tile);
+								tile.setPosn();
+								tile.toBack();
+
+								tiles.set(i, j, new Tile(i, j, 0));
+								content.getChildren().add(l, l,
+										(Tile) tiles.get(i, j)); // j,i
+							 }
+						}
+						this.scrabble = new Scrabble[User]@gameStore(players, scores, tilesLeft);
+			      scrabble.startUser();
+
+						final RemoteWorker w = FabricWorker.getWorker().getLocalWorker();
+		 			  this.scrabble.remotePrint@w1();
+
+						resetTilePosns();
+
+						setLabelsFromState();
+
+						outer.requestFocus();
+						outer.setOnMouseClicked(new ClickHandler(this));
+
+					} catch (NegativeArraySizeException e) {
+						// Impossible
+					}
+				}
+
+			}
+
+			primaryStage.setTitle("Scrabble");
+			primaryStage.show();
+		}
+
+	}
+
+	protected void resetTilePosns{User<-}() {
+		for (int i = 0; i < model.size() + 1; i++) {
+			for (int j = 0; j < model.size(); j++) {
+				((Tile) tiles.get(i,j)).setPosn();
+			}
+		}
+	}
+
+	/**
+	 * Update the GUI based on the current game state
+	 */
+	protected void setLabelsFromState{User<-}() where authority (User){
+	  atomic{
+		  //boolean[] array = new boolean[size];
+			for (int r = 0; r < model.size() + 1; r++) {
+				 if (r == model.size()){
+					 String{User<-} rack = endorse (((Player)this.players.get(this.scrabble.currentPlayer)).getRack(), {} to {User<-});
+					 for (int c = 0; c < 7; c++) {
+						 Text[{User<-},{User<-}] t = ((Tile) tiles.get(r, c)).text;
+							String{User<-} temp =  endorse (Character.toString(rack.charAt(c)), {} to {User<-});
+							t.setText(temp);
+							((Tile) tiles.get(r, c)).background.setFill(colors[4]);
+
+							if (this.gameOver){
+							   	t.setText("");
+									((Tile) tiles.get(r, c)).background.setFill(colors[4]);
+							}
+					 }
+					 for (int d = 7; d < 15; d++) {
+					   Text[{User<-},{User<-}] t = ((Tile) tiles.get(r, d)).text;
+						 if (d == 7){
+							 t.setText("Score:");
+							 t.setFont(Font.font("Helvetica-Bold", FontWeight.BOLD, 14));
+							((Tile) tiles.get(r, d)).background.setFill(colors[8]);
+							if (this.gameOver){
+							   	t.setText("");
+									((Tile) tiles.get(r, d)).background.setFill(colors[4]);
+							}
+						 }
+
+						 if (d == 8){
+							 t.setText(Integer.toString(((Integer)this.scrabble.playerScores.get(this.scrabble.currentPlayer)).intValue()));
+							 t.setFont(this.smallNumFont);
+							((Tile) tiles.get(r, d)).background.setFill(colors[8]);
+							if (this.gameOver){
+							   	t.setText("");
+									((Tile) tiles.get(r, d)).background.setFill(colors[4]);
+							}
+						 }
+
+						 if (d == 9){
+							 t.setText("Turn:");
+							 t.setFont(this.smallNumFont);
+							((Tile) tiles.get(r, d)).background.setFill(colors[10]);
+							if (this.gameOver){
+							   	t.setText("");
+									((Tile) tiles.get(r, d)).background.setFill(colors[4]);
+							}
+						 }
+
+						 if (d == 11){
+							 t.setText("");
+							 t.setFont(Font.font("Helvetica-Bold", FontWeight.BOLD, 10));
+							((Tile) tiles.get(r, d)).background.setFill(colors[3]);
+							if (this.gameOver){
+							   	t.setText("");
+									((Tile) tiles.get(r, d)).background.setFill(colors[4]);
+							}
+						 }
+
+						 if (d == 10){
+								 t.setText("P " + Integer.toString(this.scrabble.currentPlayer));
+								 t.setFont(this.smallNumFont);
+								((Tile) tiles.get(r, d)).background.setFill(colors[10]);
+								if (this.gameOver){
+										t.setText("");
+										((Tile) tiles.get(r, d)).background.setFill(colors[4]);
+								}
+						 }
+
+
+					   if (d == 12){
+							 t.setText("Place");
+							 t.setFont(this.smallNumFont);
+							((Tile) tiles.get(r, d)).background.setFill(colors[5]);
+							if (this.gameOver){
+							   	t.setText("");
+									((Tile) tiles.get(r, d)).background.setFill(colors[4]);
+							}
+						 }
+
+						 if (d == 13){
+							 t.setText("Swap");
+							 t.setFont(this.smallNumFont);
+							((Tile) tiles.get(r, d)).background.setFill(colors[5]);
+							if (this.gameOver){
+							   	t.setText("");
+									((Tile) tiles.get(r, d)).background.setFill(colors[4]);
+							}
+						 }
+
+						 if (d == 14){
+							 t.setText("Pass");
+							 t.setFont(this.smallNumFont);
+							((Tile) tiles.get(r, d)).background.setFill(colors[5]);
+							if (this.gameOver){
+							   	t.setText("");
+									((Tile) tiles.get(r, d)).background.setFill(colors[4]);
+							}
+						 }
+
+					 }
+				 }
+				else{
+					for (int c = 0; c < model.size(); c++) {
+					 if (r==7 && c==7) {
+						 Text[{User<-},{User<-}] t = ((Tile) tiles.get(r, c)).text;
+						 t.setText((String) ((this.scrabble.board.UserBoard[r]).get(c)));
+						 if (t.getText().equals(" ")) {
+							 ((Tile) tiles.get(r, c)).background.setFill(colors[3]);
+						 }
+						 else{
+						   ((Tile) tiles.get(r, c)).background.setFill(colors[0]);
+						 }
+					 }
+					 else {
+					 Text[{User<-},{User<-}] t = ((Tile) tiles.get(r, c)).text;
+					 t.setText((String) ((this.scrabble.board.UserBoard[r]).get(c)));
+					 ((Tile) tiles.get(r, c)).background.setFill(colors[0]);
+					 }
+				 }
+				}
+			}
+		}
+	}
+
+	protected boolean{User<-} otherTilesHighlighted{User<-} () {
+	  boolean{User<-} result = false;
+    atomic{
+			for (int c = 0; c < 7; c++) {
+				if ((((Tile) this.tiles.get(15, c)).highlight)) {
+					 result = true;
+				}
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * Passes move to the next player, and updates the GUI accordingly
+	 */
+	protected void doPass{User<-} () {
+	  atomic{
+				if (this.scrabble.board.moveNumber < 50){
+					 this.scrabble.currentPlayer = (this.scrabble.currentPlayer + 1) % this.scrabble.players.size();
+				}
+				final label l = new label {User<-};
+				java.util.List[l] move_anims = new java.util.ArrayList[l]();
+				java.util.List[l] flash_anims = new java.util.ArrayList[l]();
+				Timeline timeline = new Timeline(60);
+				EventHandler[{User<-}] h2 = new EndMoveHandler(this);
+				timeline.getKeyFrames().add(l,l,
+					new KeyFrame(Duration.seconds(0.3), "end", h2, flash_anims));
+				timeline.play();
+			}
+		}
+
+	/**
+	 * Passes move to the next player if the word placed is valid,
+	 * and updates the GUI accordingly
+	 */
+	protected void doMove{User<-} (String{User<-} word, int{User<-} row, int{User<-} col, boolean{User<-} dir) {
+		if (this.scrabble.board.moveNumber < 50){
+			 PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
+			 PrintString[{}]{User<-} r = new PrintString[{}]();
+			 boolean{User<-} success = false;
+			 final RemoteWorker w1  = ((Player)this.scrabble.players.get(this.scrabble.currentPlayer)).w;
+			 final RemoteWorker w2  = ((Player)this.scrabble.players.get((this.scrabble.currentPlayer + 1) % this.scrabble.players.size())).w;
+
+			 success = this.scrabble.placeClick(word, row, col, dir);
+
+			 if (success){
+
+			 this.scrabble.currentPlayer = (this.scrabble.currentPlayer + 1) % this.scrabble.players.size();
+			 final label l = new label {User<-};
+
+	 		java.util.List[l] move_anims = new java.util.ArrayList[l]();
+	 		java.util.List[l] flash_anims = new java.util.ArrayList[l]();
+
+	 		Timeline timeline = new Timeline(60);
+	 		EventHandler[{User<-}] h2 = new EndMoveHandler(this);
+	 		timeline.getKeyFrames().add(l,l,
+	 			new KeyFrame(Duration.seconds(0.3), "end", h2, flash_anims));
+	 		timeline.play();
+
+				if (this.scrabble.emptyRack() || this.scrabble.board.moveNumber >= 50){
+					 int winner = this.scrabble.getWinner();
+					 String winnerStr = String.valueOf(winner);
+					 this.gameOver = true;
+					 r.print("The winner is: player " + winnerStr +  "!!!" + "\n");
+				}
+
+			}
+			else{
+			    this.setLabelsFromState();
+			}
+
+		}
+	}
+
+}

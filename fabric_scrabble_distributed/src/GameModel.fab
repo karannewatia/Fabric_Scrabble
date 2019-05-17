@@ -1,0 +1,122 @@
+import fabric.util.RandomGenerator;
+import fabric.util.Int2DArray;
+import fabric.util.Boolean2DArray;
+import fabricated.util.List;
+import fabricated.util.ArrayList;
+import fabricated.util.StringComparator;
+
+public class GameModel [label L] {
+
+	/** The size of the square of tiles. */
+	protected final int{L} size;
+	/** The tile values in the game. A blank tile is represented by zero. */
+	// Marked as transient to indicate this won't serialize when shipping
+	// between nodes.
+	private transient Int2DArray[L]{L} tiles;
+	/** Used for randomness. */
+	// Marked as transient to indicate this won't serialize when shipping
+	// between nodes.
+	private transient RandomGenerator[L]{L} random;
+
+	public GameModel{L} (int{L} size) throws (NegativeArraySizeException{L}) {
+		this.size = size;
+		super();
+		tiles = new Int2DArray[L](size,size);
+		random = new RandomGenerator[L]();
+	}
+
+	public boolean{L} addNewTile{L} () {
+		int numFree = 0;
+		for (int r = 0; r < size; r++) {
+			for (int c = 0; c < size; c++) {
+				if (tiles.get(r,c) == 0) numFree++;
+			}
+		}
+		if (numFree == 0)
+			return false;
+		int i = random.nextInt(numFree);
+		for (int r = 0; r < size; r++) {
+			for (int c = 0; c < size; c++) {
+				if (tiles.get(r, c) == 0 && i-- == 0) {
+					tiles.set(r, c, random.nextInt(10) == 0 ?  2 : 1);
+					return true;
+				}
+			}
+		}
+		throw new Error("Can't get here");
+	}
+
+	/** Try to move the puzzle in the specified direction.
+	 *  Return a list of moves performed. An empty list returned
+	 *  means nothing could move.
+	 */
+	public List[L]{L} slideTiles{L} (int{L} dx, int{L} dy) {
+		List[L] ret = new ArrayList[L](new StringComparator());
+		// only one merge can happen at a given location per turn.
+		// fixed keeps track of the locations that have already merged.
+		Boolean2DArray fixed = new Boolean2DArray(size, size);
+		for (int x = size - 2; x >= 0; x--) {
+			for (int y = 0; y < size; y++) {
+				int v = rtile(x, y, dx, dy);
+				if (v != 0) {
+					int x1 = x + 1;
+					while (x1 < size && rtile(x1, y, dx, dy) == 0)
+						x1++;
+					if (x1 == size) {
+						// move all the way to the edge
+						setrtile(x, y, dx, dy, 0);
+						setrtile(size-1, y, dx, dy, v);
+						ret.add(new Move[L](new Location[L](x, y, dx, dy, this),
+							new Location[L](size-1, y, dx, dy, this), false));
+					} else if (rtile(x1, y, dx, dy) == v && !fixed.get(x1, y)) {
+						// slide and merge
+						setrtile(x, y, dx, dy, 0);
+						setrtile(x1, y, dx, dy, v * 2);
+						fixed.set(x1, y, true); // can't merge again
+						ret.add(new Move[L](new Location[L](x,y,dx,dy,this),
+							new Location[L](x1, y, dx, dy, this), true));
+					} else if (x != x1 - 1) {
+						// slide up to the next tile but don't merge
+						setrtile(x, y, dx, dy, 0);
+						setrtile(x1 - 1, y, dx, dy, v);
+						ret.add(new Move[L](new Location[L](x, y, dx, dy, this),
+							new Location[L](x1-1, y, dx, dy, this), false));
+					}
+				}
+			}
+		}
+		return ret;
+	}
+
+	/** Try to do a player move in direction (dx, dy), returning a
+	 * list of tiles moves that resulted, or an empty list if the move
+	 * is not legal.
+	 */
+	public List[L]{L} doMove{L} (int{L} dx, int{L} dy) {
+		List[L] moves = slideTiles(dx, dy);
+		if (!moves.isEmpty()) addNewTile();
+		return moves;
+	}
+
+	public int{L} size() {
+		return this.size;
+	}
+	/** Get the tile at location loc. */
+	public int{L} tile{L}(Location[L]{L} loc) {
+		return tiles.get(loc.row, loc.col);
+	}
+	/** Get the tile at row r, column c. */
+	public int{L;r;c} tile(int r, int c) {
+		return tiles.get(r, c);
+	}
+	/** Get tile (x,y) in the coordinate system with (dx,dy) going to the right. */
+	private int{L} rtile{L} (int{L} x, int{L} y, int{L} dx, int{L} dy) {
+		return tile(new Location[L](x,y,dx,dy,this));
+	}
+	/** Set tile (x,y) in the coordinate system with (dx,dy) going to the right. */
+	private void setrtile{L} (int{L} x, int{L} y, int{L} dx, int{L} dy, int{L} v) {
+		Location[L] loc = new Location[L](x,y,dx,dy,this);
+		tiles.set(loc.row, loc.col, v);
+	}
+
+}

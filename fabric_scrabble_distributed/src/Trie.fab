@@ -1,0 +1,87 @@
+import fabricated.util.ArrayList;
+import fabric.util.Dictionary;
+
+// implementation of trie
+public class Trie[principal User] {
+
+    public  TrieNode[User]{User<-} root;
+
+    public Trie{User<-}(){
+      this.root = new TrieNode{User<-}();
+    }
+
+    /** If not present, inserts key into trie
+    * If the key is prefix of trie node,
+    * just marks leaf node
+    */
+    public  void insert{User<-}(String{User<-} key)
+    {
+        int level;
+        int length = key.length();
+        int index;
+
+        TrieNode[User]{User<-} pCrawl = root;
+
+        for (level = 0; level < length; level++)
+        {
+            index = key.charAt(level) - 'a';
+            if (pCrawl.children[index] == null)
+                pCrawl.children[index] = new TrieNode[User]();
+
+            pCrawl = pCrawl.children[index];
+        }
+
+        // mark last node as leaf
+        pCrawl.isEndOfWord = true;
+    }
+
+    /**
+    * Returns true if key presents in trie, else false
+    */
+    public  boolean{User<-} search{User<-}(String{User<-} key)
+    {
+        int level;
+        int length = key.length();
+        int index;
+        TrieNode[User]{User<-} pCrawl = root;
+
+        for (level = 0; level < length; level++)
+        {
+            index = key.charAt(level) - 'a';
+
+            if (pCrawl.children[index] == null)
+                return false;
+
+            pCrawl = pCrawl.children[index];
+        }
+
+        return (pCrawl != null && pCrawl.isEndOfWord);
+    }
+
+
+  /**
+  * Builds the trie by reading a file containing words
+  */
+  public void createDict{User<-}()
+  {
+      Dictionary[{User<-}]{User<-} dict = new Dictionary[{User<-}]();
+      String{User<-} native[]{User<-} words = dict.getDict();
+
+      // Construct trie
+      for (int i = 0; i < words.length; i++){
+          String{User<-} temp = words[i];
+          insert(temp);
+      }
+
+    }
+
+  /**
+  * Returns true if word is valid within the Scrabble dictionary, else false
+  */
+  public boolean{User<-} validate{User<-}(String{User<-} word)
+  {
+      if (!search(word)) return false;
+      return true;
+    }
+
+}

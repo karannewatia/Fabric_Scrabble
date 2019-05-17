@@ -1,0 +1,10 @@
+
+#!/bin/bash
+
+APP_HOME="$(dirname $0)/.."
+source $APP_HOME/config.sh
+FABRIC_HOME="${FABRIC}"
+PATH="${FABRIC_HOME}/bin:${PATH}"
+
+
+fab-store --jvm-cp "${FABRIC}/lib/fabric-collections.jar" --add-jvm-cp "${APP_HOME}/../fabfx-master/lib/fabfx.jar" --add-jvm-cp "${APP_HOME}/classes" --app-home "${APP_HOME}" --name worker2

@@ -1,0 +1,38 @@
+import fabricated.util.ArrayList;
+
+/**
+ * This class represents a player in the Scrabble User.
+ */
+public class Player[principal User, principal Player] {
+    /**
+     * This rack represents P's rack.
+     * It's fine to make the reference to the rack public, as all the
+     * information contained in the board is readable only by P
+     */
+    public Rack[User, Player]{User<-} rack;
+    public RemoteWorker w;
+    public int{User<-} score;
+
+    public Player{User<-}(RemoteWorker{} worker){ //RemoteWorker w
+      this.w = worker;
+      this.rack = new Rack{User<-}();
+      this.score = 0;
+    }
+
+    /**
+    * Returns this player's rack as a string (useful for printing)
+    */
+     public String{User->Player; User<-} getRack{User<-}() {
+       String{User->Player; User<-} rack = "";
+       atomic{
+        String{User->Player; User<-}[]{User<-} tiles = this.rack.tiles;
+        for(int i=0; i<tiles.length; i++){
+           String{User->Player; User<-} tile = (String)tiles[i];
+             rack += tile;
+         }
+
+       }
+       return rack;
+     }
+
+}

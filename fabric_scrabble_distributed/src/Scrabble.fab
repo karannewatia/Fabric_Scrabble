@@ -324,5 +324,101 @@ public class Scrabble[principal User] authority(User) {
     return false;
   }
 
+  public void printRack{User<-}(int{User<-} playerNum) {
+    PrintString[{}]{User<-} r = new PrintString[{}]();
+    String rack = "Your rack: " + ((Player)this.players.get(playerNum)).getRack() + "\n";
+    r.print(rack);
+  }
+
+  /**
+  * Prints the User board for every turn
+  */
+  //public void readBoard{*->_}(){
+  public void readBoard{User<-}(){
+    String printBoard = "";
+    atomic{
+      printBoard += "\n";
+      printBoard += "  "; //beginning 2 spaces
+      for(int i = 0; i < this.board.UserBoard.length; ++i){
+        if(i>9) printBoard += " " + (i) + " "; //print letters separately.
+        else printBoard += " " + (i) +"  "; //print letters separately.
+      }
+      for(int i = 0; i < this.board.UserBoard.length; i++){
+        printBoard += "\n";
+        for(int j = 0; j < this.board.UserBoard.length; j++){
+            if(j == 0){
+                if(i>9) {
+                  printBoard += i;
+                  printBoard += "| ";
+                } else {
+                  printBoard += " " + i;
+                  printBoard += "| ";
+                }
+            }
+            printBoard += (String)(this.board.UserBoard[i].get(j)) + " | ";
+          }
+        }
+        printBoard += "\n" + "\n" + "Player " + this.currentPlayer + "'s turn \n";
+        printBoard += "Your score: " + ((Integer)this.playerScores.get(this.currentPlayer)).intValue() + "\n";
+
+    }
+      PrintString[{}] p = new PrintString[{}]();
+      p.print(printBoard);
+  }
+
+  public int{*<-_} remotePrint{User<-} () {
+    atomic{
+          String word = "hi";
+          PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
+          p.print(word);
+          return 0;
+      }
+    }
+
+
+  /**
+  * Runs the Scrabble User
+  * the User ends when the number of moves played is equal to 50
+  */
+  public void gameLoop{User<-}() where caller(User){
+    atomic{
+      //if (User actsFor User) {
+      while(this.board.moveNumber < 50){
+         //new Test().launchApp();
+         PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
+         this.readBoard();
+
+         boolean{User<-} success = false;
+         //final RemoteWorker w1  = ((Player)this.players.get(this.currentPlayer)).w;
+         //final RemoteWorker w2  = ((Player)this.players.get((this.currentPlayer + 1) % this.players.size())).w;
+
+         PrintString[{}]{User<-} r = new PrintString[{}]();
+         //String rack = "Your rack: " + ((Player)this.players.get(this.currentPlayer)).getRack() + "\n";
+         //r.print(rack);
+         this.printRack(this.currentPlayer);
+
+         while (!success){
+           // Remote call
+            //this.readBoard@w2();
+            //this.readBoard@w1();
+
+            //success = this.move@w1();
+            success = this.move();
+         }
+         if (this.emptyRack()){
+            int winner = this.getWinner();
+            String winnerStr = String.valueOf(winner);
+            r.print("The winner is player " + winnerStr + "\n");
+            break;
+         }
+         this.currentPlayer = (this.currentPlayer + 1) % this.players.size();
+      }
+      int winner = this.getWinner();
+      String winnerStr = String.valueOf(winner);
+      PrintString[{}]{User<-} r = new PrintString[{}]();
+      r.print("\n" + "The winner is player " + winnerStr + "\n");
+    //}
+   }
+  }
 
 }

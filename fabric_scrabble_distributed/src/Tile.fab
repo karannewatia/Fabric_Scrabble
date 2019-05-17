@@ -1,0 +1,56 @@
+import fabfx.scene.layout.StackPane;
+import fabfx.scene.text.Text;
+import javafx.scene.text.Font;
+import fabfx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
+
+/** A tile node on the Gui board. Keeps track of its contained
+ *  background and label.
+ */
+public class Tile extends StackPane[{User<-}, {User<-}] {
+
+	public Text[{User<-},{User<-}]{User<-} text;
+	public Rectangle[{User<-},{User<-}]{User<-} background;
+	public int{User<-} row, column;
+  public boolean{User<-} highlight;
+
+	public Tile{User<-} (int{User<-} row, int{User<-} column, int{User<-} flag) {
+		super();
+		atomic {
+			try {
+				final label l = new label {User<-};
+				this.text = new Text[l,l]();
+				this.background = new Rectangle[l,l]();
+				this.row = row;
+				this.column = column;
+        this.highlight = false;
+
+				getChildren().add(l, l, background);
+				getChildren().add(l, l, text);
+				background.setWidth(Gui.tileSize);
+
+				background.setHeight(Gui.tileSize);
+				background.setFill(Gui.tileColor);
+
+        if (flag == 1){
+          background.setFill(new Color(0.8, 0.5, 0.5, 1.0));
+        }
+				background.setStrokeWidth(0);
+				background.setStroke(Gui.tileColor);
+				background.setArcWidth(Gui.tileSize * 0.30);
+
+				background.setArcHeight(Gui.tileSize * 0.30);
+				text.setFont(Gui.numFont);
+				text.setFill(Gui.numColor);
+			} catch (NullPointerException e) {
+				// Impossible
+			}
+		}
+	}
+
+	public void setPosn{User<-} () {
+		setLayoutX(Gui.gutter + column * (Gui.tileSize + Gui.gutter));
+		setLayoutY(Gui.gutter + row * (Gui.tileSize + Gui.gutter));
+	}
+
+}

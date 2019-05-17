@@ -1,0 +1,110 @@
+<!--
+  This is the Apache Ant build file for the FabIL Scrabble app
+-->
+
+<project name="fabric_scrabble" default="build-all" basedir=".">
+  <description>
+    Build Scrabble app
+  </description>
+  <property environment="env" />
+  <property file="config.properties" />
+
+  <!--
+  ****************************************************************************
+    Global properties for this build.
+  ****************************************************************************
+  -->
+
+   <import file="${fabric.home}/common.xml" />
+
+  <import file="${fabric.home}/src/lib/sif/common.xml" />
+  <import file="${fabric.home}/src/lib/collections/common.xml" />
+  <import file="../fabfx-master/common.xml" />
+
+  <dirname property="scrabble.home" file="${ant.file.scrabble}" />
+
+  <!--
+  ****************************************************************************
+    Targets for cleaning up the directory tree.
+  ****************************************************************************
+  -->
+
+  <target name="clean" description="Removes generated files">
+    <delete dir="${scrabble.home}/classes"/>
+    <delete dir="${scrabble.home}/sig-classes"/>
+  </target>
+
+  <target name="clobber" depends="clean"
+          description="Removes generated files and state of stores">
+    <delete dir="${scrabble.home}/var"/>
+  </target>
+
+  <!--
+  ****************************************************************************
+    Compilation targets.
+  ****************************************************************************
+  -->
+
+  <target name="build" depends="build-sig,build-java"
+          description="Builds the Scrabble app">
+
+    <fabc dest="${scrabble.home}/classes">
+      <arg value="-sourcepath" /> <arg value="${scrabble.home}/src" />
+      <arg value="-cp"         /> <arg value="/Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/jre/lib/ext/jfxrt.jar" />
+      <arg value="-cp"         /> <arg value="${scrabble.home}/classes" />
+      <arg value="-cp" /> <arg pathref="collections.classpath" />
+      <arg value="-addsigcp" /> <arg value="${scrabble.home}/sig-classes" />
+      <arg value="-cp"         /> <arg pathref="fabfx.classpath"/>
+	    <arg value="-addsigcp"   /> <arg pathref="fabfx.sigcp"/>
+      <arg value="-trusted-providers" />
+      <arg value="-explain" />
+
+      <fileset dir="${scrabble.home}/src" includes="**/*.fab" />
+    </fabc>
+
+    <filc dest="${scrabble.home}/classes">
+      <arg value="-sourcepath" /> <arg value="${scrabble.home}/src" />
+      <arg value="-cp"         /> <arg value="${scrabble.home}/classes" />
+
+      <fileset dir="${scrabble.home}/src" includes="**/*.fil" />
+    </filc>
+  </target>
+
+  <target name="build-java"
+      description="Builds java behind signatures">
+    <mkdir dir="${scrabble.home}/classes" />
+    <javac source="1.8"
+           target="1.8"
+           srcdir="${scrabble.home}/src-java"
+           destdir="${scrabble.home}/classes"
+           debug="true"
+           includeAntRuntime="false"
+           debuglevel="lines,vars,source">
+       <classpath>
+         <path refid="fabric.classpath" />
+       </classpath>
+     </javac>
+  </target>
+
+  <target name="build-sig"
+      description="Builds signature definitions">
+    <fabsigc dest="${scrabble.home}/sig-classes">
+      <arg value="-sourcepath" /> <arg value="${scrabble.home}/src" />
+
+      <arg value="-cp"         /> <arg value="${scrabble.home}/classes" />
+      <arg value="-cp" /> <arg pathref="collections.classpath" />
+      <arg value="-trusted-providers" />
+      <arg value="-explain" />
+
+      <fileset dir="${scrabble.home}/src-sig" includes="**/*.fab" />
+    </fabsigc>
+  </target>
+
+  <target name="build-all" depends="build" />
+  <target name="all" depends="build-all" />
+
+</project>
+
+<!--
+vim: ts=2 sw=2 et ai
+-->

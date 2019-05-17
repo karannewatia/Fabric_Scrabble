@@ -1,0 +1,81 @@
+import fabricated.util.ArrayList;
+import fabricated.util.StringComparator;
+import fabric.util.PrintString;
+
+/**
+ * This class represents a player's rack in the Scrabble User.
+ */
+public class Rack[principal User, principal Player] authority(User){
+
+    public String{User->Player; User<-}[]{User<-} tiles;
+
+    public Rack{User<-}(){
+      this.tiles = new String[7];
+    }
+
+   /**
+    * Initializes the rack with 7 random tiles
+    */
+    public void populateRackTile{User<-}(Bag[User]{User<-} bag)
+    // This should only be called by code that has the User server's authority
+    where authority (User) {
+
+      atomic{
+        for(int i=0; i < 7; i++){
+          try {
+            String{User->Player; User<-} temp = declassify(bag.getTilePlayer(Player), {User->;User<-} to {User->Player;User<-});
+            //tiles.add(temp);
+            this.tiles[i] = temp;
+            // Change the below to log an error or something to avoid making a bug
+            // go silently unnoticed
+          } catch (Exception e) { /*Shouldn't be possible*/ }
+
+        }
+      }
+    }
+
+
+   /**
+   * Replaces the input tile with a random tile drawn from Bag
+   */
+    private void swapTile{User<-}(String{User<-; User->Player} tile, Bag[User]{User<-} bag)
+    // This should only be called by code that has the User server's authority
+    where authority (User) {
+      atomic{
+         int idx = -1;
+         for (int i = 0; i < this.tiles.length; i++) {
+          if ((this.tiles[i]).equals(tile)) {
+             idx = i;
+           }
+          }
+          if (idx != -1) {
+          try {
+              //idx = idx;
+              String{User->Player; User<-} newTile = bag.swapTile(tile, Player);
+              this.tiles[idx] = newTile;
+
+            } catch (Exception e) {
+              //print
+            }
+        }
+        else{
+          PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
+          //p.print("some of the letters you wish to swap are not present in your rack");
+        }
+      }
+    }
+
+    /**
+    * Replaces all tiles in tileList with random tiles drawn from Bag
+    */
+    public void swapTiles{User<-}(String[]{User<-} tileList, Bag[User]{User<-} bag)
+    // This should only be called by code that has the User server's authority
+    where authority (User) {
+      atomic{
+        for(int i=0; i < tileList.length; i++){
+         this.swapTile(tileList[i], bag);
+        }
+      }
+    }
+
+}
