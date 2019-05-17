@@ -48,6 +48,9 @@ public class Bag[principal User] authority(User) {
        }
     }
 
+    /**
+    * Returns a random tile from Bag,
+    */
     public String{User<-; User->player} getTilePlayer{User<-; User->player}(principal player)
       // This should only be called by code that has the User server's authority
       where authority (User) {

@@ -13,7 +13,6 @@ public class Rack[principal User, principal Player] authority(User){
       this.tiles = new String[7];
     }
 
-
    /**
     * Initializes the rack with 7 random tiles
     */

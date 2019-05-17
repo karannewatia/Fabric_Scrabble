@@ -69,8 +69,8 @@ public class Scrabble[principal User] authority(User) {
     atomic{
       for(int i =0; i< tiles.length(); i++){
         String{User<-} tile = Character.toString(tiles.charAt(i));
-        Integer{User<-} temp = new Integer(1); //(Integer)this.board.points.get(tile);
-        this.playerScores.set(this.currentPlayer, new Integer(((Integer)this.playerScores.get(this.currentPlayer)).intValue() + temp.intValue()));
+        int{User<-} temp = this.board.getPoints(tile);
+        this.playerScores.set(this.currentPlayer, new Integer(((Integer)this.playerScores.get(this.currentPlayer)).intValue() + temp));
       }
       if (tiles.length() == 7){
         this.playerScores.set(this.currentPlayer, new Integer(((Integer)this.playerScores.get(this.currentPlayer)).intValue() + 50));

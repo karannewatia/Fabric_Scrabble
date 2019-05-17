@@ -28,6 +28,9 @@ public class ClickHandler extends EventHandler[{User<-}] {
 
 	}
 
+	/**
+	* Handle a user's click actions
+	*/
 	public void handle{User<-} (Event[{User<-}]{User<-} ev_) {
 		atomic {
 		  PrintString[{User<-}]{User<-} p = new PrintString[{User<-}]();
@@ -35,11 +38,8 @@ public class ClickHandler extends EventHandler[{User<-}] {
 				MouseEvent[{User<-}] ev = (MouseEvent[{User<-}]) ev_;
 				if (ev.getEventType() == MouseEvent.MOUSE_CLICKED) {
 
-						//game.doMove();
 						double x = ev.getSceneX();
 						double y = ev.getSceneY();
-						//p.print(Double.toString(x));
-						//p.print(Double.toString(y));
 
 			  if (y < 747.0){
 				    if ((((Tile) game.tiles.get(15, 12)).highlight)) {
@@ -70,7 +70,6 @@ public class ClickHandler extends EventHandler[{User<-}] {
         if (y >= 747.0){
 
 						if (x >= 598.5 && x <= 643.5){
-							 //p.print("tile place");
 							 if (!(((Tile) game.tiles.get(15, 12)).highlight)) {
 								 ((Tile) game.tiles.get(15, 12)).background.setFill(game.colors[6]);
 								 ((Tile) game.tiles.get(15, 12)).highlight = true;
@@ -235,12 +234,10 @@ public class ClickHandler extends EventHandler[{User<-}] {
 						}
 
 						if (x >= 697.5 && x <= 742.5){
-							 //p.print("tile pass");
 							 game.doPass();
 						}
 
 						if (x >= 648.0 && x <= 694.0){
-							 //p.print("tile swap");
 							 if (!(((Tile) game.tiles.get(15, 13)).highlight)) {
 								 ((Tile) game.tiles.get(15, 13)).background.setFill(game.colors[6]);
 								 ((Tile) game.tiles.get(15, 13)).highlight = true;
@@ -256,7 +253,6 @@ public class ClickHandler extends EventHandler[{User<-}] {
 	 									 ((Tile) game.tiles.get(15, c)).highlight = false;
 	 								}
 	 							}
-	 							//p.print(word);
 	 							game.scrabble.swapClick(word);
 	 							word = "";
 	 							game.doPass();
@@ -265,7 +261,6 @@ public class ClickHandler extends EventHandler[{User<-}] {
 
 					   if (x >= 4.5 && x <= 49.5){
 						    if ((((Tile) game.tiles.get(15, 13)).highlight)) {
-						     //p.print("tile 1");
 								 if (!(((Tile) game.tiles.get(15, 0)).highlight)) {
 									 ((Tile) game.tiles.get(15, 0)).background.setFill(game.colors[6]);
 									 ((Tile) game.tiles.get(15, 0)).highlight = true;
@@ -276,7 +271,6 @@ public class ClickHandler extends EventHandler[{User<-}] {
 								 }
 							 }
 							 if ((((Tile) game.tiles.get(15, 12)).highlight) && !(this.game.otherTilesHighlighted())) {
-								//p.print("tile 1");
 								if (!(((Tile) game.tiles.get(15, 0)).highlight)) {
 									((Tile) game.tiles.get(15, 0)).background.setFill(game.colors[6]);
 									((Tile) game.tiles.get(15, 0)).highlight = true;
@@ -291,7 +285,6 @@ public class ClickHandler extends EventHandler[{User<-}] {
 						 }
 						 if (x >= 54.0 && x <= 99.0){
 						    if ((((Tile) game.tiles.get(15, 13)).highlight)) {
-						    //p.print("tile 2");
 								if (!(((Tile) game.tiles.get(15, 1)).highlight)) {
 									((Tile) game.tiles.get(15, 1)).background.setFill(game.colors[6]);
 									((Tile) game.tiles.get(15, 1)).highlight = true;
@@ -302,7 +295,6 @@ public class ClickHandler extends EventHandler[{User<-}] {
 								}
 							}
 							if ((((Tile) game.tiles.get(15, 12)).highlight) && !(this.game.otherTilesHighlighted())) {
-							 //p.print("tile 2");
 							 if (!(((Tile) game.tiles.get(15, 1)).highlight)) {
 								 ((Tile) game.tiles.get(15, 1)).background.setFill(game.colors[6]);
 								 ((Tile) game.tiles.get(15, 1)).highlight = true;
@@ -318,7 +310,6 @@ public class ClickHandler extends EventHandler[{User<-}] {
 						 }
 						 if (x >= 103.5 && x <= 148.5){
 						     if ((((Tile) game.tiles.get(15, 13)).highlight)) {
-						     //p.print("tile 3");
 								 if (!(((Tile) game.tiles.get(15, 2)).highlight)) {
 									 ((Tile) game.tiles.get(15, 2)).background.setFill(game.colors[6]);
 									 ((Tile) game.tiles.get(15, 2)).highlight = true;
@@ -329,7 +320,6 @@ public class ClickHandler extends EventHandler[{User<-}] {
 								 }
 								}
 								if ((((Tile) game.tiles.get(15, 12)).highlight) && !(this.game.otherTilesHighlighted())) {
- 								//p.print("tile 3");
  								if (!(((Tile) game.tiles.get(15, 2)).highlight)) {
  									((Tile) game.tiles.get(15, 2)).background.setFill(game.colors[6]);
  									((Tile) game.tiles.get(15, 2)).highlight = true;
@@ -344,7 +334,6 @@ public class ClickHandler extends EventHandler[{User<-}] {
 						 }
 						 if (x >= 153.0 && x <= 198.0){
 						     if ((((Tile) game.tiles.get(15, 13)).highlight)) {
-						     //p.print("tile 4");
 								 if (!(((Tile) game.tiles.get(15, 3)).highlight)) {
 									 ((Tile) game.tiles.get(15, 3)).background.setFill(game.colors[6]);
 									 ((Tile) game.tiles.get(15, 3)).highlight = true;
@@ -355,7 +344,6 @@ public class ClickHandler extends EventHandler[{User<-}] {
 								 }
 								}
 								if ((((Tile) game.tiles.get(15, 12)).highlight) && !(this.game.otherTilesHighlighted())) {
- 								//p.print("tile 4");
  								if (!(((Tile) game.tiles.get(15, 3)).highlight)) {
  									((Tile) game.tiles.get(15, 3)).background.setFill(game.colors[6]);
  									((Tile) game.tiles.get(15, 3)).highlight = true;
@@ -370,7 +358,6 @@ public class ClickHandler extends EventHandler[{User<-}] {
 						 }
 						 if (x >= 202.5 && x <= 247.5){
 						     if ((((Tile) game.tiles.get(15, 13)).highlight)) {
-						     //p.print("tile 5");
 								 if (!(((Tile) game.tiles.get(15, 4)).highlight)) {
 									 ((Tile) game.tiles.get(15, 4)).background.setFill(game.colors[6]);
 									 ((Tile) game.tiles.get(15, 4)).highlight = true;
@@ -381,7 +368,6 @@ public class ClickHandler extends EventHandler[{User<-}] {
 								 }
 								}
 								if ((((Tile) game.tiles.get(15, 12)).highlight) && !(this.game.otherTilesHighlighted())) {
- 								//p.print("tile 5");
  								if (!(((Tile) game.tiles.get(15, 4)).highlight)) {
  									((Tile) game.tiles.get(15, 4)).background.setFill(game.colors[6]);
  									((Tile) game.tiles.get(15, 4)).highlight = true;
@@ -396,7 +382,6 @@ public class ClickHandler extends EventHandler[{User<-}] {
 						 }
 						 if (x >= 252.0 && x <= 297.0){
 						    if ((((Tile) game.tiles.get(15, 13)).highlight)) {
-						    //p.print("tile 6");
 								if (!(((Tile) game.tiles.get(15, 5)).highlight)) {
 									((Tile) game.tiles.get(15, 5)).background.setFill(game.colors[6]);
 									((Tile) game.tiles.get(15, 5)).highlight = true;
@@ -407,7 +392,6 @@ public class ClickHandler extends EventHandler[{User<-}] {
 								}
 							}
 							if ((((Tile) game.tiles.get(15, 12)).highlight) && !(this.game.otherTilesHighlighted())) {
-							 //p.print("tile 6");
 							 if (!(((Tile) game.tiles.get(15, 5)).highlight)) {
 								 ((Tile) game.tiles.get(15, 5)).background.setFill(game.colors[6]);
 								 ((Tile) game.tiles.get(15, 5)).highlight = true;
@@ -422,7 +406,6 @@ public class ClickHandler extends EventHandler[{User<-}] {
 						 }
 						 if (x >= 301.5 && x <= 346.5){
 						    if ((((Tile) game.tiles.get(15, 13)).highlight)) {
-						    //p.print("tile 7");
 								if (!(((Tile) game.tiles.get(15, 6)).highlight)) {
 									((Tile) game.tiles.get(15, 6)).background.setFill(game.colors[6]);
 									((Tile) game.tiles.get(15, 6)).highlight = true;
@@ -433,7 +416,6 @@ public class ClickHandler extends EventHandler[{User<-}] {
 							  }
 							}
 							if ((((Tile) game.tiles.get(15, 12)).highlight) && !(this.game.otherTilesHighlighted())) {
-							 //p.print("tile 7");
 							 if (!(((Tile) game.tiles.get(15, 6)).highlight)) {
 								 ((Tile) game.tiles.get(15, 6)).background.setFill(game.colors[6]);
 								 ((Tile) game.tiles.get(15, 6)).highlight = true;
@@ -455,11 +437,13 @@ public class ClickHandler extends EventHandler[{User<-}] {
 		}
 	}
 
+	/**
+	* Returns the row number in the board given the x- coordinate of a click
+	*/
 	protected int getRow{User<-} (double x) {
 	  int result = 0;
     result = (int)(49.5/x);
 		return result;
 	}
-
 
 }

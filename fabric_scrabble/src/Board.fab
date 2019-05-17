@@ -13,7 +13,6 @@ public class Board[principal User] {
 
     public ArrayList[{User<-}]{User<-}[]{User<-} UserBoard;
     public int{User<-} moveNumber;
-    //public HashMap[{User<-}]{User<-} points;
     public Trie[User]{User<-} trie;
 
     public Board{User<-}() {
@@ -25,12 +24,6 @@ public class Board[principal User] {
       this.trie.createDict();
       }
       catch (Exception exc){}
-
-      //try{
-      //this.points = new HashMap{User<-}(new StringComparator(), new IdComparator());
-      //this.setPoints();
-      //}
-      //catch (Exception exc){}
 
       for (int i=0; i<15; i++) {
           try{
@@ -52,56 +45,46 @@ public class Board[principal User] {
     }
 
     /**
-    * Sets up the number of points that each tile corresponds to
-    */
-    /*
-    public void setPoints{User<-}(){
-      atomic{
-        this.points.put("a", new Integer(1));
-        this.points.put("e", new Integer(1));
-        this.points.put("i", new Integer(1));
-        this.points.put("l", new Integer(1));
-        this.points.put("n", new Integer(1));
-        this.points.put("o", new Integer(1));
-        this.points.put("r", new Integer(1));
-        this.points.put("s", new Integer(1));
-        this.points.put("t", new Integer(1));
-        this.points.put("u", new Integer(1));
-
-        this.points.put("d", new Integer(2));
-        this.points.put("g", new Integer(2));
-
-        this.points.put("b", new Integer(3));
-        this.points.put("c", new Integer(3));
-        this.points.put("m", new Integer(3));
-        this.points.put("p", new Integer(3));
-
-        this.points.put("f", new Integer(4));
-        this.points.put("h", new Integer(4));
-        this.points.put("v", new Integer(4));
-        this.points.put("w", new Integer(4));
-        this.points.put("y", new Integer(4));
-
-        this.points.put("k", new Integer(5));
-
-        this.points.put("j", new Integer(8));
-        this.points.put("x", new Integer(8));
-
-        this.points.put("q", new Integer(10));
-        this.points.put("z", new Integer(10));
-
-        this.points.put("*", new Integer(0));
-      }
-
-    }*/
-
-    /**
     * Returns true if word is present in the Scrabble dictionary,
     * and false otherwise
     */
     private boolean{User<-} validateWord{User<-}(String{User<-} word) {
       return this.trie.validate(word);
-      //return true;
+    }
+
+    /**
+    * Returns the score associated with a letter in Scrabble
+    */
+    public int{User<-} getPoints{User<-}(String{User<-} letter) {
+      if (letter.equals("a") || letter.equals("e") || letter.equals("i") ||
+          letter.equals("l") || letter.equals("n") || letter.equals("o") ||
+          letter.equals("r") || letter.equals("s") || letter.equals("t") ||
+          letter.equals("u") ){
+          return 1;
+      }
+      else if (letter.equals("d") || letter.equals("g")) {
+          return 2;
+      }
+      else if (letter.equals("b") || letter.equals("c") ||
+              letter.equals("m") || letter.equals("p")) {
+              return 3;
+      }
+      else if (letter.equals("f") || letter.equals("h") || letter.equals("v") ||
+              letter.equals("x") || letter.equals("y")) {
+              return 4;
+      }
+      else if (letter.equals("k")) {
+          return 5;
+      }
+      else if (letter.equals("j") || letter.equals("x")) {
+          return 8;
+      }
+      else if (letter.equals("q") || letter.equals("z")) {
+          return 10;
+      }
+      else{
+          return 0;
+      }
     }
 
     /**
@@ -334,8 +317,8 @@ public class Board[principal User] {
 
         // DOES THE FIRST MOVE CROSS THE BOARD CENTER
         if (this.moveNumber == 0) {
-            if ((dir&& (col + word.length() < 7)) ||
-                    (!dir && (row + word.length() < 7)) ||
+            if ((dir&& ((col + word.length() < 7) || row != 7)) ||
+                    (!dir && ((row + word.length() < 7) || col != 7)) ||
                     (row > 7 && col > 7)) {
                 p.print("isMoveValid err: First move should touch the board center!");
                 return false;

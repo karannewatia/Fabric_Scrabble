@@ -20,9 +20,8 @@ public class Player[principal User, principal Player] {
     }
 
     /**
-     * Returns this player's rack as a string (useful for printing)
-     */
-
+    * Returns this player's rack as a string (useful for printing)
+    */
      public String{User->Player; User<-} getRack{User<-}() {
        String{User->Player; User<-} rack = "";
        atomic{
@@ -35,6 +34,5 @@ public class Player[principal User, principal Player] {
        }
        return rack;
      }
-
 
 }
